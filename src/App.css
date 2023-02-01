@@ -5,3 +5,7 @@
 .container {
   max-width: 1260px;
 }
+
+.close_button{
+  cursor: pointer;
+}
