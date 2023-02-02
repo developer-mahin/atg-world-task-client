@@ -33,6 +33,7 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                 updateUserName(fullName)
                 toast.success("successfully user created")
                 form.reset()
+                closeModal(true)
                 setLoading(false)
             })
             .catch(error => {
@@ -144,6 +145,9 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                                         <img width={"25px"} src="https://i.ibb.co/LCqGCxS/google.png" alt="" />
                                         <span>Sign up with Google</span>
                                     </button>
+                                    <div className='d-block d-md-none mt-5'>
+                                        <p className='text-center w-75 mx-auto fw-medium'>By signing up, you agree to our Terms & conditions, Privacy policy</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

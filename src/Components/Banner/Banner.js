@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { AUTH_CONTEXT } from '../../Context/AuthProvider';
+import ModalBody from '../Modal/ModalBody';
 
 
 const Banner = () => {
@@ -14,6 +17,22 @@ const Banner = () => {
         padding: "71px 0px"
     };
 
+    const [modalIsOpen, setIsOpen] = useState(false);
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    const { user, logOut } = useContext(AUTH_CONTEXT)
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                toast.success("Successfully leave the group")
+            })
+            .catch(error => {
+                toast.error(error.message)
+            })
+    }
 
 
     return (
@@ -25,7 +44,21 @@ const Banner = () => {
                             <AiOutlineArrowLeft className='text-white fs-1' />
                         </div>
                         <div>
-                            <button className='rounded btn border text-white fw-medium'>Join Group</button>
+                            {
+                                user?.uid ? <>
+                                    <button className='rounded btn border text-white fw-medium' onClick={handleLogOut}>Leave Group</button>
+                                </> : <>
+                                    <button className='rounded btn border text-white fw-medium' onClick={openModal}>Join Group</button>
+                                </>
+                            }
+
+
+                            {/* Modal body */}
+                            <ModalBody
+                                modalIsOpen={modalIsOpen}
+                                setIsOpen={setIsOpen}
+                            ></ModalBody>
+
                         </div>
                     </div>
                 </div>

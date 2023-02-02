@@ -1,12 +1,22 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../Components/Header/Header';
+import MenuBar from '../Components/MenuBar/MenuBar';
+import RightSideBar from '../RightSideBar/RightSideBar';
 
 const Main = () => {
     return (
         <div className=''>
             <Header></Header>
-            <Outlet></Outlet>
+            <MenuBar></MenuBar>
+            <div className='row second_container'>
+                <div className='col-md-8'>
+                    <Outlet></Outlet>
+                </div>
+                <div className='col-md-4'>
+                    <RightSideBar></RightSideBar>
+                </div>
+            </div>
         </div>
     );
 };

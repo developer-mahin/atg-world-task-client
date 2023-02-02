@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 
 
 
-const SignInModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenModal, setChangeModalForm }) => {
+const SignInModal = ({ isOpen, modalIsOpen, closeModal, afterOpenModal, setChangeModalForm }) => {
     const [loading, setLoading] = useState(false)
     const { loginUser } = useContext(AUTH_CONTEXT)
 
@@ -23,6 +23,7 @@ const SignInModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                 console.log(user)
                 toast.success("Successfully user Logedin")
                 form.reset()
+                closeModal(true)
                 setLoading(false)
             })
             .catch(error => {
@@ -31,6 +32,16 @@ const SignInModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
             })
     }
 
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)'
+        },
+    };
 
     return (
         <div className='position-relative'>
