@@ -24,7 +24,9 @@ const SignInModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                 <>
 
                     <div className='d-flex justify-content-between align-items-center'>
-                        <h2>Create Account</h2>
+                        <div className='mb-3'>
+                            <h2>Sign In</h2>
+                        </div>
                         <div className='d-none d-md-block'>
                             <p className='fw-semibold'>Already have an account?
                                 <span className='text-blue close_button ms-1'
@@ -32,15 +34,53 @@ const SignInModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                         </div>
                     </div>
                     <div className='row'>
-
-                        <form className='col'>
-                            <input className='form-control' />
-
-
-                        </form>
-
                         <div className='col'>
-                            <img src={signInImage} alt="" />
+                            <form>
+                                <div>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        placeholder='Email'
+                                        id=""
+                                        required
+                                        className='form-control'
+                                    />
+                                </div>
+                                <div>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id=""
+                                        required
+                                        className='form-control'
+                                        placeholder='Password'
+                                    />
+                                </div>
+                                <div className='d-flex d-md-block justify-content-between align-items-center'>
+                                    <button type="submit" className='btn-blue btn rounded-pill w-50 w-md-100 fw-medium mt-3 py-2 border'>Sign In</button>
+                                    <div className='d-block d-md-none mt-4'
+                                        onClick={(e) => setChangeModalForm(e.target.innerText)}>
+                                        <p className='fw-medium text-decoration-underline'>or, Create Account</p>
+                                    </div>
+                                </div>
+                            </form>
+                            <div className='mt-4'>
+                                <div className=''>
+                                    <button className='w-100 border btn py-2 px-4 my-2 fw-medium'>
+                                        <span>Sign up with Facebook</span>
+                                    </button>
+                                    <button className='w-100 border btn py-2 px-4 my-2 fw-medium'>
+                                        <span>Sign up with Google</span>
+                                    </button>
+                                </div>
+                                <p className='fw-semibold text-center mt-2'>Forgot Password?</p>
+                            </div>
+                        </div>
+
+                        <div className='col d-none d-md-block'>
+                            <div className=''>
+                                <img src={signInImage} alt="" />
+                            </div>
                         </div>
                     </div>
 

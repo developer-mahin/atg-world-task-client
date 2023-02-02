@@ -13,7 +13,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className='d-none d-md-block'>
+        <div className='d-none d-md-block container px-2'>
             <div className='py-3 row border-bottom'>
                 <div className='col'>
                     <img src={logo} alt="" />

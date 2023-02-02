@@ -10,7 +10,6 @@ const customStyles = {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        // width: "75%",
         transform: 'translate(-50%, -50%)',
     },
 };
@@ -28,7 +27,7 @@ const ModalBody = ({ modalIsOpen, setIsOpen }) => {
     }
 
 
-    if (changeModalForm === "Sign In") {
+    if (changeModalForm === "Sign In" || changeModalForm === "or, Sign In") {
         return <>
             <SignInModal
                 modalIsOpen={modalIsOpen}
@@ -41,7 +40,7 @@ const ModalBody = ({ modalIsOpen, setIsOpen }) => {
         </>
     }
 
-    if (changeModalForm === "Create new for free!") {
+    if (changeModalForm === "Create new for free!" || changeModalForm === "or, Create Account") {
         return <>
             <SignUpModal
                 modalIsOpen={modalIsOpen}

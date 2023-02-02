@@ -4,8 +4,14 @@
 
 .container {
   max-width: 1260px;
+  margin: auto;
 }
 
-.close_button{
+.close_button {
   cursor: pointer;
+}
+
+.btn-blue {
+  background: #2f6ce5;
+  color: #fff;
 }
