@@ -1,11 +1,11 @@
 import React from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
-import bannerImage from "../../Assets/Rectangle 2.png"
+
 
 const Banner = () => {
 
     const bannerBackground = {
-        backgroundImage: `linear-gradient(45deg, rgb(0 0 0 / 65%), rgb(0 0 0 / 45%)),url(https://archive.org/download/02-11-2016_Images_Images_page_1_HQ/19-images-7_kACPBns.jpg)`,
+        backgroundImage: `linear-gradient(45deg, rgb(0 0 0 / 65%), rgb(0 0 0 / 45%)),url(https://i.ibb.co/5LXYTjt/Rectangle-2.png)`,
         width: "100%",
         height: "66vh",
         backgroundPosition: "center",

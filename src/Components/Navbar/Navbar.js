@@ -1,15 +1,29 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from "../../Assets/logo.png"
 import downArrow from "../../Assets/Vector.png"
 import { AiOutlineSearch } from "react-icons/ai";
 import ModalBody from '../Modal/ModalBody';
+import { AUTH_CONTEXT } from '../../Context/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 
 const Navbar = () => {
     const [modalIsOpen, setIsOpen] = useState(false);
     function openModal() {
         setIsOpen(true);
+    }
+
+    const { user, logOut } = useContext(AUTH_CONTEXT)
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                toast.success("User successfully loged out")
+            })
+            .catch(error => {
+                toast.error(error.message)
+            })
     }
 
     return (
@@ -22,26 +36,43 @@ const Navbar = () => {
                     <AiOutlineSearch className='position-absolute fs-5 text-gray mt-2 ms-3' />
                     <input type="text" name="search" placeholder='Search favorite groups in ATG' id="" className='form-control rounded-pill px-5 bg-light' />
                 </div>
-                <div className='d-flex align-items-center justify-content-end text-end col'>
-                    <div>
-                        <p>Create account.
-                            <Link
-                                to="/sign_up"
-                                className='text-blue fw-semibold text-decoration-none'
-                                onClick={openModal}
-                            >It’s free!</Link>
-                        </p>
 
-                        {/* Modal body */}
-                        <ModalBody
-                            modalIsOpen={modalIsOpen}
-                            setIsOpen={setIsOpen}
-                        ></ModalBody>
-                    </div>
-                    <div className='pb-3 ms-1'>
-                        <img className='' src={downArrow} alt="" />
-                    </div>
-                </div>
+
+                {
+                    user?.uid ? <>
+
+                        <div className='d-flex align-items-center justify-content-end text-end col'>
+                            <div>
+                                <button onClick={handleLogOut} className="btn btn-blue">Logout</button>
+                            </div>
+                            <div className='pb-3 ms-1'>
+                                <img className='' src={downArrow} alt="" />
+                            </div>
+                        </div>
+
+                    </> : <>
+                        <div className='d-flex align-items-center justify-content-end text-end col'>
+                            <div>
+                                <p>Create account.
+                                    <Link
+                                        to="/sign_up"
+                                        className='text-blue fw-semibold text-decoration-none'
+                                        onClick={openModal}
+                                    >It’s free!</Link>
+                                </p>
+
+                                {/* Modal body */}
+                                <ModalBody
+                                    modalIsOpen={modalIsOpen}
+                                    setIsOpen={setIsOpen}
+                                ></ModalBody>
+                            </div>
+                            <div className='pb-3 ms-1'>
+                                <img className='' src={downArrow} alt="" />
+                            </div>
+                        </div>
+                    </>
+                }
 
             </div>
         </div >

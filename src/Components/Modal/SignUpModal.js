@@ -1,28 +1,44 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Modal from 'react-modal';
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { toast } from 'react-hot-toast';
-import loginImage from "../../Assets/atg_illustration.png"
+import { AUTH_CONTEXT } from '../../Context/AuthProvider';
+
 
 
 const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenModal, setChangeModalForm }) => {
 
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [loading, setLoading] = useState(false)
+    const { createUser, updateUserName } = useContext(AUTH_CONTEXT)
 
     const handleSignUp = (e) => {
+        setLoading(true)
         e.preventDefault()
         const form = e.target;
         const firstName = form.firstName.value;
         const lastName = form.lastName.value;
         const email = form.email.value;
 
+        const fullName = firstName + " " + lastName
+
         if (!(password === confirmPassword)) {
             return toast.error("Password not matched")
         }
-
-
-
+        createUser(email, password)
+            .then((result) => {
+                const user = result.user
+                console.log(user);
+                updateUserName(fullName)
+                toast.success("successfully user created")
+                form.reset()
+                setLoading(false)
+            })
+            .catch(error => {
+                toast.error(error.message)
+                setLoading(false)
+            })
     }
 
     return (
@@ -106,7 +122,12 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                                     />
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center'>
-                                    <button type="submit" className='btn-blue btn rounded-pill w-50 w-md-100 fw-medium mt-3 py-2 border'>Create Account</button>
+                                    <button
+                                        type="submit"
+                                        className='btn-blue btn rounded-pill w-50 w-md-100 fw-medium mt-3 py-2 border'
+                                    >
+                                        {loading ? "Loading..." : "Create Account"}
+                                    </button>
                                     <div className='d-block d-md-none mt-4'
                                         onClick={(e) => setChangeModalForm(e.target.innerText)}>
                                         <p className='fw-medium text-decoration-underline'>or, Sign In</p>
@@ -115,10 +136,12 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                             </form>
                             <div className='mt-4'>
                                 <div className=''>
-                                    <button className='w-100 border btn py-2 px-4 my-2 fw-medium'>
+                                    <button className='w-100 d-flex justify-content-center align-items-center gap-1 border btn py-2 px-4 my-2 fw-medium'>
+                                        <img width={"25px"} src=" https://i.ibb.co/9Y0S2nP/facebook.png" alt="" />
                                         <span>Sign up with Facebook</span>
                                     </button>
-                                    <button className='w-100 border btn py-2 px-4 my-2 fw-medium'>
+                                    <button className='w-100 d-flex justify-content-center align-items-center gap-1 border btn py-2 px-4 my-2 fw-medium'>
+                                        <img width={"25px"} src="https://i.ibb.co/LCqGCxS/google.png" alt="" />
                                         <span>Sign up with Google</span>
                                     </button>
                                 </div>
@@ -126,13 +149,17 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                         </div>
                         <div className='col d-none d-md-block'>
                             <div>
-                                <img src={loginImage} alt="" />
+                                <img src="https://i.ibb.co/W0sFNH3/atg-illustration.png" alt="" />
                             </div>
                             <div>
                                 <p>By signing up, you agree to our Terms & conditions, Privacy policy</p>
                             </div>
                         </div>
                     </div>
+
+
+
+
 
                 </>
 

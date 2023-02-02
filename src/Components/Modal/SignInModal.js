@@ -1,10 +1,37 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import Modal from 'react-modal';
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import signInImage from "../../Assets/atg_illustration.png"
+import { AUTH_CONTEXT } from '../../Context/AuthProvider';
+import { toast } from 'react-hot-toast';
+
+
 
 
 const SignInModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenModal, setChangeModalForm }) => {
+    const [loading, setLoading] = useState(false)
+    const { loginUser } = useContext(AUTH_CONTEXT)
+
+    const handleSignIn = (e) => {
+        setLoading(true)
+        e.preventDefault()
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        loginUser(email, password)
+            .then((result) => {
+                const user = result.user
+                console.log(user)
+                toast.success("Successfully user Logedin")
+                form.reset()
+                setLoading(false)
+            })
+            .catch(error => {
+                toast.error(error.message)
+                setLoading(false)
+            })
+    }
+
+
     return (
         <div className='position-relative'>
             <Modal
@@ -35,7 +62,7 @@ const SignInModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                     </div>
                     <div className='row'>
                         <div className='col'>
-                            <form>
+                            <form onSubmit={handleSignIn}>
                                 <div>
                                     <input
                                         type="email"
@@ -57,7 +84,14 @@ const SignInModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                                     />
                                 </div>
                                 <div className='d-flex d-md-block justify-content-between align-items-center'>
-                                    <button type="submit" className='btn-blue btn rounded-pill w-50 w-md-100 fw-medium mt-3 py-2 border'>Sign In</button>
+                                    <button
+                                        type="submit"
+                                        className='btn-blue btn rounded-pill w-50 w-md-100 fw-medium mt-3 py-2 border'
+                                    >
+                                        {
+                                            loading ? "Loading..." : "Sign In"
+                                        }
+                                    </button>
                                     <div className='d-block d-md-none mt-4'
                                         onClick={(e) => setChangeModalForm(e.target.innerText)}>
                                         <p className='fw-medium text-decoration-underline'>or, Create Account</p>
@@ -66,10 +100,12 @@ const SignInModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                             </form>
                             <div className='mt-4'>
                                 <div className=''>
-                                    <button className='w-100 border btn py-2 px-4 my-2 fw-medium'>
+                                    <button className='w-100 d-flex justify-content-center align-items-center gap-1 border btn py-2 px-4 my-2 fw-medium'>
+                                        <img width={"25px"} src=" https://i.ibb.co/9Y0S2nP/facebook.png" alt="" />
                                         <span>Sign up with Facebook</span>
                                     </button>
-                                    <button className='w-100 border btn py-2 px-4 my-2 fw-medium'>
+                                    <button className='w-100 d-flex justify-content-center align-items-center gap-1 border btn py-2 px-4 my-2 fw-medium'>
+                                        <img width={"25px"} src="https://i.ibb.co/LCqGCxS/google.png" alt="" />
                                         <span>Sign up with Google</span>
                                     </button>
                                 </div>
@@ -79,7 +115,7 @@ const SignInModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
 
                         <div className='col d-none d-md-block'>
                             <div className=''>
-                                <img src={signInImage} alt="" />
+                                <img src="https://i.ibb.co/W0sFNH3/atg-illustration.png" alt="" />
                             </div>
                         </div>
                     </div>
