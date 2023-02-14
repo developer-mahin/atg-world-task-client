@@ -33,7 +33,7 @@ const Navbar = () => {
                 </div>
                 <div className='col position-relative pt-2'>
                     <AiOutlineSearch className='position-absolute fs-5 text-gray mt-2 ms-3' />
-                    <input type="text" name="search" placeholder='Search favorite groups in ATG' id="" className='form-control rounded-psemiboldill px-5 bg-light' />
+                    <input type="text" name="search" placeholder='Search favorite groups in ATG' id="" className='form-control rounded-pill px-5 bg-light' />
                 </div>
 
 

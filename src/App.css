@@ -8,12 +8,6 @@
   margin: auto;
 }
 
-.second_container {
-  max-width: 1020px;
-  padding: 0px 12px;
-  margin: auto;
-}
-
 .close_button {
   cursor: pointer;
 }
@@ -25,6 +19,17 @@
 
 .cursor-pinter:hover {
   cursor: pointer;
+}
+
+textarea.post-form::placeholder {
+  color: rgb(141, 141, 141);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.post-form{
+  outline: none;
+  font-size: 18px;
 }
 
 @media only screen and (max-width: 768px) {

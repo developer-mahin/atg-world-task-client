@@ -1,5 +1,6 @@
 import React from 'react';
-import MenuBar from '../../Components/MenuBar/MenuBar';
+import AllPost from './AllPost/AllPost';
+
 
 
 
@@ -7,7 +8,7 @@ const Home = () => {
 
     return (
         <div className=''>
-            {/* <MenuBar></MenuBar> */}
+            <AllPost></AllPost>
         </div>
     );
 };
