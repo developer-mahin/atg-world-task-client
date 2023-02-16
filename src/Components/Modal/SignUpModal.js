@@ -31,6 +31,7 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
 
         const hello = "hello world"
         const hello3 = "hello coders"
+        const adeed = "added from mahin khan branch"
         // createUser(email, password)
         //     .then((result) => {
         //         const user = result.user
