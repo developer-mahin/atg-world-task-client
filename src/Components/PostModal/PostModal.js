@@ -36,7 +36,7 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles }
                             <img width={60} src="https://png.pngtree.com/png-vector/20220817/ourmid/pngtree-cartoon-man-avatar-vector-ilustration-png-image_6111064.png" alt="" />
                         </div>
                         <div>
-                            <h5 className='text-white'>{user.displayName}</h5>
+                            <h5 className='text-white'>{user?.displayName}</h5>
                             <div>
                                 <select name="" id="" className='form-control fw-semibold bg-black text-white'>
                                     <option value="article">Article</option>

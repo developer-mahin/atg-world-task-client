@@ -20,26 +20,30 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
         const firstName = form.firstName.value;
         const lastName = form.lastName.value;
         const email = form.email.value;
+        const image = form.image.files[0]
+        console.log(image)
 
         const fullName = firstName + " " + lastName
 
         if (!(password === confirmPassword)) {
             return toast.error("Password not matched")
         }
-        createUser(email, password)
-            .then((result) => {
-                const user = result.user
-                console.log(user);
-                updateUserName(fullName)
-                toast.success("successfully user created")
-                form.reset()
-                closeModal(true)
-                setLoading(false)
-            })
-            .catch(error => {
-                toast.error(error.message)
-                setLoading(false)
-            })
+
+        const hello = "hello world"
+        // createUser(email, password)
+        //     .then((result) => {
+        //         const user = result.user
+        //         console.log(user);
+        //         updateUserName(fullName)
+        //         toast.success("successfully user created")
+        //         form.reset()
+        //         closeModal(true)
+        //         setLoading(false)
+        //     })
+        //     .catch(error => {
+        //         toast.error(error.message)
+        //         setLoading(false)
+        //     })
     }
 
     return (
@@ -73,7 +77,7 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                     <div className='row'>
                         <div className='col'>
                             <form onSubmit={handleSignUp}>
-                                <div className='d-flex justify-content-between align-items-center'>
+                                <div className='d-flex justify-content-between align-items-center pb-2'>
                                     <input
                                         type="text"
                                         name='firstName'
@@ -90,7 +94,7 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                                         required
                                     />
                                 </div>
-                                <div>
+                                <div className='pb-2'>
                                     <input
                                         type="email"
                                         name="email"
@@ -100,7 +104,18 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                                         className='form-control'
                                     />
                                 </div>
-                                <div>
+
+                                <div className='pb-2'>
+                                    <input
+                                        type="file"
+                                        name="image"
+                                        id=""
+                                        required
+                                        className='form-control'
+                                    />
+                                </div>
+
+                                <div className='pb-2'>
                                     <input
                                         type="password"
                                         name="password"
@@ -111,7 +126,7 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </div>
-                                <div>
+                                <div className='pb-2'>
                                     <input
                                         type="password"
                                         name="confirmPassword"

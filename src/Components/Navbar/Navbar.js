@@ -25,6 +25,8 @@ const Navbar = () => {
             })
     }
 
+    console.log(user)
+
     return (
         <div className='d-none d-md-block container px-2'>
             <div className='py-3 row border-bottom'>
