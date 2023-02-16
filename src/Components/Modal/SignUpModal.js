@@ -30,6 +30,7 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
         }
 
         const hello = "hello world"
+        const hello3 = "hello coders"
         // createUser(email, password)
         //     .then((result) => {
         //         const user = result.user
