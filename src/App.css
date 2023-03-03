@@ -27,9 +27,18 @@ textarea.post-form::placeholder {
   font-weight: 600;
 }
 
-.post-form{
+.post-form {
   outline: none;
   font-size: 18px;
+}
+
+.eye-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: rgb(87, 87, 87);
 }
 
 @media only screen and (max-width: 768px) {

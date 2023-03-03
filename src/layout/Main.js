@@ -9,7 +9,7 @@ const Main = () => {
         <div className=''>
             <Header></Header>
             <MenuBar></MenuBar>
-            <div className='row'>
+            <div className='row  container mx-auto px-3'>
                 <div className='col-md-8'>
                     <Outlet></Outlet>
                 </div>

@@ -1,17 +1,22 @@
 import React, { useContext, useState } from 'react';
 import Modal from 'react-modal';
-import { AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCloseCircle, AiOutlineEye } from "react-icons/ai";
+import { FiEyeOff } from "react-icons/fi";
 import { toast } from 'react-hot-toast';
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 
 
 
 const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenModal, setChangeModalForm }) => {
-
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [loading, setLoading] = useState(false)
-    const { createUser, updateUserName } = useContext(AUTH_CONTEXT)
+    const { createUser, updateUserName, facebookLogin, googleSignIn } = useContext(AUTH_CONTEXT)
+
+    const [changePasswordType, setChangePasswordType] = useState(true)
+    const changeIcon = changePasswordType === true ? false : true;
+
+
 
     const handleSignUp = (e) => {
         setLoading(true)
@@ -21,7 +26,9 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
         const lastName = form.lastName.value;
         const email = form.email.value;
         const image = form.image.files[0]
-        console.log(image)
+
+        const formData = new FormData()
+        formData.append("image", image)
 
         const fullName = firstName + " " + lastName
 
@@ -29,26 +36,57 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
             return toast.error("Password not matched")
         }
 
-        const hello = "hello world"
-<<<<<<< HEAD
-=======
-        const hello3 = "hello coders"
-        const adeed = "added from mahin khan branch"
->>>>>>> mahinkhan
-        // createUser(email, password)
-        //     .then((result) => {
-        //         const user = result.user
-        //         console.log(user);
-        //         updateUserName(fullName)
-        //         toast.success("successfully user created")
-        //         form.reset()
-        //         closeModal(true)
-        //         setLoading(false)
-        //     })
-        //     .catch(error => {
-        //         toast.error(error.message)
-        //         setLoading(false)
-        //     })
+        const url = `https://api.imgbb.com/1/upload?key=b486f58b0681b7c344264f43dd69a0d8`;
+
+
+        fetch(url, {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(data => {
+                const image = data.data.display_url
+                createUser(email, password)
+                    .then((result) => {
+                        const user = result.user
+                        console.log(user);
+                        updateUserName(fullName, image)
+                        toast.success("successfully user created")
+                        form.reset()
+                        closeModal(true)
+                        setLoading(false)
+                    })
+                    .catch(error => {
+                        toast.error(error.message)
+                        setLoading(false)
+                    })
+            })
+    }
+
+    // google login system
+    const handleGoogleLogin = () => {
+        googleSignIn()
+            .then(result => {
+                const user = result.user
+                console.log(user)
+                toast.success("successfully login")
+            })
+            .catch(error => {
+                toast.error(error.message)
+            })
+    }
+
+    // facebook login system 
+    const handleFacebookSignIn = () => {
+        facebookLogin()
+            .then(result => {
+                const user = result.user
+                console.log(user)
+                toast.success("Successfully login")
+            })
+            .catch(error => {
+                toast.error(error.message)
+            })
     }
 
     return (
@@ -120,9 +158,9 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                                     />
                                 </div>
 
-                                <div className='pb-2'>
+                                <div className='pb-2 position-relative'>
                                     <input
-                                        type="password"
+                                        type={changePasswordType ? "password" : "text"}
                                         name="password"
                                         id=""
                                         required
@@ -130,6 +168,19 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                                         placeholder='Password'
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
+                                    {
+                                        changePasswordType ? <FiEyeOff
+                                            onClick={() => {
+                                                setChangePasswordType(changeIcon);
+                                            }}
+                                            className='eye-button'></FiEyeOff> :
+                                            <AiOutlineEye
+                                                onClick={() => {
+                                                    setChangePasswordType(changeIcon);
+                                                }}
+                                                className='eye-button'></AiOutlineEye>
+                                    }
+
                                 </div>
                                 <div className='pb-2'>
                                     <input
@@ -157,11 +208,15 @@ const SignUpModal = ({ isOpen, modalIsOpen, customStyles, closeModal, afterOpenM
                             </form>
                             <div className='mt-4'>
                                 <div className=''>
-                                    <button className='w-100 d-flex justify-content-center align-items-center gap-1 border btn py-2 px-4 my-2 fw-medium'>
+                                    <button
+                                        onClick={handleFacebookSignIn}
+                                        className='w-100 d-flex justify-content-center align-items-center gap-1 border btn py-2 px-4 my-2 fw-medium'>
                                         <img width={"25px"} src=" https://i.ibb.co/9Y0S2nP/facebook.png" alt="" />
                                         <span>Sign up with Facebook</span>
                                     </button>
-                                    <button className='w-100 d-flex justify-content-center align-items-center gap-1 border btn py-2 px-4 my-2 fw-medium'>
+                                    <button
+                                        onClick={handleGoogleLogin}
+                                        className='w-100 d-flex justify-content-center align-items-center gap-1 border btn py-2 px-4 my-2 fw-medium'>
                                         <img width={"25px"} src="https://i.ibb.co/LCqGCxS/google.png" alt="" />
                                         <span>Sign up with Google</span>
                                     </button>

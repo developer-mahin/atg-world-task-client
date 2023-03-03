@@ -17,11 +17,6 @@ const customStyles = {
 const ModalBody = ({ modalIsOpen, setIsOpen }) => {
     const [changeModalForm, setChangeModalForm] = useState("")
 
-    let subtitle;
-    function afterOpenModal() {
-        subtitle.style.color = '#f00';
-    }
-
     function closeModal() {
         setIsOpen(false);
     }
@@ -34,7 +29,6 @@ const ModalBody = ({ modalIsOpen, setIsOpen }) => {
                 setIsOpen={setIsOpen}
                 customStyles={customStyles}
                 closeModal={closeModal}
-                afterOpenModal={afterOpenModal}
                 setChangeModalForm={setChangeModalForm}
             ></SignInModal>
         </>
@@ -47,7 +41,6 @@ const ModalBody = ({ modalIsOpen, setIsOpen }) => {
                 setIsOpen={setIsOpen}
                 customStyles={customStyles}
                 closeModal={closeModal}
-                afterOpenModal={afterOpenModal}
                 setChangeModalForm={setChangeModalForm}
             ></SignUpModal>
         </>
@@ -60,7 +53,6 @@ const ModalBody = ({ modalIsOpen, setIsOpen }) => {
                 setIsOpen={setIsOpen}
                 customStyles={customStyles}
                 closeModal={closeModal}
-                afterOpenModal={afterOpenModal}
                 setChangeModalForm={setChangeModalForm}
             ></SignUpModal>
         </>

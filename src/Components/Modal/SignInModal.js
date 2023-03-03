@@ -1,15 +1,19 @@
 import React, { useContext, useState } from 'react';
 import Modal from 'react-modal';
-import { AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCloseCircle, AiOutlineEye } from "react-icons/ai";
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 import { toast } from 'react-hot-toast';
+import { FiEyeOff } from 'react-icons/fi';
 
 
-
-
-const SignInModal = ({ isOpen, modalIsOpen, closeModal, afterOpenModal, setChangeModalForm }) => {
+const SignInModal = ({ isOpen, modalIsOpen, closeModal, setChangeModalForm }) => {
     const [loading, setLoading] = useState(false)
-    const { loginUser } = useContext(AUTH_CONTEXT)
+    const { loginUser, facebookLogin, googleSignIn } = useContext(AUTH_CONTEXT)
+    const [passowrd, setPassword] = useState("")
+
+    const [changePasswordType, setChangePasswordType] = useState(true)
+    const changeIcon = changePasswordType === true ? false : true
+
 
     const handleSignIn = (e) => {
         setLoading(true)
@@ -32,6 +36,32 @@ const SignInModal = ({ isOpen, modalIsOpen, closeModal, afterOpenModal, setChang
             })
     }
 
+    // google login system
+    const handleGoogleLogin = () => {
+        googleSignIn()
+            .then(result => {
+                const user = result.user
+                console.log(user)
+                toast.success("successfully login")
+            })
+            .catch(error => {
+                toast.error(error.message)
+            })
+    }
+
+    // facebook login system 
+    const facebookSignIn = () => {
+        facebookLogin()
+            .then(result => {
+                const user = result.user
+                console.log(user)
+                toast.success("Successfully login")
+            })
+            .catch(error => {
+                toast.error(error.message)
+            })
+    }
+
     const customStyles = {
         content: {
             top: '50%',
@@ -47,7 +77,6 @@ const SignInModal = ({ isOpen, modalIsOpen, closeModal, afterOpenModal, setChang
         <div className='position-relative'>
             <Modal
                 isOpen={modalIsOpen}
-                onAfterOpen={afterOpenModal}
                 onRequestClose={closeModal}
                 style={customStyles}
                 contentLabel="Example Modal"
@@ -84,15 +113,29 @@ const SignInModal = ({ isOpen, modalIsOpen, closeModal, afterOpenModal, setChang
                                         className='form-control'
                                     />
                                 </div>
-                                <div>
+                                <div className='pb-2 position-relative'>
                                     <input
-                                        type="password"
+                                        type={changePasswordType ? "password" : "text"}
                                         name="password"
                                         id=""
                                         required
                                         className='form-control'
                                         placeholder='Password'
+                                        onChange={(e) => setPassword(e.target.value)}
                                     />
+                                    {
+                                        changePasswordType ? <FiEyeOff
+                                            onClick={() => {
+                                                setChangePasswordType(changeIcon);
+                                            }}
+                                            className='eye-button'></FiEyeOff> :
+                                            <AiOutlineEye
+                                                onClick={() => {
+                                                    setChangePasswordType(changeIcon);
+                                                }}
+                                                className='eye-button'></AiOutlineEye>
+                                    }
+
                                 </div>
                                 <div className='d-flex d-md-block justify-content-between align-items-center'>
                                     <button
@@ -111,11 +154,15 @@ const SignInModal = ({ isOpen, modalIsOpen, closeModal, afterOpenModal, setChang
                             </form>
                             <div className='mt-4'>
                                 <div className=''>
-                                    <button className='w-100 d-flex justify-content-center align-items-center gap-1 border btn py-2 px-4 my-2 fw-medium'>
+                                    <button
+                                        onClick={facebookSignIn}
+                                        className='w-100 d-flex justify-content-center align-items-center gap-1 border btn py-2 px-4 my-2 fw-medium'>
                                         <img width={"25px"} src=" https://i.ibb.co/9Y0S2nP/facebook.png" alt="" />
                                         <span>Sign up with Facebook</span>
                                     </button>
-                                    <button className='w-100 d-flex justify-content-center align-items-center gap-1 border btn py-2 px-4 my-2 fw-medium'>
+                                    <button
+                                        onClick={handleGoogleLogin}
+                                        className='w-100 d-flex justify-content-center align-items-center gap-1 border btn py-2 px-4 my-2 fw-medium'>
                                         <img width={"25px"} src="https://i.ibb.co/LCqGCxS/google.png" alt="" />
                                         <span>Sign up with Google</span>
                                     </button>
