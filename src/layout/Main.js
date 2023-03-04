@@ -9,8 +9,8 @@ const Main = () => {
         <div className=''>
             <Header></Header>
             <MenuBar></MenuBar>
-            <div className='row  container mx-auto px-3'>
-                <div className='col-md-8'>
+            <div className='row  container mx-auto'>
+                <div className='col-md-8 p-0'>
                     <Outlet></Outlet>
                 </div>
                 <div className='col-md-4'>

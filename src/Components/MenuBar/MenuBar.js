@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { MdGroupAdd } from "react-icons/md";
 import { TbLogout } from "react-icons/tb";
@@ -51,12 +51,19 @@ const MenuBar = () => {
             })
     }
 
+    const [allPost, setAllPost] = useState([])
+    useEffect(() => {
+        fetch("http://localhost:5000/all-post")
+            .then(res => res.json())
+            .then(data => setAllPost(data))
+    }, [])
+
 
 
     return (
         <div className='mt-5 mb-3 container row'>
             <div className='d-flex align-items-center gap-2 col-7 col-md-7'>
-                <Link className='text-decoration-none text-black fw-semibold mx-2' to="/">All Posts(32)</Link>
+                <Link className='text-decoration-none text-black fw-semibold mx-2' to="/">All Posts({allPost.length})</Link>
                 <div className='d-none d-md-block'>
                     <Link className='text-decoration-none text-secondary mx-2' to="/">Article</Link>
                     <Link className='text-decoration-none text-secondary mx-2' to="/">Event</Link>
@@ -67,7 +74,7 @@ const MenuBar = () => {
             <div className='col-5 col-md-5 d-flex align-items-center justify-content-end gap-2'>
                 <div className='d-none d-md-block'>
                     <button
-                        className='border btn d-flex align-items-center gap-1 bg-secondary bg-opacity-25 py-2 px-3'
+                        className='border btn d-flex align-items-center gap-1 bg-secondary bg-opacity-25 py-2 px-3 button'
                         onClick={openPostModal}>
                         <span className='fw-medium'>Write a post </span>
                         <div className=''>
@@ -84,13 +91,13 @@ const MenuBar = () => {
                 <div className='d-none d-md-block'>
                     {
                         user?.uid ? <>
-                            <button onClick={handleLogOut} className='border btn btn-blue d-flex align-items-center gap-2'>
+                            <button onClick={handleLogOut} className='border btn btn-blue d-flex align-items-center gap-2 button'>
                                 <TbLogout className='fs-3' />
                                 <span className='fw-semibold'>Leave Group</span>
                             </button>
 
                         </> : <>
-                            <button onClick={openModal} className='border btn btn-blue d-flex align-items-center gap-2'>
+                            <button onClick={openModal} className='border btn btn-blue d-flex align-items-center gap-2 button'>
                                 <MdGroupAdd className='fs-3' />
                                 <span className='fw-semibold'>Join Group</span>
                             </button>

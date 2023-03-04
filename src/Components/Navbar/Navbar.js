@@ -5,6 +5,8 @@ import { AiOutlineSearch } from "react-icons/ai";
 import ModalBody from '../Modal/ModalBody';
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 import { toast } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
+import { BiLogOut } from "react-icons/bi"
 
 
 const Navbar = () => {
@@ -70,10 +72,16 @@ const Navbar = () => {
                                 <div className="dropdown">
                                     <button className="dropdown-toggle border-0 bg-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     </button>
-                                    <ul className="dropdown-menu">
+                                    <ul className="dropdown-menu py-2">
+                                        <li className='ps-3'>
+                                            <Link to="/" className='text-decoration-none text-black ps-1'>Profile</Link>
+                                        </li>
                                         <li className=''>
-                                            <div className='d-flex justify-content-center align-items-center'>
-                                                <button onClick={handleLogOut} className="btn btn-blue dropdown-item w-75 rounded">Logout</button>
+                                            <div className=''>
+                                                <button onClick={handleLogOut} className="dropdown-item w-75 rounded d-flex gap-1 align-items-center">
+                                                    <BiLogOut />
+                                                    <span>Logout</span>
+                                                </button>
                                             </div>
                                         </li>
                                     </ul>

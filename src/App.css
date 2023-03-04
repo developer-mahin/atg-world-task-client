@@ -45,6 +45,12 @@ textarea.post-form::placeholder {
   .ReactModal__Content.ReactModal__Content--after-open {
     width: 90%;
   }
+  .post-container{
+    padding: 15px 10px !important;
+  }
+  .button{
+    font-size: 12px;
+  }
 }
 @media only screen and (max-width: 560px) {
   .ReactModal__Content.ReactModal__Content--after-open {

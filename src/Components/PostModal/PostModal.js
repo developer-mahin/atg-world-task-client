@@ -6,6 +6,7 @@ import ImageUploading from 'react-images-uploading';
 import { BsEmojiSmile, BsImage } from "react-icons/bs"
 import Picker from '@emoji-mart/react'
 import data from '@emoji-mart/data'
+import { toast } from 'react-hot-toast';
 
 
 const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles }) => {
@@ -14,25 +15,26 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles }
     const [isPickerVisible, setIsPickerVisible] = useState(false)
     const [textArea, setTextArea] = useState("")
     const [currentEmoji, setCurrentEmoji] = useState("")
-
+    const [title, setTitle] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const [images, setImages] = useState([]);
     const maxNumber = 69;
 
     const onChange = (imageList, addUpdateIndex, e) => {
-        console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
+
+    const date = new Date()
 
     const url = `https://api.imgbb.com/1/upload?key=b486f58b0681b7c344264f43dd69a0d8`;
 
     const handlePost = (e) => {
+        setLoading(true)
         e.preventDefault()
         const image = images[0].file
-
         const formData = new FormData()
         formData.append("image", image)
-
 
         fetch(url, {
             method: "POST",
@@ -40,7 +42,34 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles }
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                if (data.success) {
+                    const postInfo = {
+                        date,
+                        title,
+                        description: textArea,
+                        image: data.data.display_url,
+                        postRole: selectPost,
+                        userName: user?.displayName,
+                        userPhoto: user?.photoURL
+                    }
+                    fetch("http://localhost:5000/add-post", {
+                        method: "POST",
+                        headers: {
+                            "content-type": "application/json"
+                        },
+                        body: JSON.stringify(postInfo)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            toast.success("Successfully posted")
+                            closeModal()
+                            setLoading(false)
+                        })
+                        .catch(error => {
+                            toast.error(error.message)
+                            setLoading(false)
+                        })
+                }
             })
     }
 
@@ -93,6 +122,17 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles }
                     </div>
                 </div>
                 <form onSubmit={handlePost}>
+                    <div>
+                        <input
+                            type="text"
+                            name=""
+                            id=""
+                            onChange={(e) => setTitle(e.target.value)}
+                            className='bg-transparent text-white border-0 post-form py-3 px-3 fs-5 fw-medium w-100'
+                            placeholder='Add title here'
+                            required
+                        />
+                    </div>
                     <textarea
                         onChange={(e) => setTextArea(e.target.value)}
                         className='bg-transparent text-white border-0 post-form py-3 px-3 fs-5'
@@ -137,26 +177,28 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles }
                                 dragProps,
                             }) => (
                                 <div className="upload__image-wrapper">
-                                    <button
-                                        className='bg-transparent'
+                                    <div
+                                        className='bg-transparent cursor-pinter'
                                         style={isDragging ? { color: 'red' } : undefined}
                                         onClick={onImageUpload}
                                         {...dragProps}
                                     >
                                         <BsImage className='text-white fs-3' />
-                                    </button>
+                                    </div>
                                 </div>
                             )}
                         </ImageUploading>
                     </div>
 
-                    <div className='mt-3'>
+                    <div className='mt-5'>
                         <button
-                            disabled={!textArea.length}
+                            disabled={!textArea.length || !selectPost.length || !title.length}
                             type='submit'
-                            className={`${textArea.length ? "btn-primary" : "btn-secondary"} btn px-4 rounded-pill`}
+                            className={`${textArea.length || selectPost.length || title.length ? "btn-primary" : "btn-secondary"} btn px-4 rounded-pill`}
                         >
-                            Post
+                            {
+                                loading ? "Loading..." : "Post"
+                            }
                         </button>
                     </div>
                 </form>
