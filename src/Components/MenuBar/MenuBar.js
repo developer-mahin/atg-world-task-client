@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { MdGroupAdd } from "react-icons/md";
@@ -35,6 +36,16 @@ const MenuBar = () => {
     };
 
 
+    const { data: allPost = [], refetch } = useQuery({
+        queryKey: ["allPost"],
+        queryFn: async () => {
+            const res = await fetch("http://localhost:5000/all-post")
+            const data = await res.json()
+            return data
+        }
+    })
+
+
     const [modalIsOpen, setIsOpen] = useState(false);
     function openModal() {
         setIsOpen(true);
@@ -51,12 +62,8 @@ const MenuBar = () => {
             })
     }
 
-    const [allPost, setAllPost] = useState([])
-    useEffect(() => {
-        fetch("http://localhost:5000/all-post")
-            .then(res => res.json())
-            .then(data => setAllPost(data))
-    }, [])
+
+
 
 
 
@@ -65,10 +72,9 @@ const MenuBar = () => {
             <div className='d-flex align-items-center gap-2 col-7 col-md-7'>
                 <Link className='text-decoration-none text-black fw-semibold mx-2' to="/">All Posts({allPost.length})</Link>
                 <div className='d-none d-md-block'>
-                    <Link className='text-decoration-none text-secondary mx-2' to="/">Article</Link>
-                    <Link className='text-decoration-none text-secondary mx-2' to="/">Event</Link>
-                    <Link className='text-decoration-none text-secondary mx-2' to="/">Education</Link>
-                    <Link className='text-decoration-none text-secondary mx-2' to="/">Job</Link>
+                    <Link className='text-decoration-none text-secondary mx-2' to="/article">Article</Link>
+                    <Link className='text-decoration-none text-secondary mx-2' to="/education">Education</Link>
+                    <Link className='text-decoration-none text-secondary mx-2' to="/job">Job</Link>
                 </div>
             </div>
             <div className='col-5 col-md-5 d-flex align-items-center justify-content-end gap-2'>
@@ -82,6 +88,7 @@ const MenuBar = () => {
                         </div>
                     </button>
                     <PostModal
+                        refetch={refetch}
                         postModalIsOpen={postModalIsOpen}
                         customStyles={customStyles}
                         afterOpenModal={afterOpenModal}
@@ -116,16 +123,13 @@ const MenuBar = () => {
                         </button>
                         <ul className="dropdown-menu">
                             <li>
-                                <Link className="dropdown-item" to="/">Article</Link>
+                                <Link className="dropdown-item" to="/article">Article</Link>
                             </li>
                             <li>
-                                <Link className="dropdown-item" to="/">Education</Link>
+                                <Link className="dropdown-item" to="/education">Education</Link>
                             </li>
                             <li>
-                                <Link className="dropdown-item" to="/">Event</Link>
-                            </li>
-                            <li>
-                                <Link className="dropdown-item" to="/">Job</Link>
+                                <Link className="dropdown-item" to="/job">Job</Link>
                             </li>
                         </ul>
                     </div>

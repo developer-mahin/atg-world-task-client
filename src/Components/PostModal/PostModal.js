@@ -9,7 +9,7 @@ import data from '@emoji-mart/data'
 import { toast } from 'react-hot-toast';
 
 
-const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles }) => {
+const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles , refetch}) => {
     const { user } = useContext(AUTH_CONTEXT)
     const [selectPost, setSelectPost] = useState("")
     const [isPickerVisible, setIsPickerVisible] = useState(false)
@@ -63,6 +63,7 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles }
                         .then(data => {
                             toast.success("Successfully posted")
                             closeModal()
+                            refetch()
                             setLoading(false)
                         })
                         .catch(error => {
