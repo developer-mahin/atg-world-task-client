@@ -5,30 +5,38 @@ import Education from "../Pages/Education/Education";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import Job from "../Pages/Job/Job";
+import PostDetails from "../Pages/PostDetails/PostDetails";
 
 
 const router = createBrowserRouter([
 
     {
         path: "/",
-        element: <Main></Main>, 
-        errorElement: <ErrorPage></ErrorPage>, 
-        children:[
+        element: <Main></Main>,
+        errorElement: <ErrorPage></ErrorPage>,
+        children: [
             {
-                path:"/", 
+                path: "/",
                 element: <Home></Home>
-            }, 
+            },
             {
-                path: "/article", 
+                path: "/article",
                 element: <Article></Article>
-            }, 
+            },
             {
-                path: "/education", 
+                path: "/education",
                 element: <Education></Education>
-            }, 
+            },
             {
-                path: "/job", 
+                path: "/job",
                 element: <Job></Job>
+            },
+            {
+                path: "/post-details/:id",
+                element: <PostDetails></PostDetails>,
+                loader: ({ params }) => {
+                    return fetch(`http://localhost:5000/post-details/${params.id}`)
+                }
             }
         ]
     }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../Components/Header/Header';
 import MenuBar from '../Components/MenuBar/MenuBar';
+import LeftSideBar from '../LeftSideBar/LeftSideBar';
 import RightSideBar from '../RightSideBar/RightSideBar';
 
 const Main = () => {
@@ -10,10 +11,13 @@ const Main = () => {
             <Header></Header>
             <MenuBar></MenuBar>
             <div className='row  container mx-auto'>
-                <div className='col-md-8 p-0'>
+                <div className="col-md-3 p-0">
+                    <LeftSideBar></LeftSideBar>
+                </div>
+                <div className='col-md-6 p-0'>
                     <Outlet></Outlet>
                 </div>
-                <div className='col-md-4'>
+                <div className='col-md-3'>
                     <RightSideBar></RightSideBar>
                 </div>
             </div>

@@ -68,8 +68,8 @@ const MenuBar = () => {
 
 
     return (
-        <div className='mt-5 mb-3 container row'>
-            <div className='d-flex align-items-center gap-2 col-7 col-md-7'>
+        <div className='mt-5 mb-3 container row p-0'>
+            <div className='d-flex align-items-center gap-2 col-7 col-md-7 p-0'>
                 <Link className='text-decoration-none text-black fw-semibold mx-2' to="/">All Posts({allPost.length})</Link>
                 <div className='d-none d-md-block'>
                     <Link className='text-decoration-none text-secondary mx-2' to="/article">Article</Link>
