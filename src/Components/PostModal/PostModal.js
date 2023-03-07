@@ -101,7 +101,7 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles ,
                                         :
                                         "https://png.pngtree.com/png-vector/20220817/ourmid/pngtree-cartoon-man-avatar-vector-ilustration-png-image_6111064.png"
                                 }
-                                className="rounded-pill object-fill-cover"
+                                className="rounded-pill object-fit-cover"
                                 alt="" />
                         </div>
                         <div>

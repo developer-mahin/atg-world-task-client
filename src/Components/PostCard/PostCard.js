@@ -22,7 +22,7 @@ const PostCard = ({ post }) => {
                     <div className='d-flex align-items-center gap-2'>
                         <img src={userPhoto} width={60} height={60} className="rounded-pill object-fit-cover" alt="" />
                         <div>
-                            <h6>{userName}</h6>
+                            <span className='d-block fw-medium'>{userName}</span>
                             <span>{date.slice(0, 10)}</span>
                         </div>
                     </div>
@@ -44,8 +44,19 @@ const PostCard = ({ post }) => {
                 </div>
                 <div>
                     <div className='d-flex align-items-center justify-content-between'>
-                        <h3 className='mt-2'> <Link className='text-black'
-                            to={`/post-details/${_id}`}>{title}</Link> </h3>
+                        <h3 className='mt-2'>
+                            {
+                                postRole === "job" ? <>
+                                    <Link className='text-black'
+                                        to={`/post-details/${_id}`}>{title}</Link>
+                                </>
+                                    :
+                                    <>
+                                        <span className='text-black'
+                                        >{title}</span>
+                                    </>
+                            }
+                        </h3>
                         <div className="dropdown">
                             <button className="border-0 bg-body" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <BsThreeDots className='fs-4' />
@@ -58,20 +69,26 @@ const PostCard = ({ post }) => {
                     </div>
                     <p>
                         {
-                            changeState ? <>
-                                {description && (description).slice(0, 150) + "..."}
-                                <span
-                                    onClick={() => setSeeAllDetails(!seeAllDetails)}
-                                    className='ms-1 text-decoration-underline cursor-pinter'>
-                                    See More
-                                </span>
+                            postRole === "job" ? <>
+                                <p>{description && (description).slice(0, 150) + "..."}</p>
                             </> : <>
-                                {description}
-                                <span
-                                    onClick={() => setSeeAllDetails(!seeAllDetails)}
-                                    className='ms-1 text-decoration-underline cursor-pinter'>
-                                    See Less
-                                </span>
+                                {
+                                    changeState ? <>
+                                        {description && (description).slice(0, 150) + "..."}
+                                        <span
+                                            onClick={() => setSeeAllDetails(!seeAllDetails)}
+                                            className='ms-1 text-decoration-underline cursor-pinter'>
+                                            See More
+                                        </span>
+                                    </> : <>
+                                        {description}
+                                        <span
+                                            onClick={() => setSeeAllDetails(!seeAllDetails)}
+                                            className='ms-1 text-decoration-underline cursor-pinter'>
+                                            See Less
+                                        </span>
+                                    </>
+                                }
                             </>
                         }
                     </p>

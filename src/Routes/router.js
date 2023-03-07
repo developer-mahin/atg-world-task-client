@@ -5,40 +5,56 @@ import Education from "../Pages/Education/Education";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import Job from "../Pages/Job/Job";
+import Login from "../Pages/Login/Login";
 import PostDetails from "../Pages/PostDetails/PostDetails";
+import Profile from "../Pages/Profile/Profile";
+import Register from "../Pages/Register/Register";
+import PrivateRoute from "./PrivateRoute";
 
 
 const router = createBrowserRouter([
 
     {
         path: "/",
-        element: <Main></Main>,
+        element: <PrivateRoute><Main></Main></PrivateRoute>,
         errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: "/",
-                element: <Home></Home>
+                element: <PrivateRoute><Home></Home></PrivateRoute>
             },
             {
                 path: "/article",
-                element: <Article></Article>
+                element: <PrivateRoute><Article></Article></PrivateRoute>
             },
             {
                 path: "/education",
-                element: <Education></Education>
+                element: <PrivateRoute> <Education></Education></PrivateRoute>
             },
             {
                 path: "/job",
-                element: <Job></Job>
+                element: <PrivateRoute><Job></Job></PrivateRoute>
             },
             {
                 path: "/post-details/:id",
-                element: <PostDetails></PostDetails>,
+                element: <PrivateRoute><PostDetails></PostDetails></PrivateRoute>,
                 loader: ({ params }) => {
                     return fetch(`http://localhost:5000/post-details/${params.id}`)
                 }
-            }
+            },
         ]
+    },
+    {
+        path: "/profile",
+        element: <PrivateRoute><Profile></Profile></PrivateRoute>
+    },
+    {
+        path: "/login",
+        element: <Login></Login>
+    },
+    {
+        path: "/register",
+        element: <Register></Register>
     }
 
 ])
