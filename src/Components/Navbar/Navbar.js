@@ -6,7 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaEnvelope, FaUserFriends } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
 import { MdWork } from "react-icons/md";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from "../../Assets/logo.png";
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 
@@ -29,7 +29,11 @@ const Navbar = () => {
             })
     }
 
-    console.log(user)
+    const navigate = useNavigate()
+    const handleSearchBar = (e) => {
+        e.preventDefault()
+        navigate("/search")
+    }
 
     return (
 
@@ -44,7 +48,7 @@ const Navbar = () => {
                     </Link>
 
                     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <form class="me-auto">
+                        <form class="me-auto" onSubmit={handleSearchBar}>
                             <input class="form-control w-100 rounded-pill" type="search" placeholder="Search" aria-label="Search" />
                         </form>
                         <ul class="navbar-nav mb-2 mb-lg-0">

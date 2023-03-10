@@ -24,7 +24,7 @@ const PostDetails = () => {
                         </div>
                     </div>
                     <div className=''>
-                        <BsShare className='bg-secondary bg-opacity-25 p-2 fs-1 rounded cursor-pinter' />
+                        <BsShare className='bg-secondary bg-opacity-25 p-2 fs-1 rounded cursor-pointer' />
                     </div>
                 </div>
                 <div className='mt-2'>

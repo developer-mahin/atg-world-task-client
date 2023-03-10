@@ -9,6 +9,7 @@ import Login from "../Pages/Login/Login";
 import PostDetails from "../Pages/PostDetails/PostDetails";
 import Profile from "../Pages/Profile/Profile";
 import Register from "../Pages/Register/Register";
+import Search from "../Pages/Search/Search";
 import PrivateRoute from "./PrivateRoute";
 
 
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
     {
         path: "/register",
         element: <Register></Register>
+    },
+    {
+        path: "/search",
+        element: <Search></Search>
     }
 
 ])

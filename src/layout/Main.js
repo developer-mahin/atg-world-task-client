@@ -11,13 +11,13 @@ const Main = () => {
             <Header></Header>
             <MenuBar></MenuBar>
             <div className='row  container mx-auto'>
-                <div className="col-md-3 p-0 padding">
+                <div className="col-lg-3 p-0 padding">
                     <LeftSideBar></LeftSideBar>
                 </div>
-                <div className='col-md-6 p-0 padding'>
+                <div className='col-lg-6 p-0 padding mt-lg-0 mt-4'>
                     <Outlet></Outlet>
                 </div>
-                <div className='col-md-3 p-0 padding'>
+                <div className='col-lg-3 p-0 padding d-none d-lg-block'>
                     <RightSideBar></RightSideBar>
                 </div>
             </div>

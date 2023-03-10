@@ -1,12 +1,12 @@
+import data from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
 import React, { useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { BsEmojiSmile, BsImage } from "react-icons/bs";
+import ImageUploading from 'react-images-uploading';
 import Modal from 'react-modal';
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
-import ImageUploading from 'react-images-uploading';
-import { BsEmojiSmile, BsImage } from "react-icons/bs"
-import Picker from '@emoji-mart/react'
-import data from '@emoji-mart/data'
-import { toast } from 'react-hot-toast';
 
 
 const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles, refetch }) => {
@@ -165,7 +165,7 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles, 
                             }) => (
                                 <div className="upload__image-wrapper">
                                     <div
-                                        className='bg-transparent cursor-pinter'
+                                        className='bg-transparent cursor-pointer'
                                         style={isDragging ? { color: 'red' } : undefined}
                                         onClick={onImageUpload}
                                         {...dragProps}
