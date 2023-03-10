@@ -41,16 +41,16 @@ textarea.post-form::placeholder {
   color: rgb(87, 87, 87);
 }
 
-.text-sm{
+.text-sm {
   font-size: 14px;
   font-weight: 500;
 }
 
-.icon-size{
+.icon-size {
   font-size: 25px;
 }
 
-.sticky-position{
+.sticky-position {
   position: sticky;
   top: 0;
   z-index: 9999;
@@ -58,16 +58,22 @@ textarea.post-form::placeholder {
   border-bottom: 2px solid #ddd;
 }
 
+.padding {
+  padding: 20px 12px !important;
+}
 
 @media only screen and (max-width: 768px) {
   .ReactModal__Content.ReactModal__Content--after-open {
     width: 90%;
   }
-  .post-container{
+  .post-container {
     padding: 15px 10px !important;
   }
-  .button{
+  .button {
     font-size: 12px;
+  }
+  .padding {
+    padding: 0px 0px;
   }
 }
 @media only screen and (max-width: 560px) {

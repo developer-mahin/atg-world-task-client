@@ -9,13 +9,12 @@ import data from '@emoji-mart/data'
 import { toast } from 'react-hot-toast';
 
 
-const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles , refetch}) => {
+const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles, refetch }) => {
     const { user } = useContext(AUTH_CONTEXT)
     const [selectPost, setSelectPost] = useState("")
     const [isPickerVisible, setIsPickerVisible] = useState(false)
     const [textArea, setTextArea] = useState("")
     const [currentEmoji, setCurrentEmoji] = useState("")
-    const [title, setTitle] = useState("")
     const [loading, setLoading] = useState(false)
 
     const [images, setImages] = useState([]);
@@ -45,7 +44,6 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles ,
                 if (data.success) {
                     const postInfo = {
                         date,
-                        title,
                         description: textArea,
                         image: data.data.display_url,
                         postRole: selectPost,
@@ -114,7 +112,6 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles ,
                                     className='form-control fw-semibold bg-black text-white cursor-pointer'>
                                     <option value="select one">Select One...</option>
                                     <option value="article">Article</option>
-                                    <option value="event">Event</option>
                                     <option value="education">Education</option>
                                     <option value="job">Job</option>
                                 </select>
@@ -123,17 +120,6 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles ,
                     </div>
                 </div>
                 <form onSubmit={handlePost}>
-                    <div>
-                        <input
-                            type="text"
-                            name=""
-                            id=""
-                            onChange={(e) => setTitle(e.target.value)}
-                            className='bg-transparent text-white border-0 post-form py-3 px-3 fs-5 fw-medium w-100'
-                            placeholder='Add title here'
-                            required
-                        />
-                    </div>
                     <textarea
                         onChange={(e) => setTextArea(e.target.value)}
                         className='bg-transparent text-white border-0 post-form py-3 px-3 fs-5'
@@ -193,9 +179,9 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles ,
 
                     <div className='mt-5'>
                         <button
-                            disabled={!textArea.length || !selectPost.length || !title.length}
+                            disabled={!textArea.length || !selectPost.length}
                             type='submit'
-                            className={`${textArea.length || selectPost.length || title.length ? "btn-primary" : "btn-secondary"} btn px-4 rounded-pill`}
+                            className={`${textArea.length || selectPost.length ? "btn-primary" : "btn-secondary"} btn px-4 rounded-pill`}
                         >
                             {
                                 loading ? "Loading..." : "Post"

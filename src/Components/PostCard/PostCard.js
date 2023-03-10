@@ -4,11 +4,11 @@ import { BsPenFill, BsShare, BsThreeDots } from 'react-icons/bs';
 import { CgWorkAlt } from 'react-icons/cg';
 import { GiGraduateCap } from 'react-icons/gi';
 import { TbMessageReport } from 'react-icons/tb';
-import { Link } from 'react-router-dom';
+
 
 const PostCard = ({ post }) => {
 
-    const { image, postRole, _id, title, description, userPhoto, userName, date } = post;
+    const { image, postRole, description, userPhoto, userName, date } = post;
 
 
     const [seeAllDetails, setSeeAllDetails] = useState(false)
@@ -44,19 +44,6 @@ const PostCard = ({ post }) => {
                 </div>
                 <div>
                     <div className='d-flex align-items-center justify-content-between'>
-                        <h3 className='mt-2'>
-                            {
-                                postRole === "job" ? <>
-                                    <Link className='text-black'
-                                        to={`/post-details/${_id}`}>{title}</Link>
-                                </>
-                                    :
-                                    <>
-                                        <span className='text-black'
-                                        >{title}</span>
-                                    </>
-                            }
-                        </h3>
                         <div className="dropdown">
                             <button className="border-0 bg-body" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <BsThreeDots className='fs-4' />
@@ -70,16 +57,32 @@ const PostCard = ({ post }) => {
                     <p>
                         {
                             postRole === "job" ? <>
-                                <p>{description && (description).slice(0, 150) + "..."}</p>
+                                {
+                                    description.length > 150 ? <>
+                                        <p>{(description).slice(0, 150) + "..."}</p>
+                                    </> : <>
+                                        {
+                                            description
+                                        }
+                                    </>
+                                }
                             </> : <>
                                 {
                                     changeState ? <>
-                                        {description && (description).slice(0, 150) + "..."}
-                                        <span
-                                            onClick={() => setSeeAllDetails(!seeAllDetails)}
-                                            className='ms-1 text-decoration-underline cursor-pinter'>
-                                            See More
-                                        </span>
+                                        {
+                                            description.length > 150 ? <span>
+                                                {description && (description).slice(0, 150) + "..."}
+                                            </span> : <span>
+                                                {description}
+                                            </span>
+                                        }
+                                        {
+                                            description.length > 150 && <span
+                                                onClick={() => setSeeAllDetails(!seeAllDetails)}
+                                                className='ms-1 text-decoration-underline cursor-pinter'>
+                                                See More
+                                            </span>
+                                        }
                                     </> : <>
                                         {description}
                                         <span
@@ -92,7 +95,6 @@ const PostCard = ({ post }) => {
                             </>
                         }
                     </p>
-
                 </div>
             </div>
             <div>

@@ -72,6 +72,7 @@ const Navbar = () => {
                                     </Link>
                                 </div>
                             </li>
+
                             <li class="nav-item">
                                 <div className='text-center'>
                                     <Link class="nav-link active" aria-current="page" to="/">

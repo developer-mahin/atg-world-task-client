@@ -64,9 +64,6 @@ const MenuBar = () => {
 
 
 
-
-
-
     return (
         <div className='container row p-0 my-2 '>
             <div className='d-flex align-items-center gap-2 col-7 col-md-7 p-0'>
