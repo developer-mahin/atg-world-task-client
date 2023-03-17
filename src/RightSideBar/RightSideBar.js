@@ -19,8 +19,8 @@ const RightSideBar = () => {
             }
             <div className='d-flex align-items-center justify-content-center view-profile rounded'>
                 <button className='btn d-flex align-items-center gap-1'>
-                    <span className='fw-medium text-secondary'>See All</span>
-                    <BiRightArrowAlt className='fs-4 text-secondary' />
+                    <span className='fw-medium text-secondary text-base'>See All</span>
+                    <BiRightArrowAlt className='fs-4 text-secondary icon' />
                 </button>
             </div>
         </div>

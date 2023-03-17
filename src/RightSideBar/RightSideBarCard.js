@@ -12,12 +12,12 @@ const RightSideBarCard = ({ info }) => {
                     <img src={image} width={60} height={60} className="object-fit-cover" alt="" />
                 </div>
                 <div className=''>
-                    <h6 className='m-0'>{name}</h6>
+                    <h6 className='m-0 fw-semibold'>{name}</h6>
                     <div className='mt-1'>
                         <p className='text-sm m-0'>{details}</p>
                     </div>
                     <div className='mt-2'>
-                        <button className='btn border rounded d-flex align-items-center gap-1'>
+                        <button className='btn border rounded d-flex align-items-center gap-1 rounded-pill'>
                             <AiOutlinePlus />
                             <span>Follow</span>
                         </button>

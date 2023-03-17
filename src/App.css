@@ -45,8 +45,16 @@ textarea.post-form::placeholder {
   font-size: 13px;
 }
 
+.text-base{
+  font-size: 16px;
+}
+
 .icon-size {
   font-size: 25px;
+}
+
+.icon{
+  font-size: 20px;
 }
 
 .sticky-position {
@@ -93,19 +101,25 @@ textarea.post-form::placeholder {
   transition: all 0.2s;
 }
 
-.stick-bar-top{
+.stick-bar-top {
   top: 85px;
 }
 
-.btn-hover:hover{
-  background-color: #ddd;
-  color: black !important; 
-  transition: all .6s;
-}
-
-.btn-active{
+.btn-hover:hover {
   background-color: #ddd;
   color: black !important;
+  transition: all 0.6s;
+}
+
+.btn-active {
+  background-color: #ddd;
+  color: black !important;
+}
+
+.grid-system {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
 }
 
 @media only screen and (max-width: 768px) {
@@ -120,6 +134,12 @@ textarea.post-form::placeholder {
   }
   .padding {
     padding: 0px 0px !important;
+  }
+  .text-base{
+    font-size: 13px;
+  }
+  .icon{
+    font-size: 13px;
   }
 }
 @media only screen and (max-width: 560px) {

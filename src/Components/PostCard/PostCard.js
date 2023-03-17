@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { AiOutlinePlus } from "react-icons/ai";
-import { BiEditAlt } from 'react-icons/bi';
+import { AiFillLike, AiOutlinePlus } from "react-icons/ai";
+import { BiCommentDots, BiEditAlt, BiRepost, BiSend } from 'react-icons/bi';
 import { BsPenFill, BsThreeDots } from 'react-icons/bs';
 import { CgWorkAlt } from 'react-icons/cg';
 import { GiGraduateCap } from 'react-icons/gi';
@@ -15,7 +15,6 @@ const PostCard = ({ post }) => {
 
     return (
         <div className="mb-3 border rounded">
-
             <div className='p-4 post-container'>
                 <div className='d-flex align-items-center justify-content-between'>
                     <div className='d-flex align-items-center gap-2'>
@@ -28,8 +27,8 @@ const PostCard = ({ post }) => {
                     <div className='d-flex align-items-center gap-1'>
                         <div>
                             <button className='btn'>
-                                <AiOutlinePlus className='rounded cursor-pointer me-1' />
-                                <span className='text-decoration-underline cursor-pointer'>Follow</span>
+                                <AiOutlinePlus className='rounded cursor-pointer me-1 icon' />
+                                <span className='text-decoration-underline cursor-pointer text-base'>Follow</span>
                             </button>
                         </div>
                         <div className='d-flex align-items-center justify-content-between'>
@@ -37,9 +36,9 @@ const PostCard = ({ post }) => {
                                 <button className="border-0 bg-body" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <BsThreeDots className='fs-4' />
                                 </button>
-                                <ul className="dropdown-menu">
-                                    <button className="dropdown-item">Edit <BiEditAlt /></button>
-                                    <button className="dropdown-item">Report <TbMessageReport /></button>
+                                <ul className="dropdown-menu"> 
+                                    <button className="dropdown-item text-base">Edit <BiEditAlt /></button>
+                                    <button className="dropdown-item text-base">Report <TbMessageReport /></button>
                                 </ul>
                             </div>
                         </div>
@@ -64,7 +63,7 @@ const PostCard = ({ post }) => {
                             postRole === "job" ? <>
                                 {
                                     description.length > 150 ? <>
-                                        <p>{(description).slice(0, 150) + "..."}</p>
+                                        <p className='text-base'>{(description).slice(0, 150) + "..."}</p>
                                     </> : <>
                                         {
                                             description
@@ -75,24 +74,24 @@ const PostCard = ({ post }) => {
                                 {
                                     changeState ? <>
                                         {
-                                            description.length > 150 ? <span>
+                                            description.length > 150 ? <span className='text-base'>
                                                 {description && (description).slice(0, 150) + "..."}
-                                            </span> : <span>
+                                            </span> : <span className='text-base'>
                                                 {description}
                                             </span>
                                         }
                                         {
                                             description.length > 150 && <span
                                                 onClick={() => setSeeAllDetails(!seeAllDetails)}
-                                                className='ms-1 text-decoration-underline cursor-pointer fw-medium'>
+                                                className='ms-1 text-decoration-underline cursor-pointer text-base fw-medium'>
                                                 See More
                                             </span>
                                         }
                                     </> : <>
-                                        {description}
+                                        <span className='text-base'>{description}</span>
                                         <span
                                             onClick={() => setSeeAllDetails(!seeAllDetails)}
-                                            className='ms-1 text-decoration-underline cursor-pointer fw-medium'>
+                                            className='ms-1 text-decoration-underline cursor-pointer fw-medium text-base'>
                                             See Less
                                         </span>
                                     </>
@@ -106,6 +105,33 @@ const PostCard = ({ post }) => {
                 <img src={image} className="w-100 h-auto" alt="" />
             </div>
 
+            <div>
+                <div className='px-3 d-flex align-items-center justify-content-between py-2'>
+                    <div>
+                        <span className='text-base'>You and 10 others</span>
+                    </div>
+                    <div>
+                        <span className='text-base'>30 comments</span>
+                    </div>
+                </div>
+                <div className='grid-system py-2 border-top'>
+                    <button className='btn py-lg-3 py-2 px-lg-4 px-2 d-flex align-items-center gap-1 cursor-pointer view-profile'>
+                        <AiFillLike className='icon' />
+                        <span className='text-base'>Like</span>
+                    </button>
+                    <button className='btn py-lg-3 py-2 px-lg-4 px-2 d-flex align-items-center gap-1 cursor-pointer view-profile'>
+                        <BiCommentDots className='icon' />
+                        <span className='text-base'>Comment</span>
+                    </button>
+                    <button className='btn py-lg-3 py-2 px-lg-4 px-2 d-flex align-items-center gap-1 cursor-pointer view-profile'>
+                        <BiSend className='icon' />
+                        <span className='text-base'>Send</span>
+                    </button>
+                </div>
+            </div>
+            <div>
+                
+            </div>
         </div>
     );
 };

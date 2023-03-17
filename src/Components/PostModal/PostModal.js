@@ -136,7 +136,7 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles, 
                     <>
                         <button
                             onClick={() => setIsPickerVisible(!isPickerVisible)}
-                            className='bg-transparent'
+                            className='bg-transparent btn'
                         >
                             <BsEmojiSmile className='text-white fs-3' />
                         </button>
