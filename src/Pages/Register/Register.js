@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlineEye } from "react-icons/ai";
 import { FiEyeOff } from "react-icons/fi";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 
 
@@ -14,7 +14,10 @@ const Register = () => {
 
     const [changePasswordType, setChangePasswordType] = useState(true)
     const changeIcon = changePasswordType === true ? false : true;
+
+    const location = useLocation()
     const navigate = useNavigate()
+    const from = location?.state?.from?.pathname || "/"
 
     const handleSignUp = (e) => {
         setLoading(true)
@@ -47,12 +50,29 @@ const Register = () => {
                 createUser(email, password)
                     .then((result) => {
                         const user = result.user
-                        console.log(user);
                         updateUserName(fullName, image)
-                        toast.success("successfully user created")
-                        navigate("/")
-                        form.reset()
-                        setLoading(false)
+
+                        const userInfo = {
+                            email: user?.email,
+                            name: user?.displayName,
+                            photo: user?.photoURL
+                        }
+
+                        fetch("http://localhost:5000/jwt", {
+                            method: "POST",
+                            headers: {
+                                "content-type": "application/json"
+                            },
+                            body: JSON.stringify(userInfo)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                localStorage.setItem("access-token", data.token)
+                                toast.success("successfully user created")
+                                navigate(from, { replace: true })
+                                form.reset()
+                                setLoading(false)
+                            })
                     })
                     .catch(error => {
                         toast.error(error.message)
@@ -66,8 +86,24 @@ const Register = () => {
         googleSignIn()
             .then(result => {
                 const user = result.user
-                console.log(user)
-                toast.success("successfully login")
+                const userInfo = {
+                    email: user?.email,
+                    name: user?.displayName,
+                    photo: user?.photoURL
+                }
+                fetch("http://localhost:5000/jwt", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(userInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem("access-token", data.token)
+                        navigate(from, { replace: true })
+                        toast.success("successfully login")
+                    })
             })
             .catch(error => {
                 toast.error(error.message)
@@ -79,8 +115,24 @@ const Register = () => {
         facebookLogin()
             .then(result => {
                 const user = result.user
-                console.log(user)
-                toast.success("Successfully login")
+                const userInfo = {
+                    email: user?.email,
+                    name: user?.displayName,
+                    photo: user?.photoURL
+                }
+                fetch("http://localhost:5000/jwt", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(userInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem("access-token", data.token)
+                        navigate(from, { replace: true })
+                        toast.success("Successfully login")
+                    })
             })
             .catch(error => {
                 toast.error(error.message)

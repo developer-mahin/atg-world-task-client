@@ -9,7 +9,7 @@ import Modal from 'react-modal';
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 
 
-const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles, refetch }) => {
+const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
     const { user } = useContext(AUTH_CONTEXT)
     const [selectPost, setSelectPost] = useState("")
     const [isPickerVisible, setIsPickerVisible] = useState(false)
@@ -77,7 +77,6 @@ const PostModal = ({ postModalIsOpen, afterOpenModal, closeModal, customStyles, 
             className='position-relative'>
             <Modal
                 isOpen={postModalIsOpen}
-                onAfterOpen={afterOpenModal}
                 onRequestClose={closeModal}
                 style={customStyles}
                 contentLabel="Example Modal"

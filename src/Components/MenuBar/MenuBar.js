@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { MdGroupAdd } from "react-icons/md";
+import { MdGroupAdd, MdLocalHospital } from "react-icons/md";
 import { TbLogout } from "react-icons/tb";
 import { Link } from 'react-router-dom';
 import downArrow from "../../Assets/Vector.png";
@@ -10,13 +10,9 @@ import ModalBody from '../Modal/ModalBody';
 import PostModal from '../PostModal/PostModal';
 
 const MenuBar = () => {
-    let subtitle;
     const [postModalIsOpen, setPostModalIsOpen] = useState(false);
     function openPostModal() {
         setPostModalIsOpen(true);
-    }
-    function afterOpenModal() {
-        subtitle.style.color = '#f00';
     }
     function closeModal() {
         setPostModalIsOpen(false);
@@ -39,7 +35,12 @@ const MenuBar = () => {
     const { data: allPost = [], refetch } = useQuery({
         queryKey: ["allPost"],
         queryFn: async () => {
-            const res = await fetch("http://localhost:5000/all-post")
+            const res = await fetch("http://localhost:5000/all-post", {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("access-token")}`,
+                    "content-type": "application/json"
+                }
+            })
             const data = await res.json()
             return data
         }
@@ -88,7 +89,6 @@ const MenuBar = () => {
                         refetch={refetch}
                         postModalIsOpen={postModalIsOpen}
                         customStyles={customStyles}
-                        afterOpenModal={afterOpenModal}
                         closeModal={closeModal}
                     ></PostModal>
                 </div>

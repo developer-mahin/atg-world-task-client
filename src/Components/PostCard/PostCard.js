@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { AiFillLike, AiOutlinePlus } from "react-icons/ai";
-import { BiCommentDots, BiEditAlt, BiRepost, BiSend } from 'react-icons/bi';
-import { BsPenFill, BsThreeDots } from 'react-icons/bs';
+import { AiFillLike, AiOutlineCamera, AiOutlineGif, AiOutlinePlus } from "react-icons/ai";
+import { BiCommentDots, BiEditAlt, BiSend } from 'react-icons/bi';
+import { BsEmojiSmile, BsPenFill, BsThreeDots } from 'react-icons/bs';
 import { CgWorkAlt } from 'react-icons/cg';
 import { GiGraduateCap } from 'react-icons/gi';
 import { TbMessageReport } from 'react-icons/tb';
+
 
 
 const PostCard = ({ post }) => {
@@ -36,7 +37,7 @@ const PostCard = ({ post }) => {
                                 <button className="border-0 bg-body" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <BsThreeDots className='fs-4' />
                                 </button>
-                                <ul className="dropdown-menu"> 
+                                <ul className="dropdown-menu">
                                     <button className="dropdown-item text-base">Edit <BiEditAlt /></button>
                                     <button className="dropdown-item text-base">Report <TbMessageReport /></button>
                                 </ul>
@@ -129,8 +130,29 @@ const PostCard = ({ post }) => {
                     </button>
                 </div>
             </div>
-            <div>
-                
+
+            <div className='py-3 px-3 d-flex align-items-center gap-2'>
+                <div className='d-flex align-items-center gap-3 w-100'>
+                    <div className='w-75'>
+                        <input
+                            type="text"
+                            name=""
+                            placeholder='Write a comment'
+                            id=""
+                            required
+                            className='bg-secondary bg-opacity-10  rounded-pill w-100 comment py-2 px-3'
+                        />
+                    </div>
+
+                    <div className='grid-system gap-2'>
+                        <div><BsEmojiSmile className='icon cursor-pointer' /></div>
+                        <div><AiOutlineCamera className='icon cursor-pointer' /></div>
+                        <div><AiOutlineGif className='icon cursor-pointer' /></div>
+                    </div>
+                </div>
+                <div>
+                    <button className='btn btn-primary px-4 py-2 rounded-pill'>Send</button>
+                </div>
             </div>
         </div>
     );

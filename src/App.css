@@ -41,11 +41,19 @@ textarea.post-form::placeholder {
   color: rgb(87, 87, 87);
 }
 
+.comment{
+  border: 1px solid #ddd;
+}
+
+.comment:focus {
+  outline: none;
+}
+
 .text-sm {
   font-size: 13px;
 }
 
-.text-base{
+.text-base {
   font-size: 16px;
 }
 
@@ -53,8 +61,12 @@ textarea.post-form::placeholder {
   font-size: 25px;
 }
 
-.icon{
+.icon {
   font-size: 20px;
+}
+
+.w-60{
+  width: 60%;
 }
 
 .sticky-position {
@@ -135,10 +147,10 @@ textarea.post-form::placeholder {
   .padding {
     padding: 0px 0px !important;
   }
-  .text-base{
+  .text-base {
     font-size: 13px;
   }
-  .icon{
+  .icon {
     font-size: 13px;
   }
 }

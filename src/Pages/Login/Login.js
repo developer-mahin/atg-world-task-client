@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlineEye } from "react-icons/ai";
 import { FiEyeOff } from 'react-icons/fi';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 
 
@@ -15,7 +15,9 @@ const Login = () => {
     const changeIcon = changePasswordType === true ? false : true
 
 
+    const location = useLocation()
     const navigate = useNavigate()
+    const from = location.state?.from?.pathname || "/";
     const handleSignIn = (e) => {
         setLoading(true)
         e.preventDefault()
@@ -26,10 +28,28 @@ const Login = () => {
             .then((result) => {
                 const user = result.user
                 console.log(user)
-                toast.success("Successfully user Logedin")
-                navigate("/")
-                form.reset()
-                setLoading(false)
+                const userInfo = {
+                    email: user?.email,
+                    name: user?.displayName,
+                    photo: user?.photoURL
+                }
+
+                // jwt authentication
+                fetch("http://localhost:5000/jwt", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(userInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem("access-token", data.token)
+                        toast.success("Successfully user Logedin")
+                        navigate(from, { replace: true })
+                        form.reset()
+                        setLoading(false)
+                    })
             })
             .catch(error => {
                 toast.error(error.message)
@@ -42,8 +62,25 @@ const Login = () => {
         googleSignIn()
             .then(result => {
                 const user = result.user
-                console.log(user)
-                toast.success("successfully login")
+                const userInfo = {
+                    email: user?.email,
+                    name: user?.displayName,
+                    photo: user?.photoURL
+                }
+                // jwt authentication
+                fetch("http://localhost:5000/jwt", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(userInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem("access-token", data.token)
+                        navigate(from, { replace: true })
+                        toast.success("successfully login")
+                    })
             })
             .catch(error => {
                 toast.error(error.message)
@@ -51,12 +88,28 @@ const Login = () => {
     }
 
     // facebook login system 
-    const facebookSignIn = () => {
+    const handleFacebookSignIn = () => {
         facebookLogin()
             .then(result => {
                 const user = result.user
-                console.log(user)
-                toast.success("Successfully login")
+                const userInfo = {
+                    email: user?.email,
+                    name: user?.displayName,
+                    photo: user?.photoURL
+                }
+                fetch("http://localhost:5000/jwt", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(userInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem("access-token", data.token)
+                        navigate(from, { replace: true })
+                        toast.success("Successfully login")
+                    })
             })
             .catch(error => {
                 toast.error(error.message)
@@ -134,7 +187,7 @@ const Login = () => {
                             <div className='mt-4'>
                                 <div className=''>
                                     <button
-                                        onClick={facebookSignIn}
+                                        onClick={handleFacebookSignIn}
                                         className='w-100 d-flex justify-content-center align-items-center gap-1 border btn py-2 px-4 my-2 fw-medium'>
                                         <img width={"25px"} src=" https://i.ibb.co/9Y0S2nP/facebook.png" alt="" />
                                         <span>Sign up with Facebook</span>
