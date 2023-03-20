@@ -78,6 +78,8 @@ const Login = () => {
                     .then(res => res.json())
                     .then(data => {
                         localStorage.setItem("access-token", data.token)
+                        // save user in db
+                        saveUserInDB(userInfo)
                         navigate(from, { replace: true })
                         toast.success("successfully login")
                     })
@@ -107,6 +109,8 @@ const Login = () => {
                     .then(res => res.json())
                     .then(data => {
                         localStorage.setItem("access-token", data.token)
+                        // save user in db
+                        saveUserInDB(userInfo)
                         navigate(from, { replace: true })
                         toast.success("Successfully login")
                     })
@@ -114,6 +118,20 @@ const Login = () => {
             .catch(error => {
                 toast.error(error.message)
             })
+    }
+
+// save user in database
+    const saveUserInDB = (userInfo) => {
+        fetch("http://localhost:5000/save-user", {
+            method: "POST",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("access-token")}`,
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(userInfo)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
     }
 
     return (

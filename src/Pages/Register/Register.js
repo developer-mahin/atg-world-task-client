@@ -38,8 +38,6 @@ const Register = () => {
         }
 
         const url = `https://api.imgbb.com/1/upload?key=b486f58b0681b7c344264f43dd69a0d8`;
-
-
         fetch(url, {
             method: "POST",
             body: formData
@@ -68,6 +66,13 @@ const Register = () => {
                             .then(res => res.json())
                             .then(data => {
                                 localStorage.setItem("access-token", data.token)
+                                // save user in db
+                                const userInfo = {
+                                    email,
+                                    name: fullName,
+                                    photo: image
+                                }
+                                saveUserInDB(userInfo)
                                 toast.success("successfully user created")
                                 navigate(from, { replace: true })
                                 form.reset()
@@ -101,6 +106,9 @@ const Register = () => {
                     .then(res => res.json())
                     .then(data => {
                         localStorage.setItem("access-token", data.token)
+
+                        // save user in db
+                        saveUserInDB(userInfo)
                         navigate(from, { replace: true })
                         toast.success("successfully login")
                     })
@@ -130,6 +138,8 @@ const Register = () => {
                     .then(res => res.json())
                     .then(data => {
                         localStorage.setItem("access-token", data.token)
+                        // save user in db
+                        saveUserInDB(userInfo)
                         navigate(from, { replace: true })
                         toast.success("Successfully login")
                     })
@@ -139,7 +149,21 @@ const Register = () => {
             })
     }
 
+    //save user in the database
+    const saveUserInDB = (userInfo) => {
+        fetch("http://localhost:5000/save-user", {
+            method: "POST",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("access-token")}`,
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(userInfo)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+    }
 
+    
     return (
         <div className='position-relative container mx-auto py-2'>
             <div className='bg-success bg-opacity-10 rounded mt-3 d-none d-md-block'>
