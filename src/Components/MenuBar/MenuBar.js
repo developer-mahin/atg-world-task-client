@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { MdGroupAdd, MdLocalHospital } from "react-icons/md";
+import { MdGroupAdd } from "react-icons/md";
 import { TbLogout } from "react-icons/tb";
 import { Link } from 'react-router-dom';
 import downArrow from "../../Assets/Vector.png";

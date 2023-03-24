@@ -41,7 +41,7 @@ textarea.post-form::placeholder {
   color: rgb(87, 87, 87);
 }
 
-.comment{
+.comment {
   border: 1px solid #ddd;
 }
 
@@ -65,7 +65,7 @@ textarea.post-form::placeholder {
   font-size: 20px;
 }
 
-.w-60{
+.w-60 {
   width: 60%;
 }
 
@@ -83,6 +83,11 @@ textarea.post-form::placeholder {
 
 .border-radius {
   border-radius: 15px;
+}
+
+.border-radius-top {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
 .profile {
@@ -134,6 +139,38 @@ textarea.post-form::placeholder {
   justify-items: center;
 }
 
+.w-150 {
+  width: 150px;
+}
+
+.h-150 {
+  height: 150px;
+}
+
+.h-200 {
+  height: 200px;
+}
+
+.profile-img {
+  bottom: -36px;
+  left: 30px;
+}
+
+.location-icon {
+  bottom: 10px;
+  cursor: pointer;
+}
+
+.mobile-post {
+  height: 55px;
+  width: 55px;
+  border-radius: 100%;
+  background: linear-gradient(45deg, #ff5c5c, #f0568a);
+  color: white;
+  bottom: 5%;
+  left: 81%;
+}
+
 @media only screen and (max-width: 768px) {
   .ReactModal__Content.ReactModal__Content--after-open {
     width: 90%;
@@ -153,9 +190,20 @@ textarea.post-form::placeholder {
   .icon {
     font-size: 13px;
   }
+  .ReactModal__Content.ReactModal__Content--after-open {
+    width: 90%;
+  }
+
+  .ReactModal__Content.ReactModal__Content--after-open {
+    transform: translate(-50%, -41%) !important;
+  }
 }
 @media only screen and (max-width: 560px) {
   .ReactModal__Content.ReactModal__Content--after-open {
-    width: 100%;
+    width: 97%;
+  }
+
+  .ReactModal__Content.ReactModal__Content--after-open {
+    padding: 20px !important;
   }
 }

@@ -7,7 +7,11 @@ const Job = () => {
     const { data: allJob = [], isLoading } = useQuery({
         queryKey: ["allJobs"],
         queryFn: async () => {
-            const res = await fetch("http://localhost:5000/role-of-post?role=job")
+            const res = await fetch("http://localhost:5000/role-of-post?role=job", {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("access-token")}`
+                }
+            })
             const data = await res.json()
             return data
         }

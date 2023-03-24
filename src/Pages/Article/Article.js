@@ -7,7 +7,11 @@ const Article = () => {
     const { data: allArticle = [], isLoading, refetch } = useQuery({
         queryKey: ["allArticle"],
         queryFn: async () => {
-            const res = await fetch("http://localhost:5000/role-of-post?role=article")
+            const res = await fetch("http://localhost:5000/role-of-post?role=article",{
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("access-token")}`
+                }
+            })
             const data = await res.json()
             return data
         }

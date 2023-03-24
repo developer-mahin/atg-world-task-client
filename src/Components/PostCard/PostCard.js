@@ -1,18 +1,55 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { AiFillLike, AiOutlineCamera, AiOutlineGif, AiOutlinePlus } from "react-icons/ai";
 import { BiCommentDots, BiEditAlt, BiSend } from 'react-icons/bi';
 import { BsEmojiSmile, BsPenFill, BsThreeDots } from 'react-icons/bs';
 import { CgWorkAlt } from 'react-icons/cg';
 import { GiGraduateCap } from 'react-icons/gi';
 import { TbMessageReport } from 'react-icons/tb';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import { AUTH_CONTEXT } from '../../Context/AuthProvider';
+import 'react-photo-view/dist/react-photo-view.css';
 
 
+const PostCard = ({ post, refetch }) => {
 
-const PostCard = ({ post }) => {
-
-    const { image, postRole, description, userPhoto, userName, date } = post;
+    const { image, postRole, description, userPhoto, userName, date, _id, comment } = post;
     const [seeAllDetails, setSeeAllDetails] = useState(false)
     const changeState = seeAllDetails === true ? false : true
+    const [commentData, setCommentData] = useState("")
+    const { user } = useContext(AUTH_CONTEXT)
+
+
+    // resetting the file input
+    const handleFileChange = (event) => {
+        event.target.value = null;
+    };
+
+    const handleComment = (id) => {
+
+        const commentInfo = {
+            comment: commentData,
+            userName: user?.displayName,
+            userPhoto: user?.photoURL,
+        }
+        console.log(id)
+        fetch(`http://localhost:5000/comment/${id}`, {
+            method: "PATCH",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("access-token")}`,
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(commentInfo)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success("successfully comment added")
+                    refetch()
+                }
+            })
+    }
+
 
     return (
         <div className="mb-3 border rounded">
@@ -22,7 +59,7 @@ const PostCard = ({ post }) => {
                         <img src={userPhoto} width={50} height={50} className="rounded-pill object-fit-cover" alt="" />
                         <div>
                             <span className='d-block fw-medium'>{userName}</span>
-                            <span className='text-sm'>{date.slice(0, 10)}</span>
+                            <span className='text-sm'>{date?.slice(0, 10)}</span>
                         </div>
                     </div>
                     <div className='d-flex align-items-center gap-1'>
@@ -63,8 +100,8 @@ const PostCard = ({ post }) => {
                         {
                             postRole === "job" ? <>
                                 {
-                                    description.length > 150 ? <>
-                                        <p className='text-base'>{(description).slice(0, 150) + "..."}</p>
+                                    description?.length > 150 ? <>
+                                        <p className='text-base'>{(description)?.slice(0, 150) + "..."}</p>
                                     </> : <>
                                         {
                                             description
@@ -76,7 +113,7 @@ const PostCard = ({ post }) => {
                                     changeState ? <>
                                         {
                                             description.length > 150 ? <span className='text-base'>
-                                                {description && (description).slice(0, 150) + "..."}
+                                                {description && (description)?.slice(0, 150) + "..."}
                                             </span> : <span className='text-base'>
                                                 {description}
                                             </span>
@@ -103,7 +140,11 @@ const PostCard = ({ post }) => {
                 </div>
             </div>
             <div>
-                <img src={image} className="w-100 h-auto" alt="" />
+                <PhotoProvider>
+                    <PhotoView  className="w-100 h-auto" src={image}>
+                        <img className="w-100 h-auto" src={image} alt="" />
+                    </PhotoView>
+                </PhotoProvider>
             </div>
 
             <div>
@@ -112,7 +153,7 @@ const PostCard = ({ post }) => {
                         <span className='text-base'>You and 10 others</span>
                     </div>
                     <div>
-                        <span className='text-base'>30 comments</span>
+                        <span className='text-base'>{comment?.length ? comment?.length : "0"} comments</span>
                     </div>
                 </div>
                 <div className='grid-system py-2 border-top'>
@@ -131,10 +172,13 @@ const PostCard = ({ post }) => {
                 </div>
             </div>
 
-            <div className='py-3 px-3 d-flex align-items-center gap-2'>
+            <div
+                className='py-3 px-3 d-flex align-items-center gap-2'>
                 <div className='d-flex align-items-center gap-3 w-100'>
                     <div className='w-75'>
                         <input
+                            onChange={(e) => setCommentData(e.target.value)}
+                            onBlur={handleFileChange}
                             type="text"
                             name=""
                             placeholder='Write a comment'
@@ -151,10 +195,41 @@ const PostCard = ({ post }) => {
                     </div>
                 </div>
                 <div>
-                    <button className='btn btn-primary px-4 py-2 rounded-pill'>Send</button>
+                    <button
+                        disabled={commentData.length === 0}
+                        onClick={() => handleComment(_id)}
+                        className='btn btn-primary px-4 py-2 rounded-pill'
+                    >Send</button>
                 </div>
             </div>
-        </div>
+
+
+            <div className='px-3'>
+                {
+                    comment?.map((data, index) => <div
+                        key={index}
+                        className="my-3 d-flex gap-3"
+                    >
+                        <div>
+                            <img
+                                className='object-fit-cover rounded-pill'
+                                src={data?.userPhoto}
+                                width={45}
+                                height={45}
+                                alt=""
+
+                            />
+                        </div>
+                        <div className='p-3 bg-secondary bg-opacity-10 rounded w-100'>
+                            <h6 className='m-0'>{data?.userName}</h6>
+                            <p className='m-0 pt-1 text-sm'>{data?.comment}</p>
+                        </div>
+
+                    </div>)
+                }
+            </div>
+
+        </div >
     );
 };
 

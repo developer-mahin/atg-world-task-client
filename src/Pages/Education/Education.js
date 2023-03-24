@@ -7,7 +7,11 @@ const Education = () => {
     const { data: allEducation = [], isLoading } = useQuery({
         queryKeyL: ["allEducation"],
         queryFn: async () => {
-            const res = await fetch("http://localhost:5000/role-of-post?role=education")
+            const res = await fetch("http://localhost:5000/role-of-post?role=education",{
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("access-token")}`
+                }
+            })
             const data = await res.json()
             return data
         }

@@ -53,15 +53,16 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                     fetch("http://localhost:5000/add-post", {
                         method: "POST",
                         headers: {
+                            authorization: `Bearer ${localStorage.getItem("access-token")}`,
                             "content-type": "application/json"
                         },
                         body: JSON.stringify(postInfo)
                     })
                         .then(res => res.json())
                         .then(data => {
-                            toast.success("Successfully posted")
-                            closeModal()
                             refetch()
+                            closeModal()
+                            toast.success("Successfully posted")
                             setLoading(false)
                         })
                         .catch(error => {
