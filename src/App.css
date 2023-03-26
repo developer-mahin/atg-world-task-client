@@ -171,6 +171,15 @@ textarea.post-form::placeholder {
   left: 81%;
 }
 
+.hover-decoration:hover{
+  text-decoration: underline;
+}
+
+.input-focus:focus{
+  border: none;
+  outline: none;
+}
+
 @media only screen and (max-width: 768px) {
   .ReactModal__Content.ReactModal__Content--after-open {
     width: 90%;

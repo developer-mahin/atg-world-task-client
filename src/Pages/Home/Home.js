@@ -10,7 +10,6 @@ import {ImPencil} from "react-icons/im"
 const Home = () => {
 
     const [postModalIsOpen, setPostModalIsOpen] = useState(false);
-    const [changePage, setChangePage] = useState("All Posts")
     function openPostModal() {
         setPostModalIsOpen(true);
     }
@@ -33,9 +32,6 @@ const Home = () => {
 
 
     const [modalIsOpen, setIsOpen] = useState(false);
-    function openModal() {
-        setIsOpen(true);
-    }
 
     return (
         <div className=''>
