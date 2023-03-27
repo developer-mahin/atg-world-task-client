@@ -1,8 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import Modal from 'react-modal';
 
-const ProfileDataUpdateModal = ({ profileDataUpdateModal, customStyles, closeModal }) => {
+const ProfileDataUpdateModal = ({ profileDataUpdateModal, customStyles, closeModal, profile, refetch }) => {
+
+
+    const [loading, setLoading] = useState(false)
+
+    const [coverImage, setCoverImage] = useState("")
+
+    const handleEditInfo = (e) => {
+        setLoading(true)
+        e.preventDefault()
+        const form = e.target;
+        const firstName = form.firstName.value;
+        const lastName = form.LastName.value;
+        const headline = form.headline.value;
+        const education = form.education.value;
+
+        const cover = form.cover.files[0];
+
+        const fullName = firstName + " " + lastName
+
+        
+
+        const coverData = new FormData()
+        coverData.append("image", cover)
+
+        const info = {
+            name: fullName,
+            headline,
+            education
+        }
+
+        fetch(`http://localhost:5000/edit-info/${profile._id}`, {
+            method: "PATCH",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("access-token")}`,
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(info)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    closeModal()
+                    form.reset()
+                    refetch()
+                    toast.success("successfully update profile")
+                    setLoading(false)
+                }
+            })
+            .catch(error => {
+                toast.error(error.message)
+            })
+
+
+    }
+
+
+
+
     return (
         <div
             className='position-relative'>
@@ -21,7 +80,7 @@ const ProfileDataUpdateModal = ({ profileDataUpdateModal, customStyles, closeMod
                     </div>
                     <div className='mt-4'>
                         <p className='text-white text-opacity-75 fw-medium m-0 pb-1 fs-5'>Basic info</p>
-                        <form>
+                        <form onSubmit={handleEditInfo}>
 
                             <div className='d-flex justify-content-between gap-3'>
                                 <div className='mb-lg-2 w-100'>
@@ -32,6 +91,7 @@ const ProfileDataUpdateModal = ({ profileDataUpdateModal, customStyles, closeMod
                                         className='w-100 border bg-transparent px-3 py-1 text-white rounded input-focus'
                                         placeholder='First Name'
                                         id=""
+                                        required
                                     />
                                 </div>
 
@@ -43,29 +103,7 @@ const ProfileDataUpdateModal = ({ profileDataUpdateModal, customStyles, closeMod
                                         className='w-100 border bg-transparent px-3 py-1 text-white rounded input-focus'
                                         placeholder='Last Name'
                                         id=""
-                                    />
-                                </div>
-                            </div>
-
-                            <div className='py-2 d-flex justify-between gap-3'>
-                                <div className='w-100'>
-                                    <label className='text-secondary mb-1'>Change profile *</label>
-                                    <input
-                                        type="file"
-                                        name="profile"
-                                        className='w-100 py-1 text-white'
-                                        id=""
-                                        accept="image/*"
-                                    />
-                                </div>
-                                <div className='w-100'>
-                                    <label className='text-secondary mb-1'>Change cover *</label>
-                                    <input
-                                        type="file"
-                                        name="cover"
-                                        className='w-100 py-1 text-white'
-                                        id=""
-                                        accept="image/*"
+                                        required
                                     />
                                 </div>
                             </div>
@@ -78,6 +116,7 @@ const ProfileDataUpdateModal = ({ profileDataUpdateModal, customStyles, closeMod
                                     className='w-100 border bg-transparent px-3 py-1 text-white rounded input-focus'
                                     placeholder='Headline'
                                     id=""
+                                    required
                                 />
                             </div>
 
@@ -91,9 +130,17 @@ const ProfileDataUpdateModal = ({ profileDataUpdateModal, customStyles, closeMod
                                         className='w-100 border bg-transparent px-3 py-1 text-white rounded input-focus'
                                         placeholder='Education'
                                         id=""
+                                        required
                                     />
                                 </div>
                             </div>
+
+                            <div className='float-end mt-3'>
+                                <button type="submit" className='btn btn-primary px-3 rounded-pill'>
+                                    {loading ? "Loading..." : "Save"}
+                                </button>
+                            </div>
+
                         </form>
                     </div>
                 </div>

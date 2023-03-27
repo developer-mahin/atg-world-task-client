@@ -42,6 +42,9 @@ const ContactInfoModal = ({ contactInfoDataModal, customStyles, closeModalForInf
                     setLoading(false)
                 }
             })
+            .catch(error => {
+                toast.error(error.message)
+            })
 
     }
 

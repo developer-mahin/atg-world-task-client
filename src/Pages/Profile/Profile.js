@@ -4,8 +4,10 @@ import { BiRightArrowAlt } from 'react-icons/bi';
 import { ImPencil } from 'react-icons/im';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import ContactInfoModal from '../../Components/ContactInfoModal/ContactInfoModal';
+import CoverPhotoChangeModal from '../../Components/coverPhotoChangeModal/CoverPhotoChangeModal';
 import Navbar from '../../Components/Navbar/Navbar';
 import ProfileDataUpdateModal from '../../Components/ProfileDataUpdate/ProfileDataUpdateModal';
+import ProfilePicModal from '../../Components/ProfilePicModal/ProfilePicModal';
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 import RightSideBarCard from '../../RightSideBar/RightSideBarCard';
 
@@ -15,6 +17,8 @@ const Profile = () => {
 
     const [profileDataUpdateModal, setProfileDataUpdateModal] = useState(false);
     const [contactInfoDataModal, setContactInfoDataModal] = useState(false);
+    const [changeProfilePicModal, setChangeProfilePicModal] = useState(false);
+    const [changeCoverPicModal, setChangeCoverPicModal] = useState(false);
 
     function openProfileDataModal() {
         setProfileDataUpdateModal(true);
@@ -30,6 +34,24 @@ const Profile = () => {
 
     function closeModalForInfo() {
         setContactInfoDataModal(false);
+    }
+
+    // profile pic change
+    function openProfilePicModal() {
+        setChangeProfilePicModal(true);
+    }
+
+    function closeProfilePicModal() {
+        setChangeProfilePicModal(false);
+    }
+
+    // cover pic change
+    function openCoverPicModal() {
+        setChangeCoverPicModal(true);
+    }
+
+    function closeCoverPicModal() {
+        setChangeCoverPicModal(false);
     }
 
     const customStyles = {
@@ -62,7 +84,7 @@ const Profile = () => {
         }
     })
 
-    console.log(profile)
+    const { coverPhoto, education, headLine, info, name, photo } = profile;
 
 
     const rightSideBarInfo = [
@@ -94,39 +116,73 @@ const Profile = () => {
 
                                 <div className='shadow border border-radius'>
                                     <div className='position-relative mb-5'>
-                                        <div className='border-radius'>
-                                            <PhotoProvider>
-                                                <PhotoView src="https://i.pinimg.com/originals/9e/8d/74/9e8d747819250be17bff875604223894.jpg">
-                                                    <img src="https://i.pinimg.com/originals/9e/8d/74/9e8d747819250be17bff875604223894.jpg" className='img-fluid border-radius-top h-200 w-100 object-fit-cover cursor-pointer' alt="" />
-                                                </PhotoView>
-                                            </PhotoProvider>
+                                        <div className='border-radius' onClick={openCoverPicModal}>
+
+                                            <img src={coverPhoto ? coverPhoto : "https://marketplace.canva.com/EAFIddqdjTk/2/0/1600w/canva-black-minimalist-motivation-quote-linkedin-banner-1PLNOKlL1HU.jpg"} className='img-fluid border-radius-top h-200 w-100 object-fit-cover cursor-pointer' alt="" />
+
+                                            <CoverPhotoChangeModal
+
+                                                refetch={refetch}
+                                                changeCoverPicModal={changeCoverPicModal}
+                                                customStyles={customStyles}
+                                                closeCoverPicModal={closeCoverPicModal}
+                                                profile={profile}
+
+                                            ></CoverPhotoChangeModal>
                                         </div>
 
-                                        <div className='position-absolute profile-img border border-5 rounded-pill '>
 
+                                        <div>
+                                            <div
+                                                onClick={openProfilePicModal}
+                                                className='position-absolute profile-img border border-5 rounded-pill '>
 
+                                                <img src={photo} className="img-fluid rounded-pill object-fit-cover w-150 h-150 cursor-pointer" alt="" />
 
-                                            <PhotoProvider>
-                                                <PhotoView src={user?.photoURL ? user?.photoURL :
-                                                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"}>
-                                                    <img src={user?.photoURL ? user?.photoURL :
-                                                        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"} className="img-fluid rounded-pill object-fit-cover w-150 h-150 cursor-pointer" alt="" />
-                                                </PhotoView>
-                                            </PhotoProvider>
+                                            </div>
+                                            <ProfilePicModal
+                                                refetch={refetch}
+                                                changeProfilePicModal={changeProfilePicModal}
+                                                customStyles={customStyles}
+                                                closeProfilePicModal={closeProfilePicModal}
+                                                profile={profile}
+
+                                            >
+
+                                            </ProfilePicModal>
                                         </div>
+
                                     </div>
 
 
                                     <div className='mt-5 px-4 py-4 d-flex justify-content-between'>
                                         <div>
                                             <div>
-                                                <h3 className='fw-medium m-0 pb-1'>{profile.name}</h3>
+                                                <h3 className='fw-medium m-0 pb-1'>
+                                                    {name}
+                                                </h3>
 
                                                 <div className=''>
-                                                    <p className='m-0 text-secondary'>Front-end developer || React.js || MERN stack</p>
+                                                    <p className='m-0 text-secondary'>
+                                                        {headLine ? headLine : "Please update your profile"}
+                                                    </p>
 
                                                 </div>
-                                                <p className='m-0 text-secondary w-75'>Talks about #reactjobs, #javascript, #reactjsdeveloper, #frontenddeveloper, and #mernstackdeveloper</p>
+                                                <p className='m-0 text-secondary'>Talks about {info?.tag ? info?.tag : "Please update your profile"}</p>
+
+                                                <div className='d-flex gap-1'>
+                                                    <p className='m-0 text-secondary'>
+                                                        {info?.country ? info?.country + " " + "||" : "Please update your profile"}
+                                                    </p>
+                                                    <p className='m-0 text-secondary'>
+                                                        {info?.city ? info?.city : "Please update your profile"}
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <a href={info?.website} target="blank" className='m-0 text-primary fw-medium'>
+                                                        {info?.website ? info?.website : "Please update your profile"}
+                                                    </a>
+                                                </div>
                                             </div>
 
 
@@ -179,11 +235,15 @@ const Profile = () => {
                                                 profileDataUpdateModal={profileDataUpdateModal}
                                                 customStyles={customStyles}
                                                 closeModal={closeModal}
+                                                profile={profile}
+                                                refetch={refetch}
                                             >
                                             </ProfileDataUpdateModal>
 
                                             <div className='d-block'>
-                                                <p className='fw-semibold hover-decoration cursor-pointer'>Ibrahim Khan govt. college and university</p>
+                                                <p className='fw-semibold hover-decoration cursor-pointer'>
+                                                    {education ? education : "Please update your profile"}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
