@@ -2,11 +2,12 @@ import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
 import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { AiFillDelete, AiOutlineCloseCircle } from 'react-icons/ai';
 import { BsEmojiSmile, BsImage } from "react-icons/bs";
 import ImageUploading from 'react-images-uploading';
 import Modal from 'react-modal';
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
+import { useQuery } from '@tanstack/react-query';
 
 
 const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
@@ -23,6 +24,28 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
     const onChange = (imageList, addUpdateIndex, e) => {
         setImages(imageList);
     };
+
+
+
+
+    const { data: profile = {} } = useQuery({
+        queryKey: ["profile"],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/profile?email=${user?.email}`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("access-token")}`,
+                    "content-type": "application/json"
+                }
+            })
+            const data = await res.json()
+            return data
+        }
+    })
+
+    const { name, photo } = profile;
+
+
+
 
     const date = new Date()
 
@@ -47,8 +70,9 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                         description: textArea,
                         image: data.data.display_url,
                         postRole: selectPost,
-                        userName: user?.displayName,
-                        userPhoto: user?.photoURL
+                        userName: name,
+                        userPhoto: photo,
+                        userId: profile?._id
                     }
                     fetch("http://localhost:5000/add-post", {
                         method: "POST",
@@ -95,7 +119,7 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                                 width={60}
                                 height={60}
                                 src={
-                                    user?.uid ? user?.photoURL
+                                    photo ? photo
                                         :
                                         "https://png.pngtree.com/png-vector/20220817/ourmid/pngtree-cartoon-man-avatar-vector-ilustration-png-image_6111064.png"
                                 }
@@ -103,7 +127,7 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                                 alt="" />
                         </div>
                         <div>
-                            <h5 className='text-white'>{user?.displayName}</h5>
+                            <h5 className='text-white'>{name}</h5>
                             <div>
                                 <select
                                     onChange={(e) => setSelectPost(e.target.value)}
@@ -162,8 +186,9 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                                 onImageUpload,
                                 isDragging,
                                 dragProps,
+                                onImageRemoveAll
                             }) => (
-                                <div className="upload__image-wrapper">
+                                <div className="upload__image-wrapper d-flex justify-content-between">
                                     <div
                                         className='bg-transparent cursor-pointer'
                                         style={isDragging ? { color: 'red' } : undefined}
@@ -171,6 +196,9 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                                         {...dragProps}
                                     >
                                         <BsImage className='text-white fs-3' />
+                                    </div>
+                                    <div>
+                                        <AiFillDelete onClick={onImageRemoveAll} className='text-white fs-3 cursor-pointer' />
                                     </div>
                                 </div>
                             )}

@@ -172,7 +172,11 @@ textarea.post-form::placeholder {
 }
 
 .hover-decoration:hover{
-  text-decoration: underline;
+  text-decoration: underline !important;
+}
+
+.hover-text-blue:hover{
+  color: #2f6ce5 !important;
 }
 
 .input-focus:focus{

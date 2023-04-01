@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 
 
 
-const CoverPhotoChangeModal = ({ changeCoverPicModal, closeCoverPicModal, refetch, profile, customStyles }) => {
+const CoverPhotoChangeModal = ({ changeCoverPicModal, closeCoverPicModal, refetch, profile, customStyles, setChangeCoverPicModal }) => {
 
     console.log(profile)
 
@@ -76,10 +76,12 @@ const CoverPhotoChangeModal = ({ changeCoverPicModal, closeCoverPicModal, refetc
                 contentLabel="Example Modal"
             >
                 <div className='position-absolute top-0 end-0 p-2' >
-                    <AiOutlineCloseCircle className='fs-2 close_button text-white' />
+                    <AiOutlineCloseCircle
+                    onClick={()=>setChangeCoverPicModal(false)}
+                    className='fs-2 close_button text-white' />
                 </div>
                 <div className=''>
-                    <h4 className='text-white text-opacity-75' onClick={closeCoverPicModal} >Background photo</h4>
+                    <h4 className='text-white text-opacity-75'>Background photo</h4>
                     <div className='py-2 d-flex justify-content-center align-items-center'>
                         <img
                             src={profile?.coverPhoto}

@@ -9,6 +9,7 @@ import { MdWork } from "react-icons/md";
 import { Link, useNavigate } from 'react-router-dom';
 import logo from "../../Assets/logo.png";
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
+import { useQuery } from '@tanstack/react-query';
 
 
 const Navbar = () => {
@@ -34,6 +35,23 @@ const Navbar = () => {
         e.preventDefault()
         navigate("/search")
     }
+
+    const { data: profile = {} } = useQuery({
+        queryKey: ["profile"],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/profile?email=${user?.email}`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("access-token")}`,
+                    "content-type": "application/json"
+                }
+            })
+            const data = await res.json()
+            return data
+        }
+    })
+
+    const { photo } = profile;
+
 
     return (
 
@@ -96,9 +114,7 @@ const Navbar = () => {
                                                             width={"40px"}
                                                             height={"40px"}
                                                             src={
-                                                                user?.uid
-                                                                    ?
-                                                                    user?.photoURL
+                                                                photo ? photo
                                                                     :
                                                                     "https://png.pngtree.com/png-vector/20220817/ourmid/pngtree-cartoon-man-avatar-vector-ilustration-png-image_6111064.png"
                                                             }

@@ -4,32 +4,51 @@ import { BsFillBookmarkFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { AUTH_CONTEXT } from '../Context/AuthProvider';
 import RightSideBar from '../RightSideBar/RightSideBar';
+import { useQuery } from '@tanstack/react-query';
 
 const LeftSideBar = () => {
 
     const { user } = useContext(AUTH_CONTEXT)
+
+
+    const { data: profile = {} } = useQuery({
+        queryKey: ["profile"],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/profile?email=${user?.email}`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("access-token")}`,
+                    "content-type": "application/json"
+                }
+            })
+            const data = await res.json()
+            return data
+        }
+    })
+
+    const { coverPhoto, headLine, name, photo } = profile;
+
 
     return (
         <div className=' position-sticky stick-bar-top'>
             <div className='border border-radius'>
                 <div className='position-relative'>
                     <div>
-                        <img src="https://i.ibb.co/MkWHC0x/1670523661007.jpg" className='w-100 image-radius' height={80} alt="" />
+                        <img src={coverPhoto ? coverPhoto : "https://i.ibb.co/MkWHC0x/1670523661007.jpg"} className='w-100 image-radius object-fit-cover' height={80} alt="" />
                     </div>
                     <div className="">
                         <div className='profile position-absolute '>
                             <Link to="/profile">
-                                <img src={user?.photoURL} alt="" width={70} height={70} className="rounded-pill object-fit-cover border cursor-pointer " />
+                                <img src={photo} alt="" width={70} height={70} className="rounded-pill object-fit-cover border cursor-pointer " />
                             </Link>
                         </div>
                     </div>
                 </div>
-                <div className='mt-4 px-3 pt-3'>
+                <div className='mt-4 px-2 pt-3'>
                     <div className='text-center'>
                         <div>
-                            <Link to="/profile" className='link-hover text-black'>{user?.displayName}</Link>
+                            <Link to="/profile" className='link-hover text-black'>{name}</Link>
                         </div>
-                        <span className='text-sm fw-regular'>Web Developer || MERN Stack Developer</span>
+                        <span className='text-sm fw-regular'>{headLine}</span>
                     </div>
                 </div>
                 <hr />

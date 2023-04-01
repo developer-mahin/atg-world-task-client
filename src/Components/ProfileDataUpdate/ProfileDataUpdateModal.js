@@ -8,8 +8,6 @@ const ProfileDataUpdateModal = ({ profileDataUpdateModal, customStyles, closeMod
 
     const [loading, setLoading] = useState(false)
 
-    const [coverImage, setCoverImage] = useState("")
-
     const handleEditInfo = (e) => {
         setLoading(true)
         e.preventDefault()
@@ -19,14 +17,8 @@ const ProfileDataUpdateModal = ({ profileDataUpdateModal, customStyles, closeMod
         const headline = form.headline.value;
         const education = form.education.value;
 
-        const cover = form.cover.files[0];
-
         const fullName = firstName + " " + lastName
 
-        
-
-        const coverData = new FormData()
-        coverData.append("image", cover)
 
         const info = {
             name: fullName,

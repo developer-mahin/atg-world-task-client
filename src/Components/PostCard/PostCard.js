@@ -9,28 +9,46 @@ import { TbMessageReport } from 'react-icons/tb';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 import 'react-photo-view/dist/react-photo-view.css';
+import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 
 const PostCard = ({ post, refetch }) => {
 
-    const { image, postRole, description, userPhoto, userName, date, _id, comment } = post;
+    const { image, postRole, description, userPhoto, userName, date, _id, comment, userId } = post;
     const [seeAllDetails, setSeeAllDetails] = useState(false)
     const changeState = seeAllDetails === true ? false : true
     const [commentData, setCommentData] = useState("")
     const { user } = useContext(AUTH_CONTEXT)
-
+    console.log(post)
 
     // resetting the file input
     const handleFileChange = (event) => {
         event.target.value = null;
     };
 
+    const { data: profile = {} } = useQuery({
+        queryKey: ["profile"],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/profile?email=${user?.email}`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("access-token")}`,
+                    "content-type": "application/json"
+                }
+            })
+            const data = await res.json()
+            return data
+        }
+    })
+    const { name, photo } = profile;
+
+
     const handleComment = (id) => {
 
         const commentInfo = {
             comment: commentData,
-            userName: user?.displayName,
-            userPhoto: user?.photoURL,
+            userName: name,
+            userPhoto: photo,
         }
         console.log(id)
         fetch(`http://localhost:5000/comment/${id}`, {
@@ -51,14 +69,18 @@ const PostCard = ({ post, refetch }) => {
     }
 
 
+
+
     return (
         <div className="mb-3 border rounded">
             <div className='p-4 post-container'>
                 <div className='d-flex align-items-center justify-content-between'>
                     <div className='d-flex align-items-center gap-2'>
-                        <img src={userPhoto} width={50} height={50} className="rounded-pill object-fit-cover" alt="" />
+                        <Link to={`/user-details/${userId}`}>
+                            <img src={userPhoto} width={50} height={50} className="rounded-pill object-fit-cover" alt="" />
+                        </Link>
                         <div>
-                            <span className='d-block fw-medium'>{userName}</span>
+                            <Link to={`/user-details/${userId}`} className='d-block fw-medium text-black text-decoration-none hover-decoration hover-text-blue'>{userName}</Link>
                             <span className='text-sm'>{date?.slice(0, 10)}</span>
                         </div>
                     </div>
@@ -141,7 +163,7 @@ const PostCard = ({ post, refetch }) => {
             </div>
             <div>
                 <PhotoProvider>
-                    <PhotoView  className="w-100 h-auto" src={image}>
+                    <PhotoView className="w-100 h-auto" src={image}>
                         <img className="w-100 h-auto" src={image} alt="" />
                     </PhotoView>
                 </PhotoProvider>

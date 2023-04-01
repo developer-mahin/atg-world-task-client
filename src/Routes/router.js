@@ -11,6 +11,7 @@ import Profile from "../Pages/Profile/Profile";
 import Register from "../Pages/Register/Register";
 import Search from "../Pages/Search/Search";
 import PrivateRoute from "./PrivateRoute";
+import UserDetails from "../Pages/Home/userDetails/UserDetails";
 
 
 const router = createBrowserRouter([
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
                     return fetch(`http://localhost:5000/post-details/${params.id}`)
                 }
             },
+
         ]
     },
     {
@@ -60,6 +62,13 @@ const router = createBrowserRouter([
     {
         path: "/search",
         element: <PrivateRoute><Search></Search></PrivateRoute>
+    },
+    {
+        path: "/user-details/:id",
+        element: <PrivateRoute><UserDetails></UserDetails></PrivateRoute>,
+        loader: ({ params }) => {
+            return fetch(`http://localhost:5000/user-details/${params.id}`)
+        }
     }
 
 ])
