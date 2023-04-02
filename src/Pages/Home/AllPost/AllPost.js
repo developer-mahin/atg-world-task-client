@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import PostCard from '../../../Components/PostCard/PostCard';
+import Spinner from '../../../Components/spinner/Spinner';
 
 
 const AllPost = () => {
@@ -24,11 +25,7 @@ const AllPost = () => {
         <>
             {
                 isLoading ? <>
-                    <div className="d-flex justify-content-center">
-                        <div className="spinner-border" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
+                    <Spinner></Spinner>
                 </> : <>
                     <div className='mb-3'>
                         {

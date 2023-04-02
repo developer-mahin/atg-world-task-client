@@ -4,13 +4,14 @@ import { useLoaderData, useNavigation } from 'react-router-dom';
 import RightSideBarCard from '../../../RightSideBar/RightSideBarCard';
 import Navbar from '../../../Components/Navbar/Navbar';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
+import Spinner from '../../../Components/spinner/Spinner';
 
 const UserDetails = () => {
     const userInfo = useLoaderData()
 
     const navigate = useNavigation()
     if (navigate === "loading") {
-        return "Loading..."
+        return <Spinner></Spinner>
     }
 
 

@@ -65,11 +65,11 @@ const Navbar = () => {
                         <img className='pt-2' src={logo} alt="" />
                     </Link>
 
-                    <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <div className="collapse navbar-collapse bg-white" id="navbarTogglerDemo01">
                         <form className="me-auto" onSubmit={handleSearchBar}>
                             <input className="form-control w-100 rounded-pill" type="search" placeholder="Search" aria-label="Search" />
                         </form>
-                        <ul className="navbar-nav mb-2 mb-lg-0">
+                        <ul className="navbar-nav mb-2 mb-lg-0 ">
                             <li className="nav-item">
                                 <div className='text-center'>
                                     <Link className="nav-link active" aria-current="page" to="/">

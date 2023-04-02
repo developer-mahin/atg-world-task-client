@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 import { AUTH_CONTEXT } from '../Context/AuthProvider';
 import RightSideBar from '../RightSideBar/RightSideBar';
 import { useQuery } from '@tanstack/react-query';
+import Spinner from '../Components/spinner/Spinner';
 
 const LeftSideBar = () => {
 
     const { user } = useContext(AUTH_CONTEXT)
 
 
-    const { data: profile = {} } = useQuery({
+    const { data: profile = {}, isLoading } = useQuery({
         queryKey: ["profile"],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/profile?email=${user?.email}`, {
@@ -27,6 +28,9 @@ const LeftSideBar = () => {
 
     const { coverPhoto, headLine, name, photo } = profile;
 
+    if (isLoading) {
+        return <Spinner></Spinner>
+    }
 
     return (
         <div className=' position-sticky stick-bar-top'>

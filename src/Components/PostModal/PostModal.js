@@ -45,8 +45,6 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
     const { name, photo } = profile;
 
 
-
-
     const date = new Date()
 
     const url = `https://api.imgbb.com/1/upload?key=b486f58b0681b7c344264f43dd69a0d8`;
@@ -72,7 +70,8 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                         postRole: selectPost,
                         userName: name,
                         userPhoto: photo,
-                        userId: profile?._id
+                        userId: profile?._id, 
+                        userEmail: user?.email
                     }
                     fetch("http://localhost:5000/add-post", {
                         method: "POST",
@@ -107,7 +106,10 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                 contentLabel="Example Modal"
             >
                 <div className='position-absolute top-0 end-0 p-2'>
-                    <AiOutlineCloseCircle className='fs-2 close_button text-white' onClick={closeModal} />
+                    <AiOutlineCloseCircle className='fs-2 close_button text-white'
+                        onClick={() => {
+                            closeModal()
+                        }} />
                 </div>
                 <div className='mb-3'>
                     <div className='border-bottom border-secondary'>

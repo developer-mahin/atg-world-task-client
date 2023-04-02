@@ -12,6 +12,7 @@ import Register from "../Pages/Register/Register";
 import Search from "../Pages/Search/Search";
 import PrivateRoute from "./PrivateRoute";
 import UserDetails from "../Pages/Home/userDetails/UserDetails";
+import AllActivityPost from "../Pages/Profile/Activities/AllActivityPost/AllActivityPost";
 
 
 const router = createBrowserRouter([
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
         loader: ({ params }) => {
             return fetch(`http://localhost:5000/user-details/${params.id}`)
         }
+    },
+    {
+        path: "/my-posts",
+        element: <PrivateRoute><AllActivityPost></AllActivityPost></PrivateRoute>
     }
 
 ])

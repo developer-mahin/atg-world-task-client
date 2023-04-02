@@ -9,13 +9,9 @@ import { toast } from 'react-hot-toast';
 
 const CoverPhotoChangeModal = ({ changeCoverPicModal, closeCoverPicModal, refetch, profile, customStyles, setChangeCoverPicModal }) => {
 
-    console.log(profile)
-
     const [loading, setLoading] = useState(false)
     const [images, setImages] = useState([]);
     const maxNumber = 1;
-
-    console.log(images.length)
 
     const onChange = (imageList, addUpdateIndex) => {
         // data for submit

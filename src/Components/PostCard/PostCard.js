@@ -20,7 +20,6 @@ const PostCard = ({ post, refetch }) => {
     const changeState = seeAllDetails === true ? false : true
     const [commentData, setCommentData] = useState("")
     const { user } = useContext(AUTH_CONTEXT)
-    console.log(post)
 
     // resetting the file input
     const handleFileChange = (event) => {
