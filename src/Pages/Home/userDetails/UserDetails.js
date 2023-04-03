@@ -5,17 +5,15 @@ import RightSideBarCard from '../../../RightSideBar/RightSideBarCard';
 import Navbar from '../../../Components/Navbar/Navbar';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import Spinner from '../../../Components/spinner/Spinner';
+import UserDetailsPost from '../../Profile/userDetailsPost/UserDetailsPost';
 
 const UserDetails = () => {
     const userInfo = useLoaderData()
-
     const navigate = useNavigation()
     if (navigate === "loading") {
         return <Spinner></Spinner>
     }
-
-
-    const { coverPhoto, photo, name, headLine, info, education } = userInfo
+    const { coverPhoto, photo, name, headLine, info, education, _id } = userInfo
 
     const rightSideBarInfo = [
         { id: 1, image: "https://i.ibb.co/5FKH0ZF/1624162747433.jpg", name: "Cefalo Bangladesh Ltd", details: "Company | Information, Technology & Service" },
@@ -24,9 +22,11 @@ const UserDetails = () => {
     ]
 
 
+
+
     return (
         <div className=''>
-            <div className='border shadow'>
+            <div className='border shadow position-sticky top-0 bg-white z-index'>
                 <Navbar></Navbar>
             </div>
             <div className='container mx-auto row py-5'>
@@ -132,9 +132,17 @@ const UserDetails = () => {
 
 
 
-                    </div>
 
+
+
+                    </div>
+                    <div className='shadow border border-radius mt-3 p-lg-4 p-3'>
+                        <UserDetailsPost name={name} _id={_id}></UserDetailsPost>
+                    </div>
                 </div>
+
+
+
 
 
                 <div className='col-md-3'>

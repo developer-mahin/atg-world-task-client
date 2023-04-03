@@ -104,7 +104,7 @@ const Profile = () => {
     return (
         <>
             <div className=''>
-                <div className='border shadow'>
+                <div className='border shadow position-sticky top-0 bg-white z-index'>
                     <Navbar></Navbar>
                 </div>
                 <div className='container mx-auto row py-lg-5 py-3'>

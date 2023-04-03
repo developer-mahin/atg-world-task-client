@@ -159,6 +159,10 @@ textarea.post-form::placeholder {
   width: 1000px;
 }
 
+.w-600{
+  width: 600px;
+}
+
 .profile-img {
   bottom: -36px;
   left: 30px;
@@ -192,6 +196,9 @@ textarea.post-form::placeholder {
   outline: none;
 }
 
+.z-index{
+  z-index: 99999;
+}
 
 @media only screen and (max-width: 768px) {
   .ReactModal__Content.ReactModal__Content--after-open {
@@ -220,6 +227,9 @@ textarea.post-form::placeholder {
     transform: translate(-50%, -41%) !important;
   }
   .w-1000{
+    width: 100%;
+  }
+  .w-600{
     width: 100%;
   }
 }

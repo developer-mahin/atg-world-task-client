@@ -53,32 +53,38 @@ const Activities = () => {
 
 
     return (
-        <div>
-            <div className='d-flex justify-content-between align-items-center'>
-                <h4>Activity</h4>
-                <div>
-                    <button
-                        onClick={openPostModal}
-                        className='rounded-pill px-4 py-1 btn border-primary border-2 text-primary fw-semibold'>Create a post</button>
-                    <PostModal
-                        postModalIsOpen={postModalIsOpen}
-                        customStyles={customStyles}
-                        closeModal={closeModal}
-                    ></PostModal>
-                </div>
-            </div>
-            <div>
-                {
-                    posts.slice(0, 2).map(post => <ActivityPostCard key={post._id} post={post} />)
-                }
-            </div>
-            <>
-                <Link to="/my-posts" className='text-center view-profile d-block py-2 text-black link-hover border rounded'>
-                    <span className='me-1'>Show all activity</span>
-                    <BsArrowRight className='fw-bold'/>
-                </Link>
-            </>
-        </div>
+        <>
+            {
+                isLoading ? "Loading..." : <>
+                    <div>
+                        <div className='d-flex justify-content-between align-items-center'>
+                            <h4>Activity</h4>
+                            <div>
+                                <button
+                                    onClick={openPostModal}
+                                    className='rounded-pill px-4 py-1 btn border-primary border-2 text-primary fw-semibold'>Create a post</button>
+                                <PostModal
+                                    postModalIsOpen={postModalIsOpen}
+                                    customStyles={customStyles}
+                                    closeModal={closeModal}
+                                ></PostModal>
+                            </div>
+                        </div>
+                        <div>
+                            {
+                                posts.slice(0, 2).map(post => <ActivityPostCard key={post._id} post={post} />)
+                            }
+                        </div>
+                        <>
+                            <Link to="/my-posts" className='text-center view-profile d-block py-2 text-black link-hover border rounded'>
+                                <span className='me-1'>Show all activity</span>
+                                <BsArrowRight className='fw-bold' />
+                            </Link>
+                        </>
+                    </div>
+                </>
+            }
+        </>
     );
 };
 

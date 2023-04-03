@@ -13,6 +13,7 @@ import Search from "../Pages/Search/Search";
 import PrivateRoute from "./PrivateRoute";
 import UserDetails from "../Pages/Home/userDetails/UserDetails";
 import AllActivityPost from "../Pages/Profile/Activities/AllActivityPost/AllActivityPost";
+import UserPostDetails from "../Pages/Profile/UserPostDetails/UserPostDetails";
 
 
 const router = createBrowserRouter([
@@ -74,6 +75,13 @@ const router = createBrowserRouter([
     {
         path: "/my-posts",
         element: <PrivateRoute><AllActivityPost></AllActivityPost></PrivateRoute>
+    },
+    {
+        path: "/user-post-details/:id", 
+        element: <PrivateRoute><UserPostDetails></UserPostDetails></PrivateRoute>, 
+        loader: ({params})=>{
+            return fetch(`http://localhost:5000/user-post-details/${params.id}`)
+        }
     }
 
 ])
