@@ -15,12 +15,15 @@ import Navbar from '../../../Components/Navbar/Navbar';
 const UserPostDetails = () => {
 
     const post = useLoaderData()
-    const { image, postRole, description, userPhoto, userName, date, _id, comment, userId } = post;
+    const { image, postRole, description, userPhoto, userName, date, _id, comment, userId , like} = post;
 
     const [seeAllDetails, setSeeAllDetails] = useState(false)
     const changeState = seeAllDetails === true ? false : true
     const [commentData, setCommentData] = useState("")
     const { user } = useContext(AUTH_CONTEXT)
+
+    const sortingLike = like?.filter(number => number > 0)
+
 
     // resetting the file input
     const handleFileChange = (event) => {
@@ -67,6 +70,35 @@ const UserPostDetails = () => {
             })
     }
 
+    const [likes, setLikes] = useState(1);
+    const [isClicked, setIsClicked] = useState(true);
+
+    const handleLike = (id) => {
+
+        if (isClicked) {
+            setLikes(likes - 1);
+        } else {
+            setLikes(0);
+        }
+        setIsClicked(!isClicked);
+
+        const like = {
+            likes
+        }
+
+        fetch(`http://localhost:5000/like/${id}`, {
+            method: "PATCH",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("access-token")}`,
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(like)
+        })
+            .then(res => res.json())
+            .then(data => {
+
+            })
+    }
 
 
     return (
@@ -174,14 +206,18 @@ const UserPostDetails = () => {
                 <div>
                     <div className='px-3 d-flex align-items-center justify-content-between py-2'>
                         <div>
-                            <span className='text-base'>You and 10 others</span>
+                            <span className='text-base'>
+                                {!like?.length ? `0 Like` : sortingLike.length + " " + "Likes"}
+                            </span>
                         </div>
                         <div>
                             <span className='text-base'>{comment?.length ? comment?.length : "0"} comments</span>
                         </div>
                     </div>
                     <div className='grid-system py-2 border-top'>
-                        <button className='btn py-lg-3 py-2 px-lg-4 px-2 d-flex align-items-center gap-1 cursor-pointer view-profile'>
+                        <button
+                            onClick={() => handleLike(_id)}
+                            className='btn py-lg-3 py-2 px-lg-4 px-2 d-flex align-items-center gap-1 cursor-pointer view-profile'>
                             <AiFillLike className='icon' />
                             <span className='text-base'>Like</span>
                         </button>

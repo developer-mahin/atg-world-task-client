@@ -10,7 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from "../../Assets/logo.png";
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
-
+import {RiArrowDownSFill} from "react-icons/ri"
 
 const Navbar = () => {
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -106,7 +106,7 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <div className='mt-2'>
                                     <div className="dropdown">
-                                        <button className=" border-0 bg-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button className="border-0 bg-white d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <div>
                                                 <div className='d-flex align-items-center justify-content-center gap-2'>
                                                     <div>
@@ -123,6 +123,7 @@ const Navbar = () => {
                                                     </div>
                                                 </div>
                                             </div>
+                                            <RiArrowDownSFill/>
                                         </button>
                                         <ul className="dropdown-menu py-2">
                                             <li className='ps-3 my-2'>
