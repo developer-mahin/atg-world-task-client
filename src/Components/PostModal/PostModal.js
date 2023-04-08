@@ -139,7 +139,6 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                                     <option value="select one">Select One...</option>
                                     <option value="article">Article</option>
                                     <option value="education">Education</option>
-                                    <option value="job">Job</option>
                                 </select>
                             </div>
                         </div>

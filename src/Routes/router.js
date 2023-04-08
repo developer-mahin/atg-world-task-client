@@ -14,6 +14,10 @@ import PrivateRoute from "./PrivateRoute";
 import UserDetails from "../Pages/Home/userDetails/UserDetails";
 import AllActivityPost from "../Pages/Profile/Activities/AllActivityPost/AllActivityPost";
 import UserPostDetails from "../Pages/Profile/UserPostDetails/UserPostDetails";
+import Message from "../Pages/Message/Message";
+import MyNetwork from "../Pages/MyNetwork/MyNetwork";
+import Notification from "../Pages/Notification/Notification";
+import JobPage from "../Pages/Jobpage/JobPage";
 
 
 const router = createBrowserRouter([
@@ -45,7 +49,8 @@ const router = createBrowserRouter([
                 loader: ({ params }) => {
                     return fetch(`http://localhost:5000/post-details/${params.id}`)
                 }
-            },
+            }
+
 
         ]
     },
@@ -77,11 +82,27 @@ const router = createBrowserRouter([
         element: <PrivateRoute><AllActivityPost></AllActivityPost></PrivateRoute>
     },
     {
-        path: "/user-post-details/:id", 
-        element: <PrivateRoute><UserPostDetails></UserPostDetails></PrivateRoute>, 
-        loader: ({params})=>{
+        path: "/user-post-details/:id",
+        element: <PrivateRoute><UserPostDetails></UserPostDetails></PrivateRoute>,
+        loader: ({ params }) => {
             return fetch(`http://localhost:5000/user-post-details/${params.id}`)
         }
+    },
+    {
+        path: "/message",
+        element: <PrivateRoute><Message></Message></PrivateRoute>
+    },
+    {
+        path: "/job-page",
+        element: <PrivateRoute><JobPage></JobPage></PrivateRoute>
+    },
+    {
+        path: "/my-network",
+        element: <PrivateRoute><MyNetwork></MyNetwork></PrivateRoute>
+    },
+    {
+        path: "/notification",
+        element: <PrivateRoute><Notification></Notification></PrivateRoute>
     }
 
 ])

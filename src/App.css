@@ -53,7 +53,7 @@ textarea.post-form::placeholder {
   font-size: 13px;
 }
 
-.text-lg{
+.text-lg {
   font-size: 18px;
 }
 
@@ -143,6 +143,11 @@ textarea.post-form::placeholder {
   justify-items: center;
 }
 
+.PhotoView-Slider__BannerWrap {
+  margin-top: 80px;
+  background: transparent !important;
+}
+
 .w-150 {
   width: 150px;
 }
@@ -155,11 +160,11 @@ textarea.post-form::placeholder {
   height: 200px;
 }
 
-.w-1000{
+.w-1000 {
   width: 1000px;
 }
 
-.w-600{
+.w-600 {
   width: 600px;
 }
 
@@ -183,20 +188,20 @@ textarea.post-form::placeholder {
   left: 81%;
 }
 
-.hover-decoration:hover{
+.hover-decoration:hover {
   text-decoration: underline !important;
 }
 
-.hover-text-blue:hover{
+.hover-text-blue:hover {
   color: #2f6ce5 !important;
 }
 
-.input-focus:focus{
+.input-focus:focus {
   border: none;
   outline: none;
 }
 
-.z-index{
+.z-index {
   z-index: 99999;
 }
 
@@ -226,14 +231,13 @@ textarea.post-form::placeholder {
   .ReactModal__Content.ReactModal__Content--after-open {
     transform: translate(-50%, -41%) !important;
   }
-  .w-1000{
+  .w-1000 {
     width: 100%;
   }
-  .w-600{
+  .w-600 {
     width: 100%;
   }
 }
-
 
 @media only screen and (max-width: 560px) {
   .ReactModal__Content.ReactModal__Content--after-open {

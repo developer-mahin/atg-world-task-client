@@ -72,7 +72,7 @@ const Navbar = () => {
                         <ul className="navbar-nav mb-2 mb-lg-0 ">
                             <li className="nav-item">
                                 <div className='text-center'>
-                                    <Link className="nav-link active" aria-current="page" to="/">
+                                    <Link className="nav-link active" aria-current="page" to="/message">
                                         <FaEnvelope className='icon-size' />
                                         <span className='d-block text-sm mx-2'>Message</span>
                                     </Link>
@@ -80,7 +80,7 @@ const Navbar = () => {
                             </li>
                             <li className="nav-item">
                                 <div className='text-center'>
-                                    <Link className="nav-link active" aria-current="page" to="/">
+                                    <Link className="nav-link active" aria-current="page" to="/my-network">
                                         <FaUserFriends className='icon-size' />
                                         <span className='d-block text-sm mx-2'>My Network</span>
                                     </Link>
@@ -88,7 +88,7 @@ const Navbar = () => {
                             </li>
                             <li className="nav-item">
                                 <div className='text-center'>
-                                    <Link className="nav-link active" aria-current="page" to="/">
+                                    <Link className="nav-link active" aria-current="page" to="/job-page">
                                         <MdWork className='icon-size' />
                                         <span className='d-block text-sm mx-2'>Job</span>
                                     </Link>
@@ -97,7 +97,7 @@ const Navbar = () => {
 
                             <li className="nav-item">
                                 <div className='text-center'>
-                                    <Link className="nav-link active" aria-current="page" to="/">
+                                    <Link className="nav-link active" aria-current="page" to="/notification">
                                         <IoMdNotifications className='icon-size' />
                                         <span className='d-block text-sm mx-2'>Notification</span>
                                     </Link>
