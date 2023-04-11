@@ -1,11 +1,11 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import { BsFillBookmarkFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import Spinner from '../Components/spinner/Spinner';
 import { AUTH_CONTEXT } from '../Context/AuthProvider';
 import RightSideBar from '../RightSideBar/RightSideBar';
-import { useQuery } from '@tanstack/react-query';
-import Spinner from '../Components/spinner/Spinner';
 
 const LeftSideBar = () => {
 
@@ -15,7 +15,7 @@ const LeftSideBar = () => {
     const { data: profile = {}, isLoading } = useQuery({
         queryKey: ["profile"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/profile?email=${user?.email}`, {
+            const res = await fetch(`https://banao-project-server.vercel.app/profile?email=${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"

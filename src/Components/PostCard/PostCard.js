@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiFillLike, AiOutlineCamera, AiOutlineGif, AiOutlinePlus } from "react-icons/ai";
@@ -7,10 +8,9 @@ import { CgWorkAlt } from 'react-icons/cg';
 import { GiGraduateCap } from 'react-icons/gi';
 import { TbMessageReport } from 'react-icons/tb';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
-import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 import 'react-photo-view/dist/react-photo-view.css';
 import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 
 
 const PostCard = ({ post, refetch }) => {
@@ -31,7 +31,7 @@ const PostCard = ({ post, refetch }) => {
     const { data: profile = {} } = useQuery({
         queryKey: ["profile"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/profile?email=${user?.email}`, {
+            const res = await fetch(`https://banao-project-server.vercel.app/profile?email=${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"
@@ -51,7 +51,7 @@ const PostCard = ({ post, refetch }) => {
             userName: name,
             userPhoto: photo,
         }
-        fetch(`http://localhost:5000/comment/${id}`, {
+        fetch(`https://banao-project-server.vercel.app/comment/${id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -86,7 +86,7 @@ const PostCard = ({ post, refetch }) => {
             likes
         }
 
-        fetch(`http://localhost:5000/like/${id}`, {
+        fetch(`https://banao-project-server.vercel.app/like/${id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -196,8 +196,8 @@ const PostCard = ({ post, refetch }) => {
             </div>
             <div>
                 <PhotoProvider>
-                    <PhotoView className="w-100 h-auto" src={image}>
-                        <img className="w-100 h-auto" src={image} alt="" />
+                    <PhotoView className="w-100 h-auto cursor-pointer" src={image}>
+                        <img className="w-100 h-auto cursor-pointer" src={image} alt="" />
                     </PhotoView>
                 </PhotoProvider>
             </div>

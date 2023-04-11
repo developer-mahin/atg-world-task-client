@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { AiFillDelete, AiOutlineCloseCircle } from 'react-icons/ai';
-import Modal from 'react-modal';
-import ImageUploading from 'react-images-uploading';
-import { BsImage } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';
+import { AiFillDelete, AiOutlineCloseCircle } from 'react-icons/ai';
+import { BsImage } from 'react-icons/bs';
+import ImageUploading from 'react-images-uploading';
+import Modal from 'react-modal';
 
 
 const ProfilePicModal = ({ changeProfilePicModal, refetch, profile, customStyles, closeProfilePicModal }) => {
@@ -40,7 +40,7 @@ const ProfilePicModal = ({ changeProfilePicModal, refetch, profile, customStyles
                     const photo = {
                         image: data.data.display_url
                     }
-                    fetch(`http://localhost:5000/change-profile-pic/${profile._id}`, {
+                    fetch(`https://banao-project-server.vercel.app/change-profile-pic/${profile._id}`, {
                         method: "PATCH",
                         headers: {
                             authorization: `Bearer ${localStorage.getItem("access-token")}`,

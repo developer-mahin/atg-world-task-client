@@ -35,7 +35,7 @@ const Login = () => {
                 }
 
                 // jwt authentication
-                fetch("http://localhost:5000/jwt", {
+                fetch("https://banao-project-server.vercel.app/jwt", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
@@ -68,7 +68,7 @@ const Login = () => {
                     photo: user?.photoURL
                 }
                 // jwt authentication
-                fetch("http://localhost:5000/jwt", {
+                fetch("https://banao-project-server.vercel.app/jwt", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
@@ -99,7 +99,7 @@ const Login = () => {
                     name: user?.displayName,
                     photo: user?.photoURL
                 }
-                fetch("http://localhost:5000/jwt", {
+                fetch("https://banao-project-server.vercel.app/jwt", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
@@ -120,9 +120,9 @@ const Login = () => {
             })
     }
 
-// save user in database
+    // save user in database
     const saveUserInDB = (userInfo) => {
-        fetch("http://localhost:5000/save-user", {
+        fetch("https://banao-project-server.vercel.app/save-user", {
             method: "POST",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,

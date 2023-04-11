@@ -1,23 +1,23 @@
 import { createBrowserRouter } from "react-router-dom";
-import Main from "../layout/Main";
 import Article from "../Pages/Article/Article";
 import Education from "../Pages/Education/Education";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
-import Job from "../Pages/Job/Job";
-import Login from "../Pages/Login/Login";
-import PostDetails from "../Pages/PostDetails/PostDetails";
-import Profile from "../Pages/Profile/Profile";
-import Register from "../Pages/Register/Register";
-import Search from "../Pages/Search/Search";
-import PrivateRoute from "./PrivateRoute";
 import UserDetails from "../Pages/Home/userDetails/UserDetails";
-import AllActivityPost from "../Pages/Profile/Activities/AllActivityPost/AllActivityPost";
-import UserPostDetails from "../Pages/Profile/UserPostDetails/UserPostDetails";
+import Job from "../Pages/Job/Job";
+import JobPage from "../Pages/Jobpage/JobPage";
+import Login from "../Pages/Login/Login";
 import Message from "../Pages/Message/Message";
 import MyNetwork from "../Pages/MyNetwork/MyNetwork";
 import Notification from "../Pages/Notification/Notification";
-import JobPage from "../Pages/Jobpage/JobPage";
+import PostDetails from "../Pages/PostDetails/PostDetails";
+import AllActivityPost from "../Pages/Profile/Activities/AllActivityPost/AllActivityPost";
+import Profile from "../Pages/Profile/Profile";
+import UserPostDetails from "../Pages/Profile/UserPostDetails/UserPostDetails";
+import Register from "../Pages/Register/Register";
+import Search from "../Pages/Search/Search";
+import Main from "../layout/Main";
+import PrivateRoute from "./PrivateRoute";
 
 
 const router = createBrowserRouter([
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
                 path: "/post-details/:id",
                 element: <PrivateRoute><PostDetails></PostDetails></PrivateRoute>,
                 loader: ({ params }) => {
-                    return fetch(`http://localhost:5000/post-details/${params.id}`)
+                    return fetch(`https://banao-project-server.vercel.app/post-details/${params.id}`)
                 }
             }
 
@@ -74,7 +74,7 @@ const router = createBrowserRouter([
         path: "/user-details/:id",
         element: <PrivateRoute><UserDetails></UserDetails></PrivateRoute>,
         loader: ({ params }) => {
-            return fetch(`http://localhost:5000/user-details/${params.id}`)
+            return fetch(`https://banao-project-server.vercel.app/user-details/${params.id}`)
         }
     },
     {
@@ -85,7 +85,7 @@ const router = createBrowserRouter([
         path: "/user-post-details/:id",
         element: <PrivateRoute><UserPostDetails></UserPostDetails></PrivateRoute>,
         loader: ({ params }) => {
-            return fetch(`http://localhost:5000/user-post-details/${params.id}`)
+            return fetch(`https://banao-project-server.vercel.app/user-post-details/${params.id}`)
         }
     },
     {

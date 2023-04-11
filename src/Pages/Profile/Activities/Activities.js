@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
-import PostModal from '../../../Components/PostModal/PostModal';
 import { useQuery } from '@tanstack/react-query';
-import { AUTH_CONTEXT } from '../../../Context/AuthProvider';
-import Spinner from '../../../Components/spinner/Spinner';
-import ActivityPostCard from './ActivityPostCard/ActivityPostCard';
+import React, { useContext, useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import PostModal from '../../../Components/PostModal/PostModal';
+import Spinner from '../../../Components/spinner/Spinner';
+import { AUTH_CONTEXT } from '../../../Context/AuthProvider';
+import ActivityPostCard from './ActivityPostCard/ActivityPostCard';
 
 const Activities = () => {
 
@@ -35,7 +35,7 @@ const Activities = () => {
     const { data: posts = [], isLoading } = useQuery({
         queryKey: ["posts"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/user-post?email=${user?.email}`, {
+            const res = await fetch(`https://banao-project-server.vercel.app/user-post?email=${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"

@@ -1,21 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { Link, useLoaderData } from 'react-router-dom';
-import { AUTH_CONTEXT } from '../../../Context/AuthProvider';
 import { AiFillLike, AiOutlineCamera, AiOutlineGif, AiOutlinePlus } from 'react-icons/ai';
-import { BsEmojiSmile, BsPenFill, BsThreeDots } from 'react-icons/bs';
 import { BiCommentDots, BiEditAlt, BiSend } from 'react-icons/bi';
-import { TbMessageReport } from 'react-icons/tb';
-import { GiGraduateCap } from 'react-icons/gi';
+import { BsEmojiSmile, BsPenFill, BsThreeDots } from 'react-icons/bs';
 import { CgWorkAlt } from 'react-icons/cg';
+import { GiGraduateCap } from 'react-icons/gi';
+import { TbMessageReport } from 'react-icons/tb';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
+import { Link, useLoaderData } from 'react-router-dom';
 import Navbar from '../../../Components/Navbar/Navbar';
+import { AUTH_CONTEXT } from '../../../Context/AuthProvider';
 
 const UserPostDetails = () => {
 
     const post = useLoaderData()
-    const { image, postRole, description, userPhoto, userName, date, _id, comment, userId , like} = post;
+    const { image, postRole, description, userPhoto, userName, date, _id, comment, userId, like } = post;
 
     const [seeAllDetails, setSeeAllDetails] = useState(false)
     const changeState = seeAllDetails === true ? false : true
@@ -33,7 +33,7 @@ const UserPostDetails = () => {
     const { data: profile = {} } = useQuery({
         queryKey: ["profile"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/profile?email=${user?.email}`, {
+            const res = await fetch(`https://banao-project-server.vercel.app/profile?email=${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"
@@ -54,7 +54,7 @@ const UserPostDetails = () => {
             userPhoto: photo,
         }
         console.log(id)
-        fetch(`http://localhost:5000/comment/${id}`, {
+        fetch(`https://banao-project-server.vercel.app/comment/${id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -86,7 +86,7 @@ const UserPostDetails = () => {
             likes
         }
 
-        fetch(`http://localhost:5000/like/${id}`, {
+        fetch(`https://banao-project-server.vercel.app/like/${id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,

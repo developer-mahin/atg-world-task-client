@@ -26,7 +26,7 @@ const ProfileDataUpdateModal = ({ profileDataUpdateModal, customStyles, closeMod
             education
         }
 
-        fetch(`http://localhost:5000/edit-info/${profile._id}`, {
+        fetch(`https://banao-project-server.vercel.app/edit-info/${profile._id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,

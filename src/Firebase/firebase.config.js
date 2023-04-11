@@ -5,17 +5,15 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCxPwbRGjQacwNIKBFM4eGonKK6RD0r2Xg",
-  authDomain: "banao-mern-stack-project.firebaseapp.com",
-  projectId: "banao-mern-stack-project",
-  storageBucket: "banao-mern-stack-project.appspot.com",
-  messagingSenderId: "575150458721",
-  appId: "1:575150458721:web:a0afbe09028859338ee720"
+  apiKey: "AIzaSyBvleuhTcdQmjgser2Fpav3Fnd-FneU4F4",
+  authDomain: "jobhunter-35f60.firebaseapp.com",
+  projectId: "jobhunter-35f60",
+  storageBucket: "jobhunter-35f60.appspot.com",
+  messagingSenderId: "978204465823",
+  appId: "1:978204465823:web:4fb1964fe82451547260aa"
 };
-
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
 
 export default app;

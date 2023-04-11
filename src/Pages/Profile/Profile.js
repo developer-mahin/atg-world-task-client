@@ -3,13 +3,13 @@ import React, { useContext, useState } from 'react';
 import { BiRightArrowAlt } from 'react-icons/bi';
 import { ImPencil } from 'react-icons/im';
 import ContactInfoModal from '../../Components/ContactInfoModal/ContactInfoModal';
-import CoverPhotoChangeModal from '../../Components/coverPhotoChangeModal/CoverPhotoChangeModal';
 import Navbar from '../../Components/Navbar/Navbar';
 import ProfileDataUpdateModal from '../../Components/ProfileDataUpdate/ProfileDataUpdateModal';
 import ProfilePicModal from '../../Components/ProfilePicModal/ProfilePicModal';
+import CoverPhotoChangeModal from '../../Components/coverPhotoChangeModal/CoverPhotoChangeModal';
+import Spinner from '../../Components/spinner/Spinner';
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 import RightSideBarCard from '../../RightSideBar/RightSideBarCard';
-import Spinner from '../../Components/spinner/Spinner';
 import Activities from './Activities/Activities';
 
 
@@ -74,7 +74,7 @@ const Profile = () => {
     const { data: profile = {}, isLoading, refetch } = useQuery({
         queryKey: ["profile"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/profile?email=${user?.email}`, {
+            const res = await fetch(`https://banao-project-server.vercel.app/profile?email=${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"

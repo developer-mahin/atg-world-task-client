@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlineSetting } from "react-icons/ai";
@@ -6,11 +7,10 @@ import { CgProfile } from "react-icons/cg";
 import { FaEnvelope, FaUserFriends } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
 import { MdWork } from "react-icons/md";
+import { RiArrowDownSFill } from "react-icons/ri";
 import { Link, useNavigate } from 'react-router-dom';
 import logo from "../../Assets/logo.png";
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
-import { useQuery } from '@tanstack/react-query';
-import {RiArrowDownSFill} from "react-icons/ri"
 
 const Navbar = () => {
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -39,7 +39,7 @@ const Navbar = () => {
     const { data: profile = {} } = useQuery({
         queryKey: ["profile"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/profile?email=${user?.email}`, {
+            const res = await fetch(`https://banao-project-server.vercel.app/profile?email=${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"
@@ -123,7 +123,7 @@ const Navbar = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <RiArrowDownSFill/>
+                                            <RiArrowDownSFill />
                                         </button>
                                         <ul className="dropdown-menu py-2">
                                             <li className='ps-3 my-2'>

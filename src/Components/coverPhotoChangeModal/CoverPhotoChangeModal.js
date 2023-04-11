@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { AiFillDelete, AiOutlineCloseCircle } from 'react-icons/ai';
 import { BsImage } from 'react-icons/bs';
-import Modal from 'react-modal';
 import ImageUploading from 'react-images-uploading';
-import { toast } from 'react-hot-toast';
+import Modal from 'react-modal';
 
 
 
@@ -39,7 +39,7 @@ const CoverPhotoChangeModal = ({ changeCoverPicModal, closeCoverPicModal, refetc
                         image: data.data.display_url
                     }
 
-                    fetch(`http://localhost:5000/change-cover-pic/${profile._id}`, {
+                    fetch(`https://banao-project-server.vercel.app/change-cover-pic/${profile._id}`, {
                         method: "PATCH",
                         headers: {
                             authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -73,14 +73,14 @@ const CoverPhotoChangeModal = ({ changeCoverPicModal, closeCoverPicModal, refetc
             >
                 <div className='position-absolute top-0 end-0 p-2' >
                     <AiOutlineCloseCircle
-                    onClick={()=>setChangeCoverPicModal(false)}
-                    className='fs-2 close_button text-white' />
+                        onClick={() => setChangeCoverPicModal(false)}
+                        className='fs-2 close_button text-white' />
                 </div>
                 <div className=''>
                     <h4 className='text-white text-opacity-75'>Background photo</h4>
                     <div className='py-2 d-flex justify-content-center align-items-center'>
                         <img
-                            src={profile?.coverPhoto}
+                            src={profile?.coverPhoto ? profile?.coverPhoto : "https://marketplace.canva.com/EAFIddqdjTk/2/0/1600w/canva-black-minimalist-motivation-quote-linkedin-banner-1PLNOKlL1HU.jpg"}
                             width={1200}
                             height={300}
                             className="object-fit-cover"

@@ -1,5 +1,6 @@
 import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiFillDelete, AiOutlineCloseCircle } from 'react-icons/ai';
@@ -7,7 +8,6 @@ import { BsEmojiSmile, BsImage } from "react-icons/bs";
 import ImageUploading from 'react-images-uploading';
 import Modal from 'react-modal';
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
-import { useQuery } from '@tanstack/react-query';
 
 
 const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
@@ -31,7 +31,7 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
     const { data: profile = {} } = useQuery({
         queryKey: ["profile"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/profile?email=${user?.email}`, {
+            const res = await fetch(`https://banao-project-server.vercel.app/profile?email=${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"
@@ -70,10 +70,10 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                         postRole: selectPost,
                         userName: name,
                         userPhoto: photo,
-                        userId: profile?._id, 
+                        userId: profile?._id,
                         userEmail: user?.email
                     }
-                    fetch("http://localhost:5000/add-post", {
+                    fetch("https://banao-project-server.vercel.app/add-post", {
                         method: "POST",
                         headers: {
                             authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -83,9 +83,9 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                     })
                         .then(res => res.json())
                         .then(data => {
+                            toast.success("Successfully posted")
                             refetch()
                             closeModal()
-                            toast.success("Successfully posted")
                             setLoading(false)
                         })
                         .catch(error => {

@@ -10,7 +10,7 @@ const UserDetailsPost = ({ name, _id }) => {
     const { data: posts = [], isLoading } = useQuery({
         queryKey: ["user-details-post"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/user-details-post?name=${name}`, {
+            const res = await fetch(`https://banao-project-server.vercel.app/user-details-post?name=${name}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"

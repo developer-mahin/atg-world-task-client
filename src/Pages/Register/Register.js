@@ -56,7 +56,7 @@ const Register = () => {
                             photo: user?.photoURL
                         }
 
-                        fetch("http://localhost:5000/jwt", {
+                        fetch("https://banao-project-server.vercel.app/jwt", {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json"
@@ -84,6 +84,9 @@ const Register = () => {
                         setLoading(false)
                     })
             })
+            .catch(error => {
+                toast.error(error.message)
+            })
     }
 
     // google login system
@@ -96,7 +99,7 @@ const Register = () => {
                     name: user?.displayName,
                     photo: user?.photoURL
                 }
-                fetch("http://localhost:5000/jwt", {
+                fetch("https://banao-project-server.vercel.app/jwt", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
@@ -128,7 +131,7 @@ const Register = () => {
                     name: user?.displayName,
                     photo: user?.photoURL
                 }
-                fetch("http://localhost:5000/jwt", {
+                fetch("https://banao-project-server.vercel.app/jwt", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
@@ -151,7 +154,7 @@ const Register = () => {
 
     //save user in the database
     const saveUserInDB = (userInfo) => {
-        fetch("http://localhost:5000/save-user", {
+        fetch("https://banao-project-server.vercel.app/save-user", {
             method: "POST",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -163,7 +166,7 @@ const Register = () => {
             .then(data => console.log(data))
     }
 
-    
+
     return (
         <div className='position-relative container mx-auto py-2'>
             <div className='bg-success bg-opacity-10 rounded mt-3 d-none d-md-block'>
