@@ -15,8 +15,6 @@ const SearchMenuBar = () => {
     const [changeTab, setChangeTab] = useState("People")
 
 
-    console.log(changeTab)
-
     return (
         <div>
             <div className='py-3 border-bottom shadow-sm'>

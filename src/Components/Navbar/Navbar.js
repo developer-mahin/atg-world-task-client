@@ -67,7 +67,9 @@ const Navbar = () => {
 
                     <div className="collapse navbar-collapse bg-white" id="navbarTogglerDemo01">
                         <form className="me-auto" onSubmit={handleSearchBar}>
-                            <input className="form-control w-100 rounded-pill" type="search" placeholder="Search" aria-label="Search" />
+                            <input
+                            onClick={()=>navigate("/search")}
+                            className="form-control w-100 rounded-pill" type="search" placeholder="Search" aria-label="Search" />
                         </form>
                         <ul className="navbar-nav mb-2 mb-lg-0 ">
                             <li className="nav-item">
