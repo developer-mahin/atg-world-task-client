@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../../../Components/spinner/Spinner';
+import { toast } from 'react-hot-toast';
 
 const People = () => {
-
     const [peopleTabUser, setPeopleTabUser] = useState("")
 
     const { data: users = [], isLoading } = useQuery({
@@ -21,6 +21,13 @@ const People = () => {
         }
     })
 
+    const handleFollow = () => {
+        toast.success("Followed!")
+    }
+
+    const handleConnect = () => {
+        toast.success("Connected!")
+    }
 
     return (
         <div className='container mx-auto row border py-4 rounded'>
@@ -114,8 +121,12 @@ const People = () => {
 
 
                             <div className='pt-4'>
-                                <button className='btn btn-primary rounded-pill px-4 fw-medium me-2'>Follow</button>
-                                <button className='btn btn-secondary rounded-pill px-4 fw-medium'>Connect</button>
+                                <button
+                                    onClick={handleFollow}
+                                    className='btn btn-primary rounded-pill px-4 fw-medium me-2'>Follow</button>
+                                <button
+                                    onClick={handleConnect}
+                                    className='btn btn-secondary rounded-pill px-4 fw-medium'>Connect</button>
                             </div>
 
                         </div> : <>

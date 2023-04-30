@@ -9,7 +9,6 @@ import { IoMdNotifications } from "react-icons/io";
 import { MdWork } from "react-icons/md";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { Link, useNavigate } from 'react-router-dom';
-import logo from "../../Assets/logo.png";
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
 
 const Navbar = () => {
@@ -17,6 +16,7 @@ const Navbar = () => {
     function openModal() {
         setIsOpen(true);
     }
+
 
     const { user, logOut } = useContext(AUTH_CONTEXT)
 
@@ -45,6 +45,15 @@ const Navbar = () => {
                     "content-type": "application/json"
                 }
             })
+            if (res.status === 401 || res.status === 403) {
+                logOut()
+                    .then(() => {
+                        toast.success("User successfully loged out")
+                    })
+                    .catch(error => {
+                        toast.error(error.message)
+                    })
+            }
             const data = await res.json()
             return data
         }
@@ -62,14 +71,14 @@ const Navbar = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <Link className="navbar-brand" to="/">
-                        <img className='pt-2' src={logo} alt="" />
+                        <img className='pt-2' src="https://i.ibb.co/9ymPzrQ/JOB-HUNTER-removebg-preview-1.png" width={"200px"} alt="" />
                     </Link>
 
                     <div className="collapse navbar-collapse bg-white" id="navbarTogglerDemo01">
                         <form className="me-auto" onSubmit={handleSearchBar}>
                             <input
-                            onClick={()=>navigate("/search")}
-                            className="form-control w-100 rounded-pill" type="search" placeholder="Search" aria-label="Search" />
+                                onClick={() => navigate("/search")}
+                                className="form-control w-100 rounded-pill" type="search" placeholder="Search" aria-label="Search" />
                         </form>
                         <ul className="navbar-nav mb-2 mb-lg-0 ">
                             <li className="nav-item">

@@ -227,6 +227,14 @@ textarea.post-form::placeholder {
   z-index: 99999;
 }
 
+.bottom-8px{
+  bottom: 8px;
+}
+
+.left-12px{
+  left: 12px;
+}
+
 @media only screen and (max-width: 768px) {
   .ReactModal__Content.ReactModal__Content--after-open {
     width: 90%;

@@ -116,15 +116,7 @@ const Profile = () => {
 
                                     <img src={coverPhoto ? coverPhoto : "https://marketplace.canva.com/EAFIddqdjTk/2/0/1600w/canva-black-minimalist-motivation-quote-linkedin-banner-1PLNOKlL1HU.jpg"} className='img-fluid border-radius-top h-200 w-100 object-fit-cover cursor-pointer' alt="" />
 
-                                    <CoverPhotoChangeModal
-                                        setChangeCoverPicModal={setChangeCoverPicModal}
-                                        refetch={refetch}
-                                        changeCoverPicModal={changeCoverPicModal}
-                                        customStyles={customStyles}
-                                        closeCoverPicModal={closeCoverPicModal}
-                                        profile={profile}
 
-                                    ></CoverPhotoChangeModal>
                                 </div>
 
 
@@ -297,6 +289,19 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
+
+            <>
+
+                <CoverPhotoChangeModal
+                    setChangeCoverPicModal={setChangeCoverPicModal}
+                    refetch={refetch}
+                    changeCoverPicModal={changeCoverPicModal}
+                    customStyles={customStyles}
+                    closeCoverPicModal={closeCoverPicModal}
+                    profile={profile}
+
+                ></CoverPhotoChangeModal>
+            </>
         </>
     );
 };

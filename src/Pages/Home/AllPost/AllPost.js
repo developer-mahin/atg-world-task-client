@@ -29,7 +29,7 @@ const AllPost = () => {
                 </> : <>
                     <div className='mb-3'>
                         {
-                            allPost.map(post => <PostCard key={post._id} post={post} refetch={refetch}></PostCard>)
+                            allPost?.map(post => <PostCard key={post._id} post={post} refetch={refetch}></PostCard>)
                         }
                     </div>
                 </>
