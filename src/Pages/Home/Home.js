@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import ModalBody from '../../Components/Modal/ModalBody';
 import PostModal from '../../Components/PostModal/PostModal';
 import AllPost from './AllPost/AllPost';
-import {ImPencil} from "react-icons/im"
-
+import { ImPencil } from "react-icons/im"
 
 
 

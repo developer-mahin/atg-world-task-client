@@ -1,0 +1,43 @@
+.message-list {
+  /* max-height: 300px; */
+  height: 65vh;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 5px;
+}
+
+.mine {
+  background-color: #007bff;
+  color: white;
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+}
+
+.other {
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: end;
+  flex-direction: row-reverse;
+  gap: 10px;
+}
+
+.card-footer {
+  background-color: #f0f0f0;
+  padding: 10px;
+}
+
+.user-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+}
