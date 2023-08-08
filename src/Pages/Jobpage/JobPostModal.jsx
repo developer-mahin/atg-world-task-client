@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Modal from "react-modal";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import "./jobpage.css";
-import Inputs from "./Inputs";
 import { toast } from "react-hot-toast";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import Modal from "react-modal";
+import Inputs from "./Inputs";
+import "./jobpage.css";
 
 const JobPostModal = ({ closeModal, customStyles, postModal, refetch }) => {
   const [loading, setLoading] = useState(false);
@@ -48,7 +48,7 @@ const JobPostModal = ({ closeModal, customStyles, postModal, refetch }) => {
           image,
           date,
         };
-        fetch("http://localhost:5000/add-job", {
+        fetch("https://banao-project-server.vercel.app/add-job", {
           method: "POST",
           headers: {
             "content-type": "application/json",

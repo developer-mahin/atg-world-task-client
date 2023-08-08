@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import Navbar from '../../Components/Navbar/Navbar';
-import DownloadDoneIcon from '@mui/icons-material/DownloadDone';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import ArticleIcon from '@mui/icons-material/Article';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
+import DownloadDoneIcon from '@mui/icons-material/DownloadDone';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import { Box, Button, IconButton, Typography } from '@mui/material';
-import SaveAsIcon from '@mui/icons-material/SaveAs';
-import { JobContentWrapper, SafetyBoxWrapper } from './jobPageStyle';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
-import JobPostModal from './JobPostModal';
 import { useQuery } from '@tanstack/react-query';
-import Spinner from '../../Components/spinner/Spinner';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Navbar from '../../Components/Navbar/Navbar';
+import Spinner from '../../Components/spinner/Spinner';
+import JobPostModal from './JobPostModal';
+import { JobContentWrapper, SafetyBoxWrapper } from './jobPageStyle';
 
 const customStyles = {
     content: {
@@ -48,7 +48,7 @@ const JobPage = () => {
     const { data: alljobs = [], refetch, isLoading } = useQuery({
         queryKey: ["totaljob"],
         queryFn: async () => {
-            const res = await fetch("http://localhost:5000/getAllJob", {
+            const res = await fetch("https://banao-project-server.vercel.app/getAllJob", {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"

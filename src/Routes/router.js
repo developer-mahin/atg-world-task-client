@@ -6,6 +6,7 @@ import Home from "../Pages/Home/Home";
 import UserDetails from "../Pages/Home/userDetails/UserDetails";
 import Job from "../Pages/Job/Job";
 import JobPage from "../Pages/Jobpage/JobPage";
+import ViewDetails from "../Pages/Jobpage/ViewDetails";
 import Login from "../Pages/Login/Login";
 import Message from "../Pages/Message/Message";
 import MyNetwork from "../Pages/MyNetwork/MyNetwork";
@@ -18,7 +19,6 @@ import Register from "../Pages/Register/Register";
 import Search from "../Pages/Search/Search";
 import Main from "../layout/Main";
 import PrivateRoute from "./PrivateRoute";
-import ViewDetails from "../Pages/Jobpage/ViewDetails";
 
 
 const router = createBrowserRouter([
@@ -55,6 +55,7 @@ const router = createBrowserRouter([
 
         ]
     },
+    
     {
         path: "/profile",
         element: <PrivateRoute><Profile></Profile></PrivateRoute>
@@ -101,7 +102,7 @@ const router = createBrowserRouter([
         path: "/view-details/:id",
         element: <PrivateRoute><ViewDetails></ViewDetails></PrivateRoute>,
         loader: ({ params }) => {
-            return fetch(`http://localhost:5000/getASingleJob/${params.id}`)
+            return fetch(`https://banao-project-server.vercel.app/getASingleJob/${params.id}`)
         }
     },
     {

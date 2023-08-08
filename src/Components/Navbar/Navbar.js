@@ -108,10 +108,10 @@ const Navbar = () => {
 
                             <li className="nav-item">
                                 <div className='text-center'>
-                                    <Link className="nav-link active" aria-current="page" to="/notification">
+                                    <a className="nav-link active" aria-current="page" href='#'>
                                         <IoMdNotifications className='icon-size' />
                                         <span className='d-block text-sm mx-2'>Notification</span>
-                                    </Link>
+                                    </a>
                                 </div>
                             </li>
                             <li className="nav-item">
