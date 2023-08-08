@@ -1,9 +1,80 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import "./jobpage.css";
+import Inputs from "./Inputs";
+import { toast } from "react-hot-toast";
 
-const JobPostModal = ({ closeModal, customStyles, postModal }) => {
+const JobPostModal = ({ closeModal, customStyles, postModal, refetch }) => {
   const [loading, setLoading] = useState(false);
+
+  const handleFormSubmit = (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const form = e.target;
+    const title = form.title.value;
+    const description = form.description.value;
+    const name = form.name.value;
+    const requirements = form.requirements.value;
+    const skills = form.skills.value;
+    const responsibilities = form.responsibilities.value;
+    const workplace = form.workplace.value;
+    const location = form.location.value;
+    const type = form.type.value;
+    const date = new Date();
+    const image = form.file.files[0];
+
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const url = `https://api.imgbb.com/1/upload?key=b486f58b0681b7c344264f43dd69a0d8`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const image = data.data.display_url;
+        const formData = {
+          title,
+          description,
+          name,
+          requirements,
+          skills,
+          responsibilities,
+          workplace,
+          location,
+          type,
+          image,
+          date,
+        };
+        fetch("http://localhost:5000/add-job", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+          body: JSON.stringify(formData),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            refetch();
+            toast.success("successfully posted your job");
+            setLoading(false);
+            closeModal();
+          })
+          .catch((err) => {
+            toast.error(err.message);
+            setLoading(false);
+            closeModal();
+          });
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        closeModal();
+        setLoading(false);
+      });
+  };
 
   return (
     <div className="position-relative">
@@ -15,71 +86,105 @@ const JobPostModal = ({ closeModal, customStyles, postModal }) => {
       >
         <div className="position-absolute top-0 end-0 p-2">
           <AiOutlineCloseCircle
-            className="fs-2 close_button text-white"
+            className="fs-2 close_button text-black"
             onClick={closeModal}
           />
         </div>
-        <div className="mb-3">
+        <div className="mb-3 post-modal">
           <div className="border-bottom border-secondary">
-            <h4 className="fw-normal text-white text-opacity-75">Edit intro</h4>
+            <h4 className="fw-normal text-black text-opacity-75">
+              Find a great hire, fast
+            </h4>
+            <p>Rated #1 in increasing quality of hire.1</p>
           </div>
           <div className="mt-4">
-            <p className="text-white text-opacity-75 fw-medium m-0 pb-1 fs-5">
-              Basic info
-            </p>
-            <form>
-              <div className="d-flex justify-content-between gap-3">
-                <div className="mb-lg-2 w-100">
-                  <label className="text-secondary mb-1">First name *</label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    className="w-100 border bg-transparent px-3 py-1 text-white rounded input-focus"
-                    placeholder="First Name"
-                    id=""
-                    required
-                  />
-                </div>
-
-                <div className="mb-lg-2 w-100">
-                  <label className="text-secondary mb-1">Last name *</label>
-                  <input
-                    type="text"
-                    name="LastName"
-                    className="w-100 border bg-transparent px-3 py-1 text-white rounded input-focus"
-                    placeholder="Last Name"
-                    id=""
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="mb-lg-2 py-1">
-                <label className="text-secondary mb-1">Headline *</label>
-                <input
-                  type="text"
-                  name="headline"
-                  className="w-100 border bg-transparent px-3 py-1 text-white rounded input-focus"
-                  placeholder="Headline"
-                  id=""
-                  required
+            <form onSubmit={handleFormSubmit}>
+              <div className="">
+                <Inputs
+                  label="Job Title"
+                  name="title"
+                  placeholder="Job Title"
                 />
-              </div>
-
-              <div>
-                <p className="text-white text-opacity-75 fw-medium m-0 pb-1 fs-5">
-                  Education
-                </p>
-                <div className="mb-lg-2">
-                  <label className="text-secondary mb-1">Education *</label>
-                  <input
-                    type="text"
-                    name="education"
-                    className="w-100 border bg-transparent px-3 py-1 text-white rounded input-focus"
-                    placeholder="Education"
+                <div className="mb-lg-2 w-100">
+                  <label className="label">Job Description</label>
+                  <textarea
+                    name="description"
+                    className="form-control input-width"
                     id=""
                     required
-                  />
+                    placeholder="Job Description"
+                  ></textarea>
+                </div>
+                <Inputs
+                  label="Company Name"
+                  name="name"
+                  placeholder="Company Name"
+                />
+                <div className="mb-lg-2 w-100">
+                  <label className="label">Company Logo</label>
+                  <div>
+                    <input
+                      type="file"
+                      name="file"
+                      className="form-control"
+                      accept="image/*"
+                      id=""
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-lg-2 w-100">
+                  <label className="label">Job Requirements</label>
+                  <textarea
+                    name="requirements"
+                    className="form-control input-width"
+                    id=""
+                    required
+                    placeholder="Separate them using ###"
+                  ></textarea>
+                </div>
+                <Inputs
+                  label="Skill Sets"
+                  name="skills"
+                  placeholder="Separate them using ###"
+                />
+                <div className="mb-lg-2 w-100">
+                  <label className="label">Job Responsibilities</label>
+                  <textarea
+                    name="responsibilities"
+                    className="form-control input-width"
+                    id=""
+                    required
+                    placeholder="Separate them using ###"
+                  ></textarea>
+                </div>
+                <div className="mb-lg-2 w-100">
+                  <label className="label">Workplace Type</label>
+                  <select
+                    required
+                    className="form-control"
+                    name="workplace"
+                    id=""
+                  >
+                    <option value="onsite">On Site</option>
+                    <option value="hybrid">HyBrid</option>
+                    <option value="remote">Remote</option>
+                  </select>
+                </div>
+                <Inputs
+                  label="Job location"
+                  name="location"
+                  placeholder="Job location"
+                />
+                <div className="mb-lg-2 w-100">
+                  <label className="label">Job Type</label>
+                  <select required className="form-control" name="type" id="">
+                    <option value="fulltime">Full Time</option>
+                    <option value="parttime">Part Time</option>
+                    <option value="contact">Contract</option>
+                    <option value="internship">Internship</option>
+                  </select>
                 </div>
               </div>
 

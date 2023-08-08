@@ -18,6 +18,7 @@ import Register from "../Pages/Register/Register";
 import Search from "../Pages/Search/Search";
 import Main from "../layout/Main";
 import PrivateRoute from "./PrivateRoute";
+import ViewDetails from "../Pages/Jobpage/ViewDetails";
 
 
 const router = createBrowserRouter([
@@ -95,6 +96,13 @@ const router = createBrowserRouter([
     {
         path: "/job-page",
         element: <PrivateRoute><JobPage></JobPage></PrivateRoute>
+    },
+    {
+        path: "/view-details/:id",
+        element: <PrivateRoute><ViewDetails></ViewDetails></PrivateRoute>,
+        loader: ({ params }) => {
+            return fetch(`http://localhost:5000/getASingleJob/${params.id}`)
+        }
     },
     {
         path: "/my-network",

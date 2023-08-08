@@ -8,6 +8,7 @@ import { BsEmojiSmile, BsImage } from "react-icons/bs";
 import ImageUploading from 'react-images-uploading';
 import Modal from 'react-modal';
 import { AUTH_CONTEXT } from '../../Context/AuthProvider';
+import EmojiPicker from 'emoji-picker-react';
 
 
 const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
@@ -17,14 +18,17 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
     const [textArea, setTextArea] = useState("")
     const [currentEmoji, setCurrentEmoji] = useState("")
     const [loading, setLoading] = useState(false)
+    const [imageDataURl, setImageDataURL] = useState("")
 
     const [images, setImages] = useState([]);
     const maxNumber = 69;
 
     const onChange = (imageList, addUpdateIndex, e) => {
         setImages(imageList);
+        setImageDataURL(imageList[0]?.data_url)
     };
 
+    console.log(imageDataURl)
 
 
 
@@ -98,7 +102,9 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
 
     return (
         <div
-            className='position-relative'>
+            className='position-relative'
+
+        >
             <Modal
                 isOpen={postModalIsOpen}
                 onRequestClose={closeModal}
@@ -111,59 +117,68 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                             closeModal()
                         }} />
                 </div>
-                <div className='mb-3'>
-                    <div className='border-bottom border-secondary'>
-                        <h4 className='text-white'>Create a post</h4>
-                    </div>
-                    <div className='d-flex justify-items-center align-items-center gap-2 mt-2'>
-                        <div>
-                            <img
-                                width={60}
-                                height={60}
-                                src={
-                                    photo ? photo
-                                        :
-                                        "https://png.pngtree.com/png-vector/20220817/ourmid/pngtree-cartoon-man-avatar-vector-ilustration-png-image_6111064.png"
-                                }
-                                className="rounded-pill object-fit-cover"
-                                alt="" />
+                <div className='' style={{ height: `${imageDataURl && "500px"}` }}>
+                    <div className='mb-3'>
+                        <div className='border-bottom border-secondary'>
+                            <h4 className='text-white'>Create a post</h4>
                         </div>
-                        <div>
-                            <h5 className='text-white'>{name}</h5>
+                        <div className='d-flex justify-items-center align-items-center gap-2 mt-2'>
                             <div>
-                                <select
-                                    onChange={(e) => setSelectPost(e.target.value)}
-                                    name=""
-                                    id=""
-                                    className='form-control fw-semibold bg-black text-white cursor-pointer'>
-                                    <option value="select one">Select One...</option>
-                                    <option value="article">Article</option>
-                                    <option value="education">Education</option>
-                                </select>
+                                <img
+                                    width={60}
+                                    height={60}
+                                    src={
+                                        photo ? photo
+                                            :
+                                            "https://png.pngtree.com/png-vector/20220817/ourmid/pngtree-cartoon-man-avatar-vector-ilustration-png-image_6111064.png"
+                                    }
+                                    className="rounded-pill object-fit-cover"
+                                    alt="" />
+                            </div>
+                            <div>
+                                <h5 className='text-white'>{name}</h5>
+                                <div>
+                                    <select
+                                        onChange={(e) => setSelectPost(e.target.value)}
+                                        name=""
+                                        id=""
+                                        className='form-control fw-semibold bg-black text-white cursor-pointer'>
+                                        <option value="select one">Select One...</option>
+                                        <option value="article">Article</option>
+                                        <option value="education">Education</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <form onSubmit={handlePost}>
-                    <textarea
-                        onChange={(e) => setTextArea(e.target.value)}
-                        className='bg-transparent text-white border-0 post-form py-3 px-3 fs-5'
-                        name=""
-                        id=""
-                        cols="70"
-                        rows="3"
-                        defaultValue={currentEmoji}
-                        placeholder='What do you want to talk about?'
-                    >
-                    </textarea>
 
 
-                    <>
+                    <form onSubmit={handlePost}>
+                        <textarea
+                            onChange={(e) => setTextArea(e.target.value)}
+                            className='bg-transparent text-white border-0 post-form py-3 px-3 fs-5'
+                            name=""
+                            id=""
+                            cols="70"
+                            rows="3"
+                            defaultValue={currentEmoji}
+                            placeholder='What do you want to talk about?'
+                        >
+                        </textarea>
+
+                        <div>
+                            {
+                                imageDataURl && <img src={imageDataURl} width={700} className='img-fluid' height={400} alt="" />
+                            }
+
+                        </div>
+                        {/* <>
                         <button
                             onClick={() => setIsPickerVisible(!isPickerVisible)}
                             className='bg-transparent btn'
                         >
                             <BsEmojiSmile className='text-white fs-3' />
+
                         </button>
                         <div className={isPickerVisible ? "d-block" : "d-none"}>
                             <Picker
@@ -172,52 +187,54 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                                 onEmojiSelect={(e) => {
                                     setCurrentEmoji(e.native)
                                 }} />
+
                         </div>
-                    </>
+                    </> */}
 
-                    <div className="App">
-                        <ImageUploading
-                            multiple
-                            value={images}
-                            onChange={onChange}
-                            maxNumber={maxNumber}
-                            dataURLKey="data_url"
-                        >
-                            {({
-                                onImageUpload,
-                                isDragging,
-                                dragProps,
-                                onImageRemoveAll
-                            }) => (
-                                <div className="upload__image-wrapper d-flex justify-content-between">
-                                    <div
-                                        className='bg-transparent cursor-pointer'
-                                        style={isDragging ? { color: 'red' } : undefined}
-                                        onClick={onImageUpload}
-                                        {...dragProps}
-                                    >
-                                        <BsImage className='text-white fs-3' />
+                        <div className="App" style={{ marginTop: `${imageDataURl ? "40px" : "0px"}` }}>
+                            <ImageUploading
+                                multiple
+                                value={images}
+                                onChange={onChange}
+                                maxNumber={maxNumber}
+                                dataURLKey="data_url"
+                            >
+                                {({
+                                    onImageUpload,
+                                    isDragging,
+                                    dragProps,
+                                    onImageRemoveAll
+                                }) => (
+                                    <div className="upload__image-wrapper d-flex justify-content-between">
+                                        <div
+                                            className='bg-transparent cursor-pointer'
+                                            style={isDragging ? { color: 'red' } : undefined}
+                                            onClick={onImageUpload}
+                                            {...dragProps}
+                                        >
+                                            <BsImage className='text-white fs-3' />
+                                        </div>
+                                        <div>
+                                            <AiFillDelete onClick={onImageRemoveAll} className='text-white fs-3 cursor-pointer' />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <AiFillDelete onClick={onImageRemoveAll} className='text-white fs-3 cursor-pointer' />
-                                    </div>
-                                </div>
-                            )}
-                        </ImageUploading>
-                    </div>
+                                )}
+                            </ImageUploading>
+                        </div>
 
-                    <div className='mt-5'>
-                        <button
-                            disabled={!textArea.length || !selectPost.length}
-                            type='submit'
-                            className={`${textArea.length || selectPost.length ? "btn-primary" : "btn-secondary"} btn px-4 rounded-pill`}
-                        >
-                            {
-                                loading ? "Loading..." : "Post"
-                            }
-                        </button>
-                    </div>
-                </form>
+                        <div className='mt-5 pb-4' >
+                            <button
+                                disabled={!textArea.length || !selectPost.length}
+                                type='submit'
+                                className={`${textArea.length || selectPost.length ? "btn-primary" : "btn-secondary"} btn px-4 rounded-pill`}
+                            >
+                                {
+                                    loading ? "Loading..." : "Post"
+                                }
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </Modal>
         </div>
     );

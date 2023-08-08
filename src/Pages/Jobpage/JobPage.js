@@ -12,6 +12,9 @@ import { JobContentWrapper, SafetyBoxWrapper } from './jobPageStyle';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import JobPostModal from './JobPostModal';
+import { useQuery } from '@tanstack/react-query';
+import Spinner from '../../Components/spinner/Spinner';
+import { Link } from 'react-router-dom';
 
 const customStyles = {
     content: {
@@ -22,7 +25,7 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        background: "#000000",
+        background: "#ddd",
         borderRadius: "8px",
         padding: "40px"
     },
@@ -42,15 +45,23 @@ const JobPage = () => {
     }
 
 
-    const fakeData = [
-        { img: "https://i.ibb.co/6yYyFsw/IMG-1487.jpg", title: "React Developer", company: "American Technology Consulting - ATC", location: "Chicago, IL", job_type: "Hybrid", time: "12 Hour's ago" },
-        { img: "https://i.ibb.co/6yYyFsw/IMG-1487.jpg", title: "React Developer", company: "American Technology Consulting - ATC", location: "Chicago, IL", job_type: "Hybrid", time: "12 Hour's ago" },
-        { img: "https://i.ibb.co/6yYyFsw/IMG-1487.jpg", title: "React Developer", company: "American Technology Consulting - ATC", location: "Chicago, IL", job_type: "Hybrid", time: "12 Hour's ago" },
-        { img: "https://i.ibb.co/6yYyFsw/IMG-1487.jpg", title: "React Developer", company: "American Technology Consulting - ATC", location: "Chicago, IL", job_type: "Hybrid", time: "12 Hour's ago" },
-    ]
+    const { data: alljobs = [], refetch, isLoading } = useQuery({
+        queryKey: ["totaljob"],
+        queryFn: async () => {
+            const res = await fetch("http://localhost:5000/getAllJob", {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("access-token")}`,
+                    "content-type": "application/json"
+                }
+            })
+            const data = await res.json()
+            return data
+        }
+    })
 
-
-
+    if (isLoading) {
+        return <Spinner />
+    }
 
 
     return (
@@ -115,28 +126,160 @@ const JobPage = () => {
                                 </Box>
                                 <Box>
                                     {
-                                        fakeData.map((data, i) => <Box key={i} sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                                            <Box sx={{ display: "flex", alignItems: "center", gap: "20px", my: "20px" }}>
-                                                <img src={data.img} className='img-fluid' style={{ width: "100px", height: "100px", objectFit: "cover" }} alt="" />
-                                                <Box>
-                                                    <Typography sx={{ fontSize: "24px", fontWeight: "600", color: "#333" }}>{data.title}</Typography>
-                                                    <Typography>
-                                                        {data.company}
-                                                    </Typography>
-                                                    <Box sx={{ display: "flex", alignItems: "center", gap: "2px" }}>
-                                                        <Typography>{data.location}</Typography>
-                                                        <Typography sx={{ fontWeight: "500" }}>({data.job_type})</Typography>
-                                                    </Box>
-                                                    <Typography sx={{ color: "#008000" }}>{data.time}</Typography>
+                                        alljobs.map((data, i) =>
+                                            <Box component={Link} to={`/view-details/${data._id}`} key={i}
+                                                sx={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "space-between",
+                                                    textDecoration: "none"
+                                                }}>
+                                                <Box
+                                                    sx={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        gap: "20px",
+                                                        my: "20px"
+                                                    }}>
+                                                    <img src={data.image} className='img-fluid' style={{ width: "100px", height: "100px", objectFit: "cover" }} alt="" />
+                                                    <Box>
+                                                        <Typography sx={{ fontSize: "24px", fontWeight: "600", color: "#333" }}>{data.title}</Typography>
+                                                        <Typography sx={{
+                                                            color: "#333"
+                                                        }}>
+                                                            {data.name}
+                                                        </Typography>
+                                                        <Box sx={{ display: "flex", alignItems: "center", gap: "2px", color: "#333" }}>
+                                                            <Typography>{data.location}</Typography>
+                                                            <Typography sx={{ fontWeight: "500" }}>({data.workplace})</Typography>
+                                                        </Box>
+                                                        <Typography sx={{ color: "#008000" }}>{data.date}</Typography>
 
+                                                    </Box>
                                                 </Box>
-                                            </Box>
-                                            <Box>
-                                                <IconButton>
-                                                    <BookmarkBorderOutlinedIcon />
-                                                </IconButton>
-                                            </Box>
-                                        </Box>)
+                                                <Box>
+                                                    <IconButton>
+                                                        <BookmarkBorderOutlinedIcon />
+                                                    </IconButton>
+                                                </Box>
+                                            </Box>)
+                                    }
+                                    <Box>
+                                        <Button variant='outlined' fullWidth sx={{ padding: "8px 20px", fontWeight: "500", fontSize: "18px" }}>See All <ArrowRightAltIcon /> </Button>
+                                    </Box>
+                                </Box>
+                            </JobContentWrapper>
+
+                            {/**
+                             * 
+                             * 
+                            */}
+
+                            <JobContentWrapper sx={{
+                                marginTop: "30px"
+                            }}>
+
+                                <Box sx={{ mb: "20px" }}>
+                                    <Typography sx={{ fontSize: "22px", fontWeight: "600" }}>Recommended for you</Typography>
+                                    <Typography>Based on your profile and search history</Typography>
+                                </Box>
+                                <Box>
+                                    {
+                                        alljobs.slice(0, 5).map((data, i) =>
+                                            <Box key={i}
+                                                sx={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "space-between",
+                                                    textDecoration: "none"
+                                                }}>
+                                                <Box
+                                                    sx={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        gap: "20px",
+                                                        my: "20px"
+                                                    }}>
+                                                    <img src={data.image} className='img-fluid' style={{ width: "100px", height: "100px", objectFit: "cover" }} alt="" />
+                                                    <Box>
+                                                        <Typography sx={{ fontSize: "24px", fontWeight: "600", color: "#333" }}>{data.title}</Typography>
+                                                        <Typography sx={{
+                                                            color: "#333"
+                                                        }}>
+                                                            {data.name}
+                                                        </Typography>
+                                                        <Box sx={{ display: "flex", alignItems: "center", gap: "2px", color: "#333" }}>
+                                                            <Typography>{data.location}</Typography>
+                                                            <Typography sx={{ fontWeight: "500" }}>({data.workplace})</Typography>
+                                                        </Box>
+                                                        <Typography sx={{ color: "#008000" }}>{data.date}</Typography>
+
+                                                    </Box>
+                                                </Box>
+                                                <Box>
+                                                    <IconButton>
+                                                        <BookmarkBorderOutlinedIcon />
+                                                    </IconButton>
+                                                </Box>
+                                            </Box>)
+                                    }
+                                    <Box>
+                                        <Button variant='outlined' fullWidth sx={{ padding: "8px 20px", fontWeight: "500", fontSize: "18px" }}>See All <ArrowRightAltIcon /> </Button>
+                                    </Box>
+                                </Box>
+                            </JobContentWrapper>
+
+                            {/**
+                             * 
+                             * 
+                            */}
+                            <JobContentWrapper sx={{
+                                marginTop: "30px"
+                            }}>
+
+                                <Box sx={{ mb: "20px" }}>
+                                    <Typography sx={{ fontSize: "22px", fontWeight: "600" }}>Remote opportunities</Typography>
+                                    <Typography>Because you expressed interest in remote work</Typography>
+                                </Box>
+                                <Box>
+                                    {
+                                        alljobs.slice(0, 3).map((data, i) =>
+                                            <Box key={i}
+                                                sx={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "space-between",
+                                                    textDecoration: "none"
+                                                }}>
+                                                <Box
+                                                    sx={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        gap: "20px",
+                                                        my: "20px"
+                                                    }}>
+                                                    <img src={data.image} className='img-fluid' style={{ width: "100px", height: "100px", objectFit: "cover" }} alt="" />
+                                                    <Box>
+                                                        <Typography sx={{ fontSize: "24px", fontWeight: "600", color: "#333" }}>{data.title}</Typography>
+                                                        <Typography sx={{
+                                                            color: "#333"
+                                                        }}>
+                                                            {data.name}
+                                                        </Typography>
+                                                        <Box sx={{ display: "flex", alignItems: "center", gap: "2px", color: "#333" }}>
+                                                            <Typography>{data.location}</Typography>
+                                                            <Typography sx={{ fontWeight: "500" }}>({data.workplace})</Typography>
+                                                        </Box>
+                                                        <Typography sx={{ color: "#008000" }}>{data.date}</Typography>
+
+                                                    </Box>
+                                                </Box>
+                                                <Box>
+                                                    <IconButton>
+                                                        <BookmarkBorderOutlinedIcon />
+                                                    </IconButton>
+                                                </Box>
+                                            </Box>)
                                     }
                                     <Box>
                                         <Button variant='outlined' fullWidth sx={{ padding: "8px 20px", fontWeight: "500", fontSize: "18px" }}>See All <ArrowRightAltIcon /> </Button>
@@ -157,7 +300,7 @@ const JobPage = () => {
                 </div>
             </div>
 
-            <JobPostModal customStyles={customStyles} closeModal={closeModal} postModal={postModal} />
+            <JobPostModal refetch={refetch} customStyles={customStyles} closeModal={closeModal} postModal={postModal} />
         </>
     );
 };

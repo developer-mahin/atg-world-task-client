@@ -13,3 +13,4 @@ export const JobContentWrapper = styled(Box)(({ theme }) => ({
     borderRadius: "5px", 
     boxShadow: "0px 0px 15px -8px black"
 })) 
+

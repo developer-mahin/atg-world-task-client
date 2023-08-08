@@ -16,17 +16,16 @@ const Home = () => {
         setPostModalIsOpen(false);
     }
     const customStyles = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-            background: "#000000",
-            borderRadius: "8px",
-            padding: "40px"
-        },
+        top: '55%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        background: "#000000",
+        borderRadius: "8px",
+        padding: "40px",
+        height:"600px"
     };
 
 
