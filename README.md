@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# Welcome to job-hunter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Website Details:
 
-## Available Scripts
+- Website Name: job-hunter
+- Live site url: https://jobhunter-35f60.web.app/
+- Server side code: https://github.com/developer-mahin/banao-projects-server
 
-In the project directory, you can run:
+## Which technology is used?
 
-### `npm start`
+### For Functionality
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- JavaScript
+- React
+- React Router Dom
+- React Context API
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## For Authentication system
 
-### `npm test`
+- Google Firebase
+- Node.js Express.js, Multer, bcryptjs, JSON Web Token
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## For The Back-end
 
-### `npm run build`
+- Node.js
+- Express.js
+- ## Database
+- MongoDB
+- Mongoose
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### For styles
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Bootstrap
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Components library
 
-### `npm run eject`
+- Material ui https://mui.com/
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## What Kind Of Feature Are Available
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- ### It is a full-stack MERN, Social Media Website
+- ## First, let's describe all of the features
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- ### Job-hunter is a social networking site. User can post on the timeline and can like and comment on any post. it has backend functionality created using Node.js, Express.js, MongoDB and Mongoose.
+- ### Also user can send connection requests to other user and can accept or ignore other users request. An user can see another user profile
+- ### An User can post jobs and can apply anyone on this job post. And Implement recruiter dashboard, message and my profiel route and dynamic resume.
+- ### And there have a profile route specifically for user, and user can change their profile pic and cover photo and update his/her profile and add their personal informations in their profile.
+- ### For a better user experience, I included React-hot-toast, loader, etc. And secure/Authenticate user using JSON web Token.
+- ### Authentication with google, email, and password using Node.js, express.
