@@ -5,7 +5,7 @@ import WbIncandescentOutlinedIcon from "@mui/icons-material/WbIncandescentOutlin
 import WorkOffIcon from "@mui/icons-material/WorkOff";
 import { Box, Button, Container, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import Spinner from "../../Components/spinner/Spinner";
@@ -17,10 +17,35 @@ import {
   Title,
   ViewDetailsWrapper,
 } from "./jobPageStyle";
+import ApplyModal from "./ApplyModal";
+
+const customStyles = {
+  content: {
+    // width: "55%",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    background: "#ddd",
+    borderRadius: "8px",
+    padding: "40px",
+  },
+};
 
 const ViewDetails = () => {
   const data = useLoaderData();
-  console.log(data);
+
+  const [applyModal, setApplyModal] = useState(false);
+
+  function openPostModal() {
+    setApplyModal(true);
+  }
+
+  function closeModal() {
+    setApplyModal(false);
+  }
 
   const {
     data: alljobs = [],
@@ -295,7 +320,9 @@ const ViewDetails = () => {
                 mt: "20px",
               }}
             >
-              <ButtonStyle variant="contained">Apply</ButtonStyle>
+              <ButtonStyle onClick={openPostModal} variant="contained">
+                Apply
+              </ButtonStyle>
               <ButtonStyle variant="outlined">Save</ButtonStyle>
             </Box>
 
@@ -328,6 +355,14 @@ const ViewDetails = () => {
           </Box>
         </ViewDetailsWrapper>
       </Container>
+
+      <ApplyModal
+        customStyles={customStyles}
+        applyModal={applyModal}
+        closeModal={closeModal}
+        data={data}
+        refetch={refetch}
+      />
     </>
   );
 };

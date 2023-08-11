@@ -1,4 +1,4 @@
-import { Box, Button, Typography, styled } from "@mui/material";
+import { Box, Button, TextField, Typography, styled } from "@mui/material";
 
 export const SafetyBoxWrapper = styled(Box)(({ theme }) => ({
     padding: "15px 20px",
@@ -55,5 +55,17 @@ export const ButtonStyle = styled(Button)(({ theme }) => ({
     padding: "12px 40px",
     borderRadius: "50px",
     fontSize: "18px"
+}))
+
+export const BoxWrapper = styled(Box)(({ theme }) => ({
+    margin:"20px 0px"
+}))
+
+export const TextFieldStyle = styled(TextField)(({ theme }) => ({
+    background:"#fff",
+    color:"#000", 
+    fontWeight:"600",
+    borderRadius:"8px",
+    border:"none"
 }))
 
