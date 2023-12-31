@@ -35,7 +35,7 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
     const { data: profile = {} } = useQuery({
         queryKey: ["profile"],
         queryFn: async () => {
-            const res = await fetch(`https://banao-project-server.vercel.app/profile?email=${user?.email}`, {
+            const res = await fetch(`https://huntyourjob.vercel.app/profile?email=${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"
@@ -77,7 +77,7 @@ const PostModal = ({ postModalIsOpen, closeModal, customStyles, refetch }) => {
                         userId: profile?._id,
                         userEmail: user?.email
                     }
-                    fetch("https://banao-project-server.vercel.app/add-post", {
+                    fetch("https://huntyourjob.vercel.app/add-post", {
                         method: "POST",
                         headers: {
                             authorization: `Bearer ${localStorage.getItem("access-token")}`,
