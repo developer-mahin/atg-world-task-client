@@ -35,7 +35,7 @@ const Activities = () => {
     const { data: posts = [], isLoading } = useQuery({
         queryKey: ["posts"],
         queryFn: async () => {
-            const res = await fetch(`https://banao-project-server.vercel.app/user-post?email=${user?.email}`, {
+            const res = await fetch(`https://huntyourjob.vercel.app/user-post?email=${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"
