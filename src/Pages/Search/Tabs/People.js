@@ -10,7 +10,7 @@ const People = () => {
     const { data: users = [], isLoading } = useQuery({
         queryKey: ["userName"],
         queryFn: async () => {
-            const res = await fetch("https://banao-project-server.vercel.app/all-users", {
+            const res = await fetch("https://huntyourjob.vercel.app/all-users", {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"
