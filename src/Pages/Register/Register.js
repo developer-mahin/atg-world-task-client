@@ -56,7 +56,7 @@ const Register = () => {
                             photo: user?.photoURL
                         }
 
-                        fetch("https://banao-project-server.vercel.app/jwt", {
+                        fetch("https://huntyourjob.vercel.app/jwt", {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json"
@@ -99,7 +99,7 @@ const Register = () => {
                     name: user?.displayName,
                     photo: user?.photoURL
                 }
-                fetch("https://banao-project-server.vercel.app/jwt", {
+                fetch("https://huntyourjob.vercel.app/jwt", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
@@ -131,7 +131,7 @@ const Register = () => {
                     name: user?.displayName,
                     photo: user?.photoURL
                 }
-                fetch("https://banao-project-server.vercel.app/jwt", {
+                fetch("https://huntyourjob.vercel.app/jwt", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
@@ -154,7 +154,7 @@ const Register = () => {
 
     //save user in the database
     const saveUserInDB = (userInfo) => {
-        fetch("https://banao-project-server.vercel.app/save-user", {
+        fetch("https://huntyourjob.vercel.app/save-user", {
             method: "POST",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,
