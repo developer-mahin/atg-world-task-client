@@ -48,7 +48,7 @@ const JobPage = () => {
     const { data: alljobs = [], refetch, isLoading } = useQuery({
         queryKey: ["totaljob"],
         queryFn: async () => {
-            const res = await fetch("https://banao-project-server.vercel.app/getAllJob", {
+            const res = await fetch("https://huntyourjob.vercel.app/getAllJob", {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"
