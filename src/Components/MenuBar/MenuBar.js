@@ -35,7 +35,7 @@ const MenuBar = () => {
     const { data: allPost = [], refetch } = useQuery({
         queryKey: ["allPost"],
         queryFn: async () => {
-            const res = await fetch("https://banao-project-server.vercel.app/all-post", {
+            const res = await fetch("https://huntyourjob.vercel.app/all-post", {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"
