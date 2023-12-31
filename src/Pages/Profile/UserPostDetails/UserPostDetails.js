@@ -33,7 +33,7 @@ const UserPostDetails = () => {
     const { data: profile = {} } = useQuery({
         queryKey: ["profile"],
         queryFn: async () => {
-            const res = await fetch(`https://banao-project-server.vercel.app/profile?email=${user?.email}`, {
+            const res = await fetch(`https://huntyourjob.vercel.app/profile?email=${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"
@@ -54,7 +54,7 @@ const UserPostDetails = () => {
             userPhoto: photo,
         }
         console.log(id)
-        fetch(`https://banao-project-server.vercel.app/comment/${id}`, {
+        fetch(`https://huntyourjob.vercel.app/comment/${id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -86,7 +86,7 @@ const UserPostDetails = () => {
             likes
         }
 
-        fetch(`https://banao-project-server.vercel.app/like/${id}`, {
+        fetch(`https://huntyourjob.vercel.app/like/${id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,
