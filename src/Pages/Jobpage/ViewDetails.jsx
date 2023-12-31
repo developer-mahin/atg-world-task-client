@@ -55,7 +55,7 @@ const ViewDetails = () => {
     queryKey: ["totaljob"],
     queryFn: async () => {
       const res = await fetch(
-        "https://banao-project-server.vercel.app/getAllJob",
+        "https://huntyourjob.vercel.app/getAllJob",
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("access-token")}`,
