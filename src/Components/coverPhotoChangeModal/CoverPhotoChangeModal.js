@@ -39,7 +39,7 @@ const CoverPhotoChangeModal = ({ changeCoverPicModal, closeCoverPicModal, refetc
                         image: data.data.display_url
                     }
 
-                    fetch(`https://banao-project-server.vercel.app/change-cover-pic/${profile._id}`, {
+                    fetch(`https://huntyourjob.vercel.app/change-cover-pic/${profile._id}`, {
                         method: "PATCH",
                         headers: {
                             authorization: `Bearer ${localStorage.getItem("access-token")}`,
