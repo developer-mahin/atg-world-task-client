@@ -48,7 +48,7 @@ const JobPostModal = ({ closeModal, customStyles, postModal, refetch }) => {
           image,
           date,
         };
-        fetch("https://banao-project-server.vercel.app/add-job", {
+        fetch("https://huntyourjob.vercel.app/add-job", {
           method: "POST",
           headers: {
             "content-type": "application/json",
