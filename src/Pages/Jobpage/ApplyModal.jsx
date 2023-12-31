@@ -23,7 +23,7 @@ const ApplyModal = ({ customStyles, applyModal, closeModal, data }) => {
     queryKey: ["profile"],
     queryFn: async () => {
       const res = await fetch(
-        `https://banao-project-server.vercel.app/profile?email=${user?.email}`,
+        `https://huntyourjob.vercel.app/profile?email=${user?.email}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("access-token")}`,
