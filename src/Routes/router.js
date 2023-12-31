@@ -48,7 +48,7 @@ const router = createBrowserRouter([
                 path: "/post-details/:id",
                 element: <PrivateRoute><PostDetails></PostDetails></PrivateRoute>,
                 loader: ({ params }) => {
-                    return fetch(`https://banao-project-server.vercel.app/post-details/${params.id}`)
+                    return fetch(`https://huntyourjob.vercel.app/post-details/${params.id}`)
                 }
             }
 
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
         path: "/user-details/:id",
         element: <PrivateRoute><UserDetails></UserDetails></PrivateRoute>,
         loader: ({ params }) => {
-            return fetch(`https://banao-project-server.vercel.app/user-details/${params.id}`)
+            return fetch(`https://huntyourjob.vercel.appuser-details/${params.id}`)
         }
     },
     {
@@ -87,7 +87,7 @@ const router = createBrowserRouter([
         path: "/user-post-details/:id",
         element: <PrivateRoute><UserPostDetails></UserPostDetails></PrivateRoute>,
         loader: ({ params }) => {
-            return fetch(`https://banao-project-server.vercel.app/user-post-details/${params.id}`)
+            return fetch(`https://huntyourjob.vercel.appuser-post-details/${params.id}`)
         }
     },
     {
@@ -102,7 +102,7 @@ const router = createBrowserRouter([
         path: "/view-details/:id",
         element: <PrivateRoute><ViewDetails></ViewDetails></PrivateRoute>,
         loader: ({ params }) => {
-            return fetch(`https://banao-project-server.vercel.app/getASingleJob/${params.id}`)
+            return fetch(`https://huntyourjob.vercel.appgetASingleJob/${params.id}`)
         }
     },
     {
