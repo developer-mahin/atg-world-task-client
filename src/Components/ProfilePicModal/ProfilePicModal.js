@@ -40,7 +40,7 @@ const ProfilePicModal = ({ changeProfilePicModal, refetch, profile, customStyles
                     const photo = {
                         image: data.data.display_url
                     }
-                    fetch(`https://banao-project-server.vercel.app/change-profile-pic/${profile._id}`, {
+                    fetch(`https://huntyourjob.vercel.app/change-profile-pic/${profile._id}`, {
                         method: "PATCH",
                         headers: {
                             authorization: `Bearer ${localStorage.getItem("access-token")}`,
