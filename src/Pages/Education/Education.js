@@ -7,7 +7,7 @@ const Education = () => {
     const { data: allEducation = [], isLoading } = useQuery({
         queryKeyL: ["allEducation"],
         queryFn: async () => {
-            const res = await fetch("https://banao-project-server.vercel.app/role-of-post?role=education", {
+            const res = await fetch("https://huntyourjob.vercel.app/role-of-post?role=education", {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`
                 }
