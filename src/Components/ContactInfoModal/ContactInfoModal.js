@@ -24,7 +24,7 @@ const ContactInfoModal = ({ contactInfoDataModal, customStyles, closeModalForInf
             city
         }
 
-        fetch(`https://banao-project-server.vercel.app/edit-contact/${profile._id}`, {
+        fetch(`https://huntyourjob.vercel.app/edit-contact/${profile._id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,
