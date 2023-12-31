@@ -74,7 +74,7 @@ const Profile = () => {
     const { data: profile = {}, isLoading, refetch } = useQuery({
         queryKey: ["profile"],
         queryFn: async () => {
-            const res = await fetch(`https://banao-project-server.vercel.app/profile?email=${user?.email}`, {
+            const res = await fetch(`https://huntyourjob.vercel.app/profile?email=${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("access-token")}`,
                     "content-type": "application/json"
